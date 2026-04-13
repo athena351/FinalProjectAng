@@ -22,7 +22,19 @@
     <h2>Shop by Category</h2>
     <div class="parent">
         <p>Browse our wide selection of tech categories</p>
-        <p>View All <i class="fa-solid fa-chevron-right"></i></p>
+        <p (click)="toggleCategories()">{{showAllText}} <i class="fa-solid fa-chevron-right"></i></p>
+    </div>
+    <div class="categoryCards">
+        @for (item of (showCategories ? categories : categories.slice(0, 4)); track $index) {
+            <div class="card">
+                <img [src]="item.imageUrl" alt="{{item.name}}" />
+            <div class="description">
+                <h3>{{item.name}}</h3>
+                <p>{{item.productCount}} products</p>
+            </div>
+            <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        }
     </div>
 </section>
 
@@ -31,6 +43,24 @@
     <div class="parent">
         <p>Handpicked tech essentials just for you</p>
         <p>View All <i class="fa-solid fa-chevron-right"></i></p>
+    </div>
+    <div class="featuredProdsCards">
+        @for (item of featuredProducts; track $index) {
+            <div class="card">
+                <img [src]="item.imageUrl" alt="{{item.name}}">
+                <div class="description">
+                    <div class="first">
+                    <h3>{{item.category.name.toUpperCase()}}</h3>
+                    <i class="fa-solid fa-circle-dot"></i>
+                    <p>{{item.brand}}</p>
+                </div>
+                <h3>{{item.name}}</h3>
+                <p>{{item.rating}}</p>
+                <h2>USD {{item.price}}</h2>
+                <button><i class="fa-solid fa-cart-flatbed"></i> Add to Cart</button>
+                </div>
+            </div>
+        }
     </div>
 </section>
 
@@ -49,7 +79,26 @@
     <h2>New Arrivals</h2>
     <div class="parent">
         <p>The latest additions to our collection</p>
-        <p>View All <i class="fa-solid fa-chevron-right"></i></p>
+        <p (click)="toggleNewArrivals()">{{showNewArrivalsText}} <i class="fa-solid fa-chevron-right"></i></p>
+    </div>
+    <div class="newArrivalsCards">
+        @for (item of (showNewArrivals ? newArrivals : newArrivals.slice(0, 4)); track $index) {
+            <div class="card">
+                <button>NEW</button>
+                <img [src]="item.imageUrl" alt="{{item.name}}">
+                <div class="description">
+                    <div class="first">
+                    <h3>{{item.category.name.toUpperCase()}}</h3>
+                    <i class="fa-solid fa-circle-dot"></i>
+                    <p>{{item.brand}}</p>
+                </div>
+                <h3>{{item.name}}</h3>
+                <p>{{item.rating}}</p>
+                <h2>USD {{item.price}}</h2>
+                <button><i class="fa-solid fa-cart-flatbed"></i> Add to Cart</button>
+                </div>
+            </div>
+        }
     </div>
 </section>
 
