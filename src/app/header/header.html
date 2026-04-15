@@ -1,0 +1,36 @@
+<div class="header">
+  <div class="logoDiv">
+    <div class="logo"></div>
+    <h2>STEP TECH</h2>
+  </div>
+
+  <nav>
+    <ul>
+      <li routerLink="/home" routerLinkActive="active"><a>Home</a></li>
+      <li routerLink="/shop" routerLinkActive="active"><a>Shop</a></li>
+      <div class="categories">
+        <li>
+          <a>Categories <i class="fa-solid fa-chevron-down"></i></a>
+        </li>
+        <div class="dropDown">
+          @for (item of categories; track $index) {
+            <div class="name">
+              <li>
+                <a>{{ item.name }}</a>
+              </li>
+              <p>{{ item.productCount }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </ul>
+  </nav>
+
+  <div class="search">
+    <input type="text" placeholder="Search products..." />
+  </div>
+
+  <div class="signIn">
+    <button>Sign In</button>
+  </div>
+</div>

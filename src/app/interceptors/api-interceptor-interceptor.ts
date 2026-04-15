@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
-const API_KEY = '134abb97-d3a1-4dc7-b5f3-329052ed9f56';
+const API_KEY = '6edf87a6-1a90-429b-b3a5-01a5268656a4';
 
 export const apiInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
 
