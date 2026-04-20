@@ -1,127 +1,131 @@
 <main>
-    <div class="background">
-        <div class="left">
-        <button><i class="fa-solid fa-bolt"></i> New Arrivals</button>
-        <h1>Discover the Future of <span class="tech">Technology</span></h1>
-        <p>Shop the latest smartphones, laptops, and cutting-edge <br> electronics from top brands. Free shipping on <br> orders over $100.</p>
-        <div class="btns">
-            <button>Shop Now <i class="fa-solid fa-arrow-right"></i></button>
-            <button>View New Arrivals</button>
-        </div>
+  <div class="background">
+    <div class="left">
+      <button><i class="fa-solid fa-bolt"></i> New Arrivals</button>
+      <h1>Discover the Future of <span class="tech">Technology</span></h1>
+      <p>
+        Shop the latest smartphones, laptops, and cutting-edge <br />
+        electronics from top brands. Free shipping on <br />
+        orders over $100.
+      </p>
+      <div class="btns">
+        <button>Shop Now <i class="fa-solid fa-arrow-right"></i></button>
+        <button>View New Arrivals</button>
+      </div>
     </div>
     <div class="right">
-        <button><i class="fa-solid fa-mobile"></i> Smartphones</button>
-        <button><i class="fa-solid fa-laptop"></i> Laptops</button>
-        <button><i class="fa-solid fa-headphones"></i> Audio</button>
-        <div class="headphones"></div>
+      <button><i class="fa-solid fa-mobile"></i> Smartphones</button>
+      <button><i class="fa-solid fa-laptop"></i> Laptops</button>
+      <button><i class="fa-solid fa-headphones"></i> Audio</button>
+      <div class="headphones"></div>
     </div>
-    </div>
+  </div>
 </main>
 
 <section class="shopCat">
-    <h2>Shop by Category</h2>
-    <div class="parent">
-        <p>Browse our wide selection of tech categories</p>
-        <p (click)="toggleCategories()">{{showAllText}} <i class="fa-solid fa-chevron-right"></i></p>
-    </div>
-    <div class="categoryCards">
-        @for (item of (showCategories ? categories : categories.slice(0, 4)); track $index) {
-            <div class="card">
-                <img [src]="item.imageUrl" alt="{{item.name}}" />
-            <div class="description">
-                <h3>{{item.name}}</h3>
-                <p>{{item.productCount}} products</p>
-            </div>
-            <i class="fa-solid fa-arrow-right"></i>
-            </div>
-        }
-    </div>
+  <h2>Shop by Category</h2>
+  <div class="parent">
+    <p>Browse our wide selection of tech categories</p>
+    <p (click)="toggleCategories()">{{ showAllText }} <i class="fa-solid fa-chevron-right"></i></p>
+  </div>
+  <div class="categoryCards">
+    @for (item of showCategories ? categories : categories.slice(0, 4); track $index) {
+      <div class="card">
+        <img [src]="item.imageUrl" alt="{{ item.name }}" />
+        <div class="description">
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.productCount }} products</p>
+        </div>
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
+    }
+  </div>
 </section>
 
 <section class="featuredProd">
-    <h2>Featured Products</h2>
-    <div class="parent">
-        <p>Handpicked tech essentials just for you</p>
-        <p>View All <i class="fa-solid fa-chevron-right"></i></p>
-    </div>
-    <div class="featuredProdsCards">
-        @for (item of featuredProducts; track $index) {
-            <div class="card">
-                <img [src]="item.imageUrl" alt="{{item.name}}">
-                <div class="description">
-                    <div class="first">
-                    <h3>{{item.category.name.toUpperCase()}}</h3>
-                    <i class="fa-solid fa-circle-dot"></i>
-                    <p>{{item.brand}}</p>
-                </div>
-                <h3>{{item.name}}</h3>
-                <p>{{item.rating}}</p>
-                <h2>USD {{item.price}}</h2>
-                <button><i class="fa-solid fa-cart-flatbed"></i> Add to Cart</button>
-                </div>
-            </div>
-        }
-    </div>
+  <h2>Featured Products</h2>
+  <div class="parent">
+    <p>Handpicked tech essentials just for you</p>
+    <p>View All <i class="fa-solid fa-chevron-right"></i></p>
+  </div>
+  <div class="featuredProdsCards">
+    @for (item of featuredProducts; track $index) {
+      <div class="card">
+        <img [src]="item.imageUrl" alt="{{ item.name }}" />
+        <div class="description">
+          <div class="first">
+            <h3>{{ item.category.name.toUpperCase() }}</h3>
+            <i class="fa-solid fa-circle-dot"></i>
+            <p>{{ item.brand }}</p>
+          </div>
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.rating }}</p>
+          <h2>USD {{ item.price }}</h2>
+          <button><i class="fa-solid fa-cart-flatbed"></i> Add to Cart</button>
+        </div>
+      </div>
+    }
+  </div>
 </section>
 
 <section class="limitedOffer">
-    <div class="box">
-        <button>Limited Time Offer</button>
-        <h2>Get 20% Off on All Accessories</h2>
-        <p>Use code <span class="tech">TECH20</span> at checkout. Valid until end of month.</p>
-        <button>Shop Accessories</button>
-    </div>
+  <div class="box">
+    <button>Limited Time Offer</button>
+    <h2>Get 20% Off on All Accessories</h2>
+    <p>Use code <span class="tech">TECH20</span> at checkout. Valid until end of month.</p>
+    <button>Shop Accessories</button>
+  </div>
 </section>
-
 
 <section class="newArrivals">
-    <button>JUST IN</button>
-    <h2>New Arrivals</h2>
-    <div class="parent">
-        <p>The latest additions to our collection</p>
-        <p (click)="toggleNewArrivals()">{{showNewArrivalsText}} <i class="fa-solid fa-chevron-right"></i></p>
-    </div>
-    <div class="newArrivalsCards">
-        @for (item of (showNewArrivals ? newArrivals : newArrivals.slice(0, 4)); track $index) {
-            <div class="card">
-                <button>NEW</button>
-                <img [src]="item.imageUrl" alt="{{item.name}}">
-                <div class="description">
-                    <div class="first">
-                    <h3>{{item.category.name.toUpperCase()}}</h3>
-                    <i class="fa-solid fa-circle-dot"></i>
-                    <p>{{item.brand}}</p>
-                </div>
-                <h3>{{item.name}}</h3>
-                <p>{{item.rating}}</p>
-                <h2>USD {{item.price}}</h2>
-                <button><i class="fa-solid fa-cart-flatbed"></i> Add to Cart</button>
-                </div>
-            </div>
-        }
-    </div>
+  <button>JUST IN</button>
+  <h2>New Arrivals</h2>
+  <div class="parent">
+    <p>The latest additions to our collection</p>
+    <p (click)="toggleNewArrivals()">
+      {{ showNewArrivalsText }} <i class="fa-solid fa-chevron-right"></i>
+    </p>
+  </div>
+  <div class="newArrivalsCards">
+    @for (item of showNewArrivals ? newArrivals : newArrivals.slice(0, 4); track $index) {
+      <div class="card">
+        <button>NEW</button>
+        <img [src]="item.imageUrl" alt="{{ item.name }}" />
+        <div class="description">
+          <div class="first">
+            <h3>{{ item.category.name.toUpperCase() }}</h3>
+            <i class="fa-solid fa-circle-dot"></i>
+            <p>{{ item.brand }}</p>
+          </div>
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.rating }}</p>
+          <h2>USD {{ item.price }}</h2>
+          <button><i class="fa-solid fa-cart-flatbed"></i> Add to Cart</button>
+        </div>
+      </div>
+    }
+  </div>
 </section>
 
-
 <section class="offers">
-    <div class="box">
-        <i class="fa-solid fa-truck"></i>
-        <h3>Free Shipping</h3>
-        <p>On orders over $100</p>
-    </div>
-    <div class="box">
-        <i class="fa-solid fa-shield"></i>
-        <h3>Secure Payment</h3>
-        <p>100% secure transactions</p>
-    </div>
-    <div class="box">
-        <i class="fa-solid fa-arrows-rotate"></i>
-        <h3>Easy Returns</h3>
-        <p>30-day return policy</p>
-    </div>
-    <div class="box">
-        <i class="fa-solid fa-message"></i>
-        <h3>24/7 Support</h3>
-        <p>Dedicated customer care</p>
-    </div>
+  <div class="box">
+    <i class="fa-solid fa-truck"></i>
+    <h3>Free Shipping</h3>
+    <p>On orders over $100</p>
+  </div>
+  <div class="box">
+    <i class="fa-solid fa-shield"></i>
+    <h3>Secure Payment</h3>
+    <p>100% secure transactions</p>
+  </div>
+  <div class="box">
+    <i class="fa-solid fa-arrows-rotate"></i>
+    <h3>Easy Returns</h3>
+    <p>30-day return policy</p>
+  </div>
+  <div class="box">
+    <i class="fa-solid fa-message"></i>
+    <h3>24/7 Support</h3>
+    <p>Dedicated customer care</p>
+  </div>
 </section>

@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
-const API_KEY = '6edf87a6-1a90-429b-b3a5-01a5268656a4';
+const API_KEY = '54719a79-7505-4ace-a7f3-9df16edc0fe0';
 
 export const apiInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
 
@@ -8,7 +8,7 @@ export const apiInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
 
     const modifiedReq = req.clone({
     setHeaders: {
-      'X-API-KEY': `${API_KEY}`
+      'X-API-KEY': `54719a79-7505-4ace-a7f3-9df16edc0fe0`
     }
   });
 

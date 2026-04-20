@@ -8,21 +8,19 @@
     <ul>
       <li routerLink="/home" routerLinkActive="active"><a>Home</a></li>
       <li routerLink="/shop" routerLinkActive="active"><a>Shop</a></li>
-      <div class="categories">
-        <li>
+      <li class="categories">
+        
           <a>Categories <i class="fa-solid fa-chevron-down"></i></a>
-        </li>
+        
         <div class="dropDown">
           @for (item of categories; track $index) {
             <div class="name">
-              <li>
-                <a>{{ item.name }}</a>
-              </li>
-              <p>{{ item.productCount }}</p>
+                <span>{{ item.name }}</span>
+                <p>{{ item.productCount }}</p>
             </div>
           }
         </div>
-      </div>
+      </li>
     </ul>
   </nav>
 
