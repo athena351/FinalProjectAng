@@ -17,7 +17,6 @@ export class Header {
   ngOnInit(){
     this.api.getAll("categories").subscribe({
       next : (resp:any) => {
-        console.log(resp);
         this.categories = resp.data;
         this.cdr.detectChanges();
       },

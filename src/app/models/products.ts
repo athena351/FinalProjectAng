@@ -31,3 +31,10 @@ export class ProductCategory {
     canDelete? : boolean;
 }
 
+export class Filter{
+    categoryId? : number;
+    rating? : number;
+    minPrice? : number;
+    maxPrice? : number;
+}
+

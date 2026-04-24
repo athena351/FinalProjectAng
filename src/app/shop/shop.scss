@@ -76,6 +76,51 @@ $mainColor: #1ecb5b;
         display: flex;
         flex-direction: column;
         gap: 10px;
+
+        .categories{
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          padding-top: 20px;
+          padding-left: 10px;
+          cursor: pointer;
+          transition: 0.3s ease-in-out;
+
+          .tech{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 5px;
+            transition: 0.1s ease-in-out;
+
+            input{
+              cursor: pointer;
+            }
+
+            label{
+              font-size: 14px;
+              cursor: pointer;
+            }
+
+            p{
+              border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            padding: 5px;
+            background-color: rgb(238, 234, 234);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: rgb(157, 154, 154);
+            margin-left: auto;
+            }
+
+            &:hover{
+              background-color: #f6f6f6;
+            }
+          }
+        }
       }
 
       .minRating {
@@ -247,7 +292,7 @@ $mainColor: #1ecb5b;
             }
           }
 
-          label{
+          label {
             font-family:
               'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
               Verdana, sans-serif;
@@ -258,30 +303,32 @@ $mainColor: #1ecb5b;
         }
       }
 
-      >button{
+      > button {
         width: 100%;
         padding: 15px;
-        border:1px solid rgb(221, 221, 221);
+        border: 1px solid rgb(221, 221, 221);
         border-radius: 8px;
         background-color: white;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-family:
+          'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+          Verdana, sans-serif;
         color: rgb(84, 84, 84);
         transition: all 0.1s ease-in-out;
         cursor: pointer;
 
-        &:hover{
+        &:hover {
           border: 1px solid #19c455ac;
           color: $mainColor;
         }
       }
     }
 
-    .box{
+    .box {
       display: flex;
       flex-direction: column;
       gap: 30px;
 
-      .searchBox{
+      .searchBox {
         display: flex;
         border: 1px solid rgb(221, 221, 221);
         border-radius: 8px;
@@ -289,34 +336,34 @@ $mainColor: #1ecb5b;
         gap: 150px;
         justify-content: space-between;
 
-        .input{
+        .input {
           display: flex;
           align-content: center;
           position: relative;
 
-          input{
+          input {
             border: 1px solid rgb(221, 221, 221);
             border-radius: 8px;
             padding: 15px 150px 15px 50px;
-            background-color: #F6F6F6;
+            background-color: #f6f6f6;
             transition: all 0.1s ease-in-out;
 
-              &:focus {
-                outline: none;
-                border-color: $mainColor;
-                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-                background-color: #f9f9f9;
-              }
-  
-              &::placeholder {
-                font-family:
-                  'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
-                  Geneva, Verdana, sans-serif;
-                  color: #9c9b9b;
-              }
+            &:focus {
+              outline: none;
+              border-color: $mainColor;
+              box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+              background-color: #f9f9f9;
+            }
+
+            &::placeholder {
+              font-family:
+                'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+                Geneva, Verdana, sans-serif;
+              color: #9c9b9b;
+            }
           }
-          
-          .search{
+
+          .search {
             padding: 0px 15px;
             position: absolute;
             top: 27%;
@@ -325,12 +372,12 @@ $mainColor: #1ecb5b;
           }
         }
 
-        .sort{
+        .sort {
           display: flex;
           align-items: center;
           gap: 20px;
 
-          p{
+          p {
             font-family:
               'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
               Verdana, sans-serif;
@@ -338,7 +385,7 @@ $mainColor: #1ecb5b;
             font-size: 14px;
           }
 
-          select{
+          select {
             padding: 10px 20px;
             border: 1px solid rgb(221, 221, 221);
             border-radius: 3px;
@@ -356,14 +403,12 @@ $mainColor: #1ecb5b;
         }
       }
 
-      .products{
-
+      .products {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
 
-
-        .card{
+        .card {
           display: flex;
           flex-direction: column;
           gap: 20px;
@@ -375,17 +420,17 @@ $mainColor: #1ecb5b;
           cursor: pointer;
           transition: all 0.2s ease-in-out;
 
-          &:hover{
+          &:hover {
             border: 1px solid #19c455ac;
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
             transform: translateY(-7px);
 
-            img{
+            img {
               zoom: 8%;
             }
           }
 
-          img{
+          img {
             width: 100%;
             height: 50%;
             // object-fit: contain;
@@ -395,71 +440,106 @@ $mainColor: #1ecb5b;
             transition: all 0.2s ease-in-out;
           }
 
-          .description{
+          .description {
             width: 100%;
             height: 50%;
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
             padding: 0px 10px;
-            
+
             .first {
-          display: flex;
-          gap: 10px;
-          align-items: center;
+              display: flex;
+              gap: 10px;
+              align-items: center;
 
-          h3 {
-            font-family:
-              'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-              Verdana, sans-serif;
-            color: $mainColor;
-            font-weight: 100;
-            font-size: 14px;
-          }
+              h3 {
+                font-family:
+                  'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+                  Geneva, Verdana, sans-serif;
+                color: $mainColor;
+                font-weight: 100;
+                font-size: 14px;
+              }
 
-          i {
-            color: rgb(96, 96, 96);
-            font-size: 8px;
-          }
+              i {
+                color: rgb(96, 96, 96);
+                font-size: 8px;
+              }
 
-          p {
-            font-family:
-              'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-              Verdana, sans-serif;
-            color: rgb(138, 136, 136);
-            font-size: 13px;
-          }
-        }
+              p {
+                font-family:
+                  'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+                  Geneva, Verdana, sans-serif;
+                color: rgb(138, 136, 136);
+                font-size: 13px;
+              }
+            }
 
-        h3{
-          font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-          font-size: 15px;
-          color: #393838;
-        }
+            h3 {
+              font-family:
+                'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+                Geneva, Verdana, sans-serif;
+              font-size: 15px;
+              color: #393838;
+            }
 
-        h2{
-          font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-          font-size: 19px;
-        }
-        
-        button{
-            padding: 10px;
-            border: 1px solid rgb(221, 221, 221);
-            background-color: #F6F6F6;
-            border-radius: 8px;
-            font-weight: bold;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            color:#393838;
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
+            h2 {
+              font-family:
+                'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+                Geneva, Verdana, sans-serif;
+              font-size: 19px;
+            }
 
-            &:hover{
-              background-color: $mainColor;
-              color: white;
+            button {
+              padding: 10px;
+              border: 1px solid rgb(221, 221, 221);
+              background-color: #f6f6f6;
+              border-radius: 8px;
+              font-weight: bold;
+              font-family:
+                'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+                Geneva, Verdana, sans-serif;
+              color: #393838;
+              transition: all 0.2s ease-in-out;
+              cursor: pointer;
+
+              &:hover {
+                background-color: $mainColor;
+                color: white;
+              }
             }
           }
+        }
+      }
+      .pagination {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 30px;
+
+        button {
+          padding: 8px 12px;
+          border: 1px solid #ddd;
+          background: white;
+          cursor: pointer;
+          border-radius: 6px;
+
+          &.active {
+            background-color: $mainColor;
+            color: white;
+            border-color: $mainColor;
           }
-          
+
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+
+          &:hover:not(.active):not(:disabled) {
+            border-color: $mainColor;
+            color: $mainColor;
+          }
         }
       }
     }
