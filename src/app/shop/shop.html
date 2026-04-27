@@ -13,13 +13,20 @@
       <div class="category">
         <h3>Categories</h3>
         <div class="categories">
-            @for (item of categories; track $index) {
-                <div class="tech">
-                    <input type="radio" [id] = "'cat' + item.id" name="category" (change)="filterByCat(item.id)">
-                <label [for]="'cat' + item.id">{{item.name}}</label>
-                <p>{{item.productCount}}</p>
-                </div>
-            }
+            @for (item of categories; track item.id) {
+  <div class="tech">
+    <input
+      type="radio"
+      [id]="'cat' + item.id"
+      name="category"
+      [checked]="filters.categoryId === item.id"
+      (change)="filterByCat(item.id)"
+    />
+
+    <label [for]="'cat' + item.id">{{ item.name }}</label>
+    <p>{{ item.productCount }}</p>
+  </div>
+}
         </div>
       </div>
 
@@ -27,7 +34,8 @@
         <h3><i class="fa-solid fa-star"></i> Min Rating</h3>
 
         <div class="ratings">
-          <button>
+          <button (click)="filterByRating(4)"
+  [class.active]="filters.rating === 4">
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star coloredStar"></i>
@@ -36,7 +44,8 @@
             <p>4 & up</p>
           </button>
 
-          <button>
+          <button (click)="filterByRating(3)"
+  [class.active]="filters.rating === 3">
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star coloredStar"></i>
@@ -45,7 +54,8 @@
             <p>3 & up</p>
           </button>
 
-          <button>
+          <button (click)="filterByRating(2)"
+  [class.active]="filters.rating === 2">
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star clearStar"></i>
@@ -54,7 +64,8 @@
             <p>2 & up</p>
           </button>
 
-          <button>
+          <button (click)="filterByRating(1)"
+  [class.active]="filters.rating === 1">
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star clearStar"></i>
             <i class="fa-solid fa-star clearStar"></i>
@@ -70,42 +81,44 @@
         <div class="inputs">
           <div class="min">
             <p>Min</p>
-            <input type="number" placeholder="$0" />
+            <input type="number" (input)="setMinPrice($event)" placeholder="$0" />
           </div>
           <p>-</p>
           <div class="max">
             <p>Max</p>
-            <input type="number" placeholder="$9999" />
+            <input type="number" (input)="setMaxPrice($event)" placeholder="$9999" />
           </div>
         </div>
       </div>
 
       <div class="brand">
         <h3>Brand</h3>
-        <input type="text" placeholder="Search brands..." />
+        <input type="text" placeholder="Search brands..." (input)="onSearch($event)" [(ngModel)]="filters.search"/>
       </div>
 
       <div class="availability">
         <h3>Availability</h3>
         <div class="stock">
-          <input type="checkbox" id="inStock" name="inStock" />
+          <input type="checkbox" id="inStock" name="inStock" (change)="toggleStock($event)" [(ngModel)]="filters.inStock"/>
           <label for="inStock">In Stock Only</label>
         </div>
       </div>
 
-      <button class="clear"><i class="fa-solid fa-arrow-rotate-left"></i> Clear All Filters</button>
+      <button class="clear" (click)="clearFilters()">
+  <i class="fa-solid fa-arrow-rotate-left"></i> Clear All Filters
+</button>
     </div>
 
     <div class="box">
       <div class="searchBox">
         <div class="input">
           <div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
-          <input type="text" placeholder="Search products..." />
+          <input type="text" placeholder="Search products..." (input)="onSearch($event)" />
         </div>
 
         <div class="sort">
           <p>{{ totalCount }} products</p>
-          <select name="sort" id="sort">
+          <select name="sort" id="sort" (change)="onSort($event)" [(ngModel)]="filters.sortBy">
             <option value="sortBy">Sort by</option>
             <option value="priceLow">Price: Low to High</option>
             <option value="priceHigh">Price: High to Low</option>
@@ -117,7 +130,7 @@
       </div>
       <div class="products">
         @for (item of products; track $index) {
-          <div class="card">
+          <div class="card" routerLink="/details" [queryParams]="{id : item.id}">
             <img [src]="item.imageUrl" [alt]="item.name" />
             <div class="description">
               <div class="first">
