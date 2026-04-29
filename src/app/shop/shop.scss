@@ -47,6 +47,7 @@ $mainColor: #1ecb5b;
 
     .filter {
       display: flex;
+      max-height: 1200px;
       flex-direction: column;
       gap: 35px;
       padding: 30px;
@@ -552,4 +553,135 @@ $mainColor: #1ecb5b;
 
 .clearStar {
   color: rgb(221, 221, 221);
+}
+
+
+
+
+@media (max-width: 1400px) {
+  .shop {
+    .prodParent {
+      flex-direction: column;
+      padding: 40px 60px;
+      gap: 30px;
+
+      .box {
+        .products {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .filter {
+        min-width: 260px;
+      }
+    }
+
+    .top {
+      padding: 25px 60px;
+    }
+  }
+}
+
+
+@media (max-width: 900px) {
+  .shop {
+    .prodParent {
+      flex-direction: column;
+      padding: 30px 40px;
+
+      .filter {
+        width: 100%;
+      }
+
+      .box {
+        .searchBox {
+          flex-direction: column;
+          gap: 20px;
+
+          .input input {
+            width: 100%;
+            padding: 12px 50px 12px 45px;
+          }
+        }
+
+        .products {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+
+    .top {
+      padding: 20px 40px;
+      text-align: left;
+
+      h2 {
+        font-size: 28px;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 600px) {
+  .shop {
+    margin-top: 60px;
+
+    .top {
+      padding: 20px;
+
+      h2 {
+        font-size: 22px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+
+    .prodParent {
+      padding: 20px;
+      gap: 20px;
+
+      .filter {
+        padding: 20px;
+      }
+
+      .box {
+        .searchBox {
+          padding: 15px;
+
+          .input input {
+            padding: 12px 45px 12px 40px;
+          }
+        }
+
+        .products {
+          grid-template-columns: 1fr; 
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 400px) {
+  .shop {
+    .prodParent {
+      padding: 15px;
+
+      .filter {
+        padding: 15px;
+      }
+
+      .box {
+        .searchBox {
+          padding: 10px;
+        }
+
+        .products {
+          gap: 15px;
+        }
+      }
+    }
+  }
 }

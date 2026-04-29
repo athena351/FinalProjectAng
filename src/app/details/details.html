@@ -8,11 +8,27 @@
   <div class="box">
     @for (item of product; track $index) {
       <div class="left">
-        <img [src]="item.imageUrl" [alt]="item.name" />
+        <!-- <img [src]="selectedImage" [alt]="item.name" /> -->
+         <div
+  class="imageContainer"
+  (mousemove)="onMouseMove($event)"
+  (mouseleave)="onMouseLeave()"
+>
+  <img
+    [src]="selectedImage"
+    [alt]="item.name"
+    class="mainImage"
+    [style.transform]="zoomStyle"
+  />
+</div>
         <div class="images">
-          <img [src]="item.imageUrl" alt="" />
           @for (imgs of imageUrls; track $index) {
-            <img [src]="imgs" alt="" />
+            <img
+              [src]="imgs"
+              alt=""
+              (click)="setMainImage(imgs)"
+              [class.active]="imgs == selectedImage"
+            />
           }
         </div>
       </div>
@@ -24,7 +40,25 @@
           <p>{{ item.brand }}</p>
         </div>
         <h2 class="name">{{ item.name }}</h2>
-        <p>{{ item.rating }}</p>
+
+        <div class="rating">
+          @for (star of [1, 2, 3, 4, 5]; track $index) {
+            <i
+              class="fa-star"
+              [class.fa-solid]="star <= rating"
+              [class.fa-regular]="star > rating"
+              [class.active]="star <= rating"
+            >
+            </i>
+          }
+
+          <span class="ratingValue">
+            {{ rating | number: '1.1-1' }}
+          </span>
+
+          <span class="reviews"> ({{ reviewCount }} reviews) </span>
+        </div>
+
         <h2 class="price">USD {{ item.price }}</h2>
         <button class="stock">
           <i class="fa-solid fa-check"></i> In Stock ({{ item.stock }} Available)
@@ -33,6 +67,11 @@
         <div class="line"></div>
         <div class="quantity">
           <h3>Quantity:</h3>
+          <div class="quantityBtns">
+            <button class="reduce"><i class="fa-solid fa-minus"></i></button>
+            <button class="num">1</button>
+            <button class="increase"><i class="fa-solid fa-plus"></i></button>
+          </div>
         </div>
         <div class="addToCartBtn">
           <button><i class="fa-solid fa-cart-flatbed"></i> Add to Cart</button>
@@ -40,5 +79,165 @@
         </div>
       </div>
     }
+  </div>
+
+  <div class="moreDetails">
+    <div class="detailBtns">
+      <button
+        class="btnDetails"
+        (click)="setTab('description')"
+        [class.active]="activeTab == 'description'"
+      >
+        Description
+      </button>
+
+      <button
+        class="btnDetails"
+        (click)="setTab('specification')"
+        [class.active]="activeTab == 'specification'"
+      >
+        Specifications
+      </button>
+
+      <button
+        class="btnDetails"
+        (click)="setTab('reviews')"
+        [class.active]="activeTab == 'reviews'"
+      >
+        Reviews ({{ reviewCount }})
+      </button>
+
+      <div class="indicator" [ngClass]="activeTab"></div>
+    </div>
+
+    <div class="info">
+      @for (item of product; track $index) {
+        @if (activeTab == 'description') {
+          <h2>Product Description</h2>
+          <p>{{ item.description }}</p>
+        }
+
+        @if (activeTab == 'specification') {
+          <div class="specs">
+            @for (spec of specList; track $index) {
+              <div class="forSpec">
+                <div class="key">{{ spec.key }}</div>
+                <div class="value">{{ spec.value }}</div>
+              </div>
+            }
+          </div>
+        }
+        @if (activeTab == 'reviews') {
+          @if (reviews.length > 0) {
+            <div class="reviewsBox">
+              <div class="leftRating">
+                <h2>{{ rating | number: '1.1-1' }}</h2>
+
+                <div class="stars">
+                  @for (star of [1, 2, 3, 4, 5]; track $index) {
+                    <i
+                      class="fa-star"
+                      [class.fa-solid]="star <= rating"
+                      [class.fa-regular]="star > rating"
+                    ></i>
+                  }
+                </div>
+
+                <p>Based on {{ reviewCount }} reviews</p>
+              </div>
+
+              <div class="rightStats">
+                @for (stat of ratingStats; track $index) {
+                  <div class="statRow">
+                    <span>{{ stat.star }} <i class="fa-solid fa-star"></i></span>
+
+                    <div class="bar">
+                      <div class="fill" [style.width.%]="stat.percent"></div>
+                    </div>
+
+                    <span>{{ stat.count }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <div class="reviewList">
+              @for (review of reviews; track $index) {
+                <div class="reviewItem">
+                  <div class="avatar">
+                    @if (review.user.details.pictureUrl) {
+                      <img [src]="review.user.details.pictureUrl" />
+                    } @else {
+                      <span>
+                        {{ review.user.firstName[0] }}
+                      </span>
+                    }
+                  </div>
+
+                  <div class="content">
+                    <h4>{{ review.user.firstName }} {{ review.user.lastName }}</h4>
+
+                    <p class="date">
+                      {{ review.createdAt | date: 'mediumDate' }}
+                    </p>
+                  </div>
+
+                  <div class="reviewStars">
+                    @for (star of [1, 2, 3, 4, 5]; track $index) {
+                      <i
+                        class="fa-star"
+                        [class.fa-solid]="star <= review.rating"
+                        [class.fa-regular]="star > review.rating"
+                      ></i>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          } @else {
+            <div class="noReviews">
+              <p>No reviews yet. Be the first to review this product!</p>
+            </div>
+          }
+        }
+      }
+    </div>
+  </div>
+
+  <div class="relaetedProd">
+    <h2>Related Products</h2>
+
+    <div class="forRelated">
+      @for (item of relatedProducts; track $index) {
+        <div class="card" (click)="goToProduct(item.id)">
+          <img [src]="item.imageUrl" alt="{{ item.name }}" />
+          <div class="description">
+            <div class="first">
+              <h3>{{ item.category.name.toUpperCase() }}</h3>
+              <i class="fa-solid fa-circle-dot"></i>
+              <p>{{ item.brand }}</p>
+            </div>
+            <h3>{{ item.name }}</h3>
+            <div class="rating">
+              @for (star of [1, 2, 3, 4, 5]; track $index) {
+                <i
+                  class="fa-star"
+                  [class.fa-solid]="star <= item.rating"
+                  [class.fa-regular]="star > item.rating"
+                  [class.active]="star <= item.rating"
+                >
+                </i>
+              }
+
+              <span class="ratingValue">
+                {{ item.rating | number: '1.1-1' }}
+              </span>
+            </div>
+            <h2>USD {{ item.price }}</h2>
+            <button><i class="fa-solid fa-cart-flatbed"></i> Add to Cart</button>
+          </div>
+        </div>
+      }
+    </div>
   </div>
 </div>

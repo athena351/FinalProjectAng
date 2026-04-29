@@ -3,7 +3,7 @@ import { Api } from '../services/api';
 import { Category, Filter, Product } from '../models/products';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterModule } from "@angular/router";
+import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-shop',
@@ -79,6 +79,8 @@ export class Shop {
         this.products = resp.data.items;
         this.totalCount = resp.data.totalCount;
         this.totalPages = Math.ceil(this.totalCount / this.pageSize);
+
+        this.pages = [];
 
         for (let i = 1; i <= this.totalPages; i++) {
           this.pages.push(i);
