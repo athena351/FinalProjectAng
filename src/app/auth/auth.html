@@ -1,0 +1,129 @@
+<div class="signUp">
+  <div class="left">
+    <div class="box">
+      <div class="logo"></div>
+      <h2>STEP TECH</h2>
+      <p>
+        Your one-stop shop for the latest smartphones, laptops, and <br />
+        cutting-edge electronics.
+      </p>
+      <div class="miniBox">
+        <div class="first">
+          <p><i class="fa-solid fa-check"></i></p>
+          <div class="textDiv">
+            <h3>Fast & Secure</h3>
+            <p>Enterprise-grade security to keep your data safe</p>
+          </div>
+        </div>
+        <div class="second">
+          <p><i class="fa-solid fa-bolt-lightning"></i></p>
+          <div class="textDiv">
+            <h3>Lightning Speed</h3>
+            <p>Experience blazing fast performance</p>
+          </div>
+        </div>
+        <div class="third">
+          <p><i class="fa-solid fa-shield"></i></p>
+          <div class="textDiv">
+            <h3>24/7 Support</h3>
+            <p>Our team is always here to help you succeed</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    @if (!isCodeStep) {
+        <p><i class="fa-regular fa-user"></i></p>
+        <h2>Create your account</h2>
+    <p>Join thousands of users in less than a minute 🚀</p>
+
+    <form [formGroup]="myRegister" (ngSubmit)="register()" class="inputs">
+      <div class="nameInputs">
+        <div class="inputGroup">
+          <i class="fa-regular fa-user"></i>
+          <input type="text" formControlName="firstName" placeholder="First name" />
+        </div>
+
+        <div class="inputGroup">
+          <i class="fa-regular fa-user"></i>
+          <input type="text" formControlName="lastName" placeholder="Last name" />
+        </div>
+      </div>
+
+      <div class="inputGroup">
+        <i class="fa-regular fa-envelope"></i>
+        <input type="email" formControlName="email" placeholder="Email address" />
+      </div>
+
+      <div class="inputGroup">
+        <i class="fa-solid fa-lock"></i>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="Password (min. 6 characters)"
+        />
+        <i
+          class="fa-solid"
+          [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+          (click)="togglePassword()"
+        >
+        </i>
+      </div>
+
+      <button><i class="fa-solid fa-arrow-right-to-bracket"></i> Create Account</button>
+    </form>
+    <p>Already have an account? <span class="goToSignIn">Sign in</span></p>
+    } @else {
+        <div class="codeBox">
+            <p><i class="fa-regular fa-envelope"></i></p>
+    <h2>Verify your email</h2>
+    <p>We've sent a 6-digit code to your email address</p>
+
+    <form [formGroup]="codeForm" (ngSubmit)="verifyCode()" class="inputs">
+      <div class="inputGroup">
+        <i class="fa-solid fa-lock"></i>
+        <input type="text" formControlName="code" placeholder="Enter 6-digit code" maxlength="6" inputmode="numeric" pattern="[0-9]*"/>
+      </div>
+
+      <button><i class="fa-solid fa-check"></i> Verify Email</button>
+      <div class="line"></div>
+    </form>
+    <p>Didn't receive the code?</p>
+    <h3 (click)="resendCode()">Resend Code</h3>
+    <p (click)="goBackToRegister()"><i class="fa-solid fa-arrow-left"></i> Back to Login</p>
+  </div>
+    }
+  </div>
+</div>
+
+<!-- <div class="signUp">
+    <div class="left">
+        <div class="box">
+
+            <div class="logo"></div>
+            <h2>STEP TECH</h2>
+            <p>Access exclusive deals and manage your orders with your <br> account.</p>
+            <div class="miniBox">
+                <div class="first">
+                    <p>50K+</p>
+                    <p>PRODUCTS</p>
+                </div>
+                <div class="second">
+                    <p>200+</p>
+                    <p>BRANDS</p>
+                </div>
+                <div class="third">
+                    <p>24/7</p>
+                    <p>SUPPORT</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="right">
+        
+    </div>
+</div> -->

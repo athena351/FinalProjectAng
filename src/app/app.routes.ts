@@ -17,5 +17,9 @@ export const routes: Routes = [
     {
         path: "details",
         loadComponent: () => import('./details/details').then(m => m.Details)
+    },
+    {
+        path: "auth",
+        loadComponent: () => import('./auth/auth').then(m => m.Auth)
     }
 ];

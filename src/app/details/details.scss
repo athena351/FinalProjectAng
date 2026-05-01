@@ -26,6 +26,9 @@ $mainColor: #1ecb5b;
 
     .left {
       padding-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       // > img {
       //   width: 600px;
       //   height: 500px;

@@ -14,4 +14,17 @@ export class Api {
     return this.http.get(this.baseUrl+url)
   }
 
+  register(obj : any){
+         return this.http.post("https://shopapi.stepacademy.ge/api/auth/register", obj)
+      }
+
+  verifyCode(obj : any){
+    return this.http.put("https://shopapi.stepacademy.ge/api/auth/verify-email", obj)
+  }
+
+  resendCode(email: string) {
+  return this.http.post(
+    `https://shopapi.stepacademy.ge/api/auth/resend-email-verification/${email}`, {});
+}
+
 }

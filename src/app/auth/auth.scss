@@ -1,0 +1,519 @@
+$mainColor: #1ecb5b;
+
+.signUp {
+  width: 100%;
+  display: flex;
+  margin-top: 80px;
+  font-family:
+    'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
+    sans-serif;
+
+  .left {
+    width: 50%;
+    min-height: 95vh;
+    background-color: #0e1c09;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      gap: 40px;
+
+      .logo {
+        width: 90px;
+        height: 90px;
+        background-image: url('/logo.jpg');
+        background-position: center;
+        background-size: cover;
+        border-radius: 7px;
+      }
+
+      h2 {
+        font-size: 50px;
+      }
+
+      > p {
+        color: rgb(165, 164, 164);
+        font-size: 18px;
+      }
+
+      .miniBox {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+
+        .first,
+        .second,
+        .third {
+          display: flex;
+          text-align: start;
+          gap: 30px;
+
+          > p {
+            font-size: 18px;
+            color: $mainColor;
+            font-weight: bold;
+            padding: 15px;
+            background-color: #2d362f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+          }
+
+          .textDiv {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            h3 {
+              font-size: 17px;
+            }
+
+            p {
+              font-size: 14px;
+              color: rgb(165, 164, 164);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .right {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+
+    p:first-child {
+      padding: 15px;
+      background-color: #f6f6f6;
+      border: 1px solid #c2ebca;
+      border-radius: 10px;
+      font-size: 35px;
+      color: $mainColor;
+    }
+
+    h2 {
+      font-size: 35px;
+    }
+
+    p:nth-child(3) {
+      font-size-adjust: 14px;
+      color: rgba(30, 29, 29, 0.769);
+    }
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      gap: 15px;
+      animation: fadeIn 0.5s ease;
+
+      .nameInputs {
+        display: flex;
+        gap: 10px;
+
+        .inputGroup {
+          flex: 1;
+          position: relative;
+
+          input {
+            width: 100%;
+            padding: 20px 20px 20px 45px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f6f6f6;
+            outline: none;
+
+            &:hover {
+              background-color: #ffffff;
+              border: 1px solid rgb(191, 191, 191);
+            }
+
+            &:focus {
+              border: 1px solid $mainColor;
+              background-color: #ffffff;
+              box-shadow: rgba(78, 221, 85, 0.24) 0px 3px 8px;
+            }
+          }
+
+          i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+          }
+        }
+      }
+
+      .inputGroup {
+        position: relative;
+
+        input {
+          width: 100%;
+          padding: 20px 45px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          background-color: #f6f6f6;
+          transition: 0.2s ease-in-out;
+          outline: none;
+
+          &:hover {
+            background-color: #ffffff;
+            border: 1px solid rgb(191, 191, 191);
+          }
+
+          &:focus {
+            border: 1px solid $mainColor;
+            background-color: #ffffff;
+            box-shadow: rgba(78, 221, 85, 0.24) 0px 3px 8px;
+          }
+        }
+
+        i {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #888;
+        }
+
+        i:first-child {
+          left: 15px;
+        }
+
+        i:last-child {
+          right: 20px;
+          cursor: pointer;
+          transition: 0.1s ease;
+
+          &:hover {
+            color: #1dae50c7;
+          }
+        }
+      }
+
+      button {
+        padding: 20px;
+        background-color: $mainColor;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        margin-top: 25px;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+
+        &:hover {
+          filter: brightness(108%);
+          transform: translateY(-3px);
+          box-shadow: rgba(23, 192, 51, 0.24) 0px 3px 8px;
+        }
+      }
+    }
+
+    p:last-child {
+      font-size: 14px;
+
+      .goToSignIn {
+        color: $mainColor;
+        font-weight: bold;
+      }
+    }
+
+    .codeBox {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      width: 80%;
+      animation: fadeIn 0.5s ease;
+
+      p:first-child {
+        padding: 15px;
+        align-self: center;
+      }
+
+      p:nth-child(3) {
+        color: rgb(113, 112, 112);
+      }
+
+      input {
+        text-align: center;
+        font-size: 23px;
+        letter-spacing: 12px;
+
+        &::placeholder{
+          letter-spacing: normal;
+        }
+      }
+
+      .line {
+        width: 100%;
+        height: 1px;
+        background-color: rgb(226, 225, 225);
+      }
+
+      p:nth-child(5) {
+        font-size: 14px;
+        color: rgb(90, 90, 90);
+      }
+
+      h3 {
+        font-size: 15px;
+        color: $mainColor;
+        cursor: pointer;
+        transition: 0.1s ease-in-out;
+
+        &:hover {
+          filter: brightness(110%);
+        }
+      }
+
+      p:nth-child(7) {
+        font-size: 14px;
+        color: rgb(90, 90, 90);
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+        margin-top: 15px;
+
+        &:hover {
+          color: $mainColor;
+
+          i {
+            transform: translateX(-10px);
+            transition: 0.3s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+@media (max-width: 1000px) {
+  .signUp {
+    flex-direction: column;
+    margin-top: 40px;
+
+    .left,
+    .right {
+      width: 100%;
+    }
+
+    .left {
+      min-height: auto;
+      padding: 40px 20px;
+      display: none;
+
+      .box {
+        gap: 25px;
+
+        h2 {
+          font-size: 35px;
+        }
+
+        > p {
+          font-size: 15px;
+        }
+
+        .miniBox {
+          gap: 30px;
+        }
+      }
+    }
+
+    .right {
+      padding: 30px 80px;
+      height: 100vh;
+
+      .inputs {
+        width: 100%;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+    }
+  }
+}
+
+
+
+@media (max-width: 600px) {
+  .signUp {
+    
+    .left {
+
+      .box {
+        .logo {
+          width: 70px;
+          height: 70px;
+        }
+
+        h2 {
+          font-size: 28px;
+        }
+      }
+    }
+
+    .right {
+      gap: 25px;
+      padding: 20px 30px;
+
+
+      p:first-child {
+        font-size: 25px;
+        padding: 10px;
+      }
+
+      h2 {
+        font-size: 24px;
+        text-align: center;
+      }
+
+      .inputs {
+        gap: 12px;
+
+        .nameInputs {
+          flex-direction: column;
+        }
+
+        .inputGroup input {
+          padding: 15px 40px;
+        }
+
+        button {
+          padding: 15px;
+          font-size: 14px;
+        }
+      }
+
+      .codeBox {
+        width: 100%;
+
+        input {
+          font-size: 18px;
+          letter-spacing: 8px;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+// $mainColor: #1ecb5b;
+
+// .signUp{
+//     width: 100%;
+//     display: flex;
+//     margin-top: 80px;
+//     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+//     .left{
+//         width: 50%;
+//     min-height: 95vh;
+//     background-color: #0e1c09;
+//     background-image:
+//       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+//       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+//     background-size: 60px 60px;
+//     position: relative;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+
+//     .box{
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         justify-content: center;
+//         color: white;
+//         text-align: center;
+//         gap: 40px;
+
+//         .logo{
+//             width: 90px;
+//             height: 90px;
+//             background-image: url("/logo.jpg");
+//             background-position: center;
+//             background-size: cover;
+//             border-radius: 7px;
+//         }
+
+//         h2{
+//             font-size: 50px;
+//         }
+
+//         > p{
+//             color: rgb(165, 164, 164);
+//             font-size: 18px;
+//         }
+
+//         .miniBox{
+//             display: flex;
+//             gap: 50px;
+
+//             .first, .second, .third{
+//                 display: flex;
+//                 flex-direction: column;
+//                 gap: 10px;
+
+//                 p:first-child{
+//                     font-size: 35px;
+//                     color: $mainColor;
+//                     font-weight: bold;
+//                 }
+
+//                 p:last-child{
+//                     color: rgb(165, 164, 164);
+//                 }
+//             }
+//         }
+//     }
+
+//     }
+
+//     .right{
+//         width: 50%;
+//     }
+// }
