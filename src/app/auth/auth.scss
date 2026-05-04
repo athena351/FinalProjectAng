@@ -3,14 +3,14 @@ $mainColor: #1ecb5b;
 .signUp {
   width: 100%;
   display: flex;
-  margin-top: 80px;
+  // margin-top: 80px;
   font-family:
     'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
     sans-serif;
 
   .left {
     width: 50%;
-    min-height: 95vh;
+    min-height: 100vh;
     background-color: #0e1c09;
     background-image:
       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -29,6 +29,7 @@ $mainColor: #1ecb5b;
       color: white;
       text-align: center;
       gap: 40px;
+      animation: fadeIn 0.5s ease;
 
       .logo {
         width: 90px;
@@ -127,10 +128,12 @@ $mainColor: #1ecb5b;
       .nameInputs {
         display: flex;
         gap: 10px;
+        align-items: flex-start;
 
         .inputGroup {
           flex: 1;
           position: relative;
+          // height: 65px;
 
           input {
             width: 100%;
@@ -208,6 +211,88 @@ $mainColor: #1ecb5b;
         }
       }
 
+      .inputGroupWrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 5px;
+        transition: 0.2s ease;
+      }
+
+      .error {
+        min-height: 18px;
+        animation: fadeIn 0.4s;
+
+        small {
+          color: #ff4d4f;
+          font-size: 12px;
+          display: block;
+        }
+      }
+
+      .strengthBox {
+        margin-top: 8px;
+
+        .bar {
+          width: 100%;
+          height: 6px;
+          background: #e0e0e0;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+
+        .fill {
+          height: 100%;
+          width: 0%;
+          background: #ff4d4f;
+          transition: 0.3s ease;
+        }
+
+        .rulesTitle {
+          margin-top: 10px;
+          font-size: 14px;
+          color: #4a4a4a;
+          font-weight: 600;
+        }
+
+        .rules {
+          margin-top: 8px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          font-size: 12px;
+          color: red;
+          font-style: italic;
+          display: flex;
+          justify-content: center;
+
+          i {
+            font-size: 7px;
+          }
+
+          .strong {
+            color: #1ecb5b;
+            font-weight: bold;
+          }
+        }
+
+        .rule {
+          color: #888;
+          transition: 0.2s ease;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .rule.done {
+          color: #1ecb5b;
+        }
+
+        .fill {
+          transition: 0.3s ease;
+        }
+      }
+
       button {
         padding: 20px;
         background-color: $mainColor;
@@ -238,6 +323,12 @@ $mainColor: #1ecb5b;
       .goToSignIn {
         color: $mainColor;
         font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+
+        &:hover {
+          filter: brightness(115%);
+        }
       }
     }
 
@@ -264,7 +355,7 @@ $mainColor: #1ecb5b;
         font-size: 23px;
         letter-spacing: 12px;
 
-        &::placeholder{
+        &::placeholder {
           letter-spacing: normal;
         }
       }
@@ -291,7 +382,16 @@ $mainColor: #1ecb5b;
         }
       }
 
-      p:nth-child(7) {
+      .timer {
+        color: #888;
+        font-size: 13px;
+
+        .resendTimer {
+          color: $mainColor;
+        }
+      }
+
+      .backToRegister {
         font-size: 14px;
         color: rgb(90, 90, 90);
         transition: 0.3s ease-in-out;
@@ -322,44 +422,22 @@ $mainColor: #1ecb5b;
   }
 }
 
-
-
-
 @media (max-width: 1000px) {
   .signUp {
     flex-direction: column;
     margin-top: 40px;
 
-    .left,
     .right {
       width: 100%;
     }
 
     .left {
-      min-height: auto;
-      padding: 40px 20px;
       display: none;
-
-      .box {
-        gap: 25px;
-
-        h2 {
-          font-size: 35px;
-        }
-
-        > p {
-          font-size: 15px;
-        }
-
-        .miniBox {
-          gap: 30px;
-        }
-      }
     }
 
     .right {
       padding: 30px 80px;
-      height: 100vh;
+      height: 90vh;
 
       .inputs {
         width: 100%;
@@ -372,29 +450,11 @@ $mainColor: #1ecb5b;
   }
 }
 
-
-
 @media (max-width: 600px) {
   .signUp {
-    
-    .left {
-
-      .box {
-        .logo {
-          width: 70px;
-          height: 70px;
-        }
-
-        h2 {
-          font-size: 28px;
-        }
-      }
-    }
-
     .right {
       gap: 25px;
       padding: 20px 30px;
-
 
       p:first-child {
         font-size: 25px;
@@ -434,86 +494,3 @@ $mainColor: #1ecb5b;
     }
   }
 }
-
-
-
-
-
-
-
-// $mainColor: #1ecb5b;
-
-// .signUp{
-//     width: 100%;
-//     display: flex;
-//     margin-top: 80px;
-//     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
-//     .left{
-//         width: 50%;
-//     min-height: 95vh;
-//     background-color: #0e1c09;
-//     background-image:
-//       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-//       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-//     background-size: 60px 60px;
-//     position: relative;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-
-//     .box{
-//         display: flex;
-//         flex-direction: column;
-//         align-items: center;
-//         justify-content: center;
-//         color: white;
-//         text-align: center;
-//         gap: 40px;
-
-//         .logo{
-//             width: 90px;
-//             height: 90px;
-//             background-image: url("/logo.jpg");
-//             background-position: center;
-//             background-size: cover;
-//             border-radius: 7px;
-//         }
-
-//         h2{
-//             font-size: 50px;
-//         }
-
-//         > p{
-//             color: rgb(165, 164, 164);
-//             font-size: 18px;
-//         }
-
-//         .miniBox{
-//             display: flex;
-//             gap: 50px;
-
-//             .first, .second, .third{
-//                 display: flex;
-//                 flex-direction: column;
-//                 gap: 10px;
-
-//                 p:first-child{
-//                     font-size: 35px;
-//                     color: $mainColor;
-//                     font-weight: bold;
-//                 }
-
-//                 p:last-child{
-//                     color: rgb(165, 164, 164);
-//                 }
-//             }
-//         }
-//     }
-
-//     }
-
-//     .right{
-//         width: 50%;
-//     }
-// }

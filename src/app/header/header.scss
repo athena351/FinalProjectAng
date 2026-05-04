@@ -172,6 +172,11 @@ $mainColor: #1ecb5b;
         Verdana, sans-serif;
       font-size: 13px;
       font-weight: bold;
+      cursor: pointer;
+
+      &:hover{
+        filter: brightness(110%);
+      }
     }
   }
 }

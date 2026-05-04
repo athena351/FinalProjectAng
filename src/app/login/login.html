@@ -1,0 +1,127 @@
+<div class="signUp">
+  <div class="left">
+    <div class="box">
+      <div class="logo"></div>
+      <h2>STEP TECH</h2>
+      <p>
+        Access exclusive deals and manage your orders with your <br />
+        account.
+      </p>
+      <div class="miniBox">
+        <div class="first">
+          <p>50K+</p>
+          <p>PRODUCTS</p>
+        </div>
+        <div class="second">
+          <p>200+</p>
+          <p>BRANDS</p>
+        </div>
+        <div class="third">
+          <p>24/7</p>
+          <p>SUPPORT</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  @if (!isForgotMode) {
+    <div class="right">
+      <p><i class="fa-solid fa-arrow-right-to-bracket"></i></p>
+      <h2>Welcome Back</h2>
+      <p>Sign in to continue shopping 🛒</p>
+
+      <form [formGroup]="myLogin" (ngSubmit)="login()" class="inputs">
+        <div class="inputGroup">
+          <i class="fa-regular fa-envelope"></i>
+          <input type="email" formControlName="email" placeholder="Email address" />
+        </div>
+
+        @if (myLogin.get('email')?.touched && myLogin.get('email')?.invalid) {
+          <div class="error">
+            <small>
+              @if (myLogin.get('email')?.errors?.['required']) {
+                Email is required
+              } @else if (myLogin.get('email')?.errors?.['email']) {
+                Invalid email format
+              }
+            </small>
+          </div>
+        }
+
+        <div class="inputGroup">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Password (min. 6 characters)"
+          />
+          <i
+            class="fa-solid"
+            [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+            (click)="togglePassword()"
+          >
+          </i>
+        </div>
+
+        @if (myLogin.get('password')?.touched && myLogin.get('password')?.errors) {
+          <div class="error">
+            <small>
+              @if (myLogin.get('password')?.errors?.['required']) {
+                Password is required
+              }
+            </small>
+          </div>
+        }
+
+        <div class="forgot">
+          <div class="remember">
+            <input type="checkbox" id="rememberMe" />
+            <label for="rememberMe">Remember me</label>
+          </div>
+
+          <p (click)="goToForgot()">Forgot password?</p>
+        </div>
+
+        <button>Sign In</button>
+      </form>
+
+      <div class="or">
+        <div class="line"></div>
+        <p>or</p>
+        <div class="line"></div>
+      </div>
+
+      <p>Don't have an account? <span class="create" routerLink="/auth">Create one now</span></p>
+    </div>
+  } @else {
+    <div class="right">
+      <p><i class="fa-solid fa-key"></i></p>
+      <h2>Forgot Password?</h2>
+      <p>Enter your email and we'll send you a reset link</p>
+
+      <form class="inputs" [formGroup]="forgotForm" (ngSubmit)="forgetPassword()">
+        <div class="inputGroup">
+          <i class="fa-regular fa-envelope"></i>
+          <input type="email" placeholder="Email address" formControlName="email" />
+        </div>
+
+        @if (forgotForm.get('email')?.touched && forgotForm.get('email')?.errors) {
+          <div class="error">
+            <small>
+              @if (forgotForm.get('email')?.errors?.['required']) {
+                Email is required
+              } @else if (forgotForm.get('email')?.errors?.['email']) {
+                Invalid email format
+              }
+            </small>
+          </div>
+        }
+
+        <button><i class="fa-regular fa-paper-plane"></i> Send Reset Link</button>
+      </form>
+
+      <p (click)="backToLogin()" class="backToLogin">
+        <i class="fa-solid fa-arrow-left"></i> Back to Login
+      </p>
+    </div>
+  }
+</div>

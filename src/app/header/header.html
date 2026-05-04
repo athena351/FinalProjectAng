@@ -1,4 +1,5 @@
-<div class="header">
+@if (showAndHide()) {
+  <div class="header">
   <div class="logoDiv">
     <div class="logo"></div>
     <h2>STEP TECH</h2>
@@ -29,6 +30,13 @@
   </div>
 
   <div class="signIn">
-    <button routerLink="/auth">Sign In</button>
-  </div>
+  @if (!auth.isLoggedIn()) {
+    <button routerLink="/login">Sign In</button>
+  } @else {
+    <div class="profileBtn" routerLink="/profile">
+      <i class="fa-solid fa-user"></i>
+    </div>
+  }
 </div>
+</div>
+}

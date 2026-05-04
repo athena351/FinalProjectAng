@@ -35,95 +35,159 @@
 
   <div class="right">
     @if (!isCodeStep) {
-        <p><i class="fa-regular fa-user"></i></p>
-        <h2>Create your account</h2>
-    <p>Join thousands of users in less than a minute 🚀</p>
+      <p><i class="fa-regular fa-user"></i></p>
+      <h2>Create your account</h2>
+      <p>Join thousands of users in less than a minute 🚀</p>
 
-    <form [formGroup]="myRegister" (ngSubmit)="register()" class="inputs">
-      <div class="nameInputs">
-        <div class="inputGroup">
-          <i class="fa-regular fa-user"></i>
-          <input type="text" formControlName="firstName" placeholder="First name" />
+      <form [formGroup]="myRegister" (ngSubmit)="register()" class="inputs">
+        <div class="nameInputs">
+          <div class="inputGroupWrapper">
+            <div class="inputGroup">
+              <i class="fa-regular fa-user"></i>
+              <input type="text" formControlName="firstName" placeholder="First name" />
+            </div>
+
+            @if (isInvalid('firstName')) {
+              <div class="error">
+                <small>First name is required</small>
+              </div>
+            }
+          </div>
+
+          <div class="inputGroupWrapper">
+            <div class="inputGroup">
+              <i class="fa-regular fa-user"></i>
+              <input type="text" formControlName="lastName" placeholder="Last name" />
+            </div>
+
+            @if (isInvalid('lastName')) {
+              <div class="error">
+                <small>Last name is required</small>
+              </div>
+            }
+          </div>
         </div>
 
         <div class="inputGroup">
-          <i class="fa-regular fa-user"></i>
-          <input type="text" formControlName="lastName" placeholder="Last name" />
+          <i class="fa-regular fa-envelope"></i>
+          <input type="email" formControlName="email" placeholder="Email address" />
         </div>
-      </div>
 
-      <div class="inputGroup">
-        <i class="fa-regular fa-envelope"></i>
-        <input type="email" formControlName="email" placeholder="Email address" />
-      </div>
+        @if (isInvalid('email')) {
+          <div class="error">
+            <small>Invalid or empty email</small>
+          </div>
+        }
 
-      <div class="inputGroup">
-        <i class="fa-solid fa-lock"></i>
-        <input
-          [type]="showPassword ? 'text' : 'password'"
-          formControlName="password"
-          placeholder="Password (min. 6 characters)"
-        />
-        <i
-          class="fa-solid"
-          [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
-          (click)="togglePassword()"
-        >
-        </i>
-      </div>
+        <div class="inputGroup">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Password (min. 6 characters)"
+            (input)="passwordTouched = true"
+          />
+          <i
+            class="fa-solid"
+            [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+            (click)="togglePassword()"
+          >
+          </i>
+        </div>
 
-      <button><i class="fa-solid fa-arrow-right-to-bracket"></i> Create Account</button>
-    </form>
-    <p>Already have an account? <span class="goToSignIn">Sign in</span></p>
+        @if (passwordTouched || formSubmitted) {
+          <div class="strengthBox">
+            <div class="bar">
+              <div
+                class="fill"
+                [style.width.%]="strengthScore * 25"
+                [style.background]="getStrengthColor()"
+              ></div>
+            </div>
+
+            <div class="rulesTitle">Your password must contain:</div>
+
+            <div class="rules">
+              @if (!hasMinLength()) {
+                <div class="rule" [class.done]="hasMinLength()">
+                  <i class="fa-solid fa-circle-dot"></i>
+                  At least 6 characters
+                </div>
+              }
+
+              @if (!hasUpperCase()) {
+                <div class="rule" [class.done]="hasUpperCase()">
+                  <i class="fa-solid fa-circle-dot"></i>
+                  One uppercase letter (A–Z)
+                </div>
+              }
+
+              @if (!hasNumber()) {
+                <div class="rule" [class.done]="hasNumber()">
+                  <i class="fa-solid fa-circle-dot"></i>
+                  One number (0–9)
+                </div>
+              }
+
+              @if (!hasSpecialChar()) {
+                <div class="rule" [class.done]="hasSpecialChar()">
+                  <i class="fa-solid fa-circle-dot"></i>
+                  One special character (!@#$...)
+                </div>
+              }
+
+              @if (hasMinLength() && hasUpperCase() && hasNumber() && hasSpecialChar()) {
+                <div class="rule strong">Strong password</div>
+              }
+            </div>
+          </div>
+        }
+
+        <button><i class="fa-solid fa-arrow-right-to-bracket"></i> Create Account</button>
+      </form>
+      <p>Already have an account? <span class="goToSignIn" routerLink="/login">Sign in</span></p>
     } @else {
-        <div class="codeBox">
-            <p><i class="fa-regular fa-envelope"></i></p>
-    <h2>Verify your email</h2>
-    <p>We've sent a 6-digit code to your email address</p>
+      <div class="codeBox">
+        <p><i class="fa-regular fa-envelope"></i></p>
+        <h2>Verify your email</h2>
+        <p>We've sent a 6-digit code to your email address</p>
 
-    <form [formGroup]="codeForm" (ngSubmit)="verifyCode()" class="inputs">
-      <div class="inputGroup">
-        <i class="fa-solid fa-lock"></i>
-        <input type="text" formControlName="code" placeholder="Enter 6-digit code" maxlength="6" inputmode="numeric" pattern="[0-9]*"/>
+        <form [formGroup]="codeForm" (ngSubmit)="verifyCode()" class="inputs">
+          <div class="inputGroup">
+            <i class="fa-solid fa-lock"></i>
+            <input
+              type="text"
+              formControlName="code"
+              placeholder="Enter 6-digit code"
+              maxlength="6"
+              inputmode="numeric"
+              pattern="[0-9]*"
+            />
+          </div>
+
+          <button><i class="fa-solid fa-check"></i> Verify Email</button>
+          <div class="line"></div>
+        </form>
+        <p>Didn't receive the code?</p>
+        <h3
+          (click)="resendCode()"
+          [style.opacity]="resendDisabled ? 0.5 : 1"
+          [style.pointer-events]="resendDisabled ? 'none' : 'auto'"
+        >
+          Resend Code
+        </h3>
+
+        @if (resendDisabled) {
+          <p class="timer">
+            You can resend again in <b class="resendTimer">{{ resendTimer }}</b
+            >s
+          </p>
+        }
+
+        <p (click)="goBackToRegister()" class="backToRegister">
+          <i class="fa-solid fa-arrow-left"></i> Back to Login
+        </p>
       </div>
-
-      <button><i class="fa-solid fa-check"></i> Verify Email</button>
-      <div class="line"></div>
-    </form>
-    <p>Didn't receive the code?</p>
-    <h3 (click)="resendCode()">Resend Code</h3>
-    <p (click)="goBackToRegister()"><i class="fa-solid fa-arrow-left"></i> Back to Login</p>
-  </div>
     }
   </div>
 </div>
-
-<!-- <div class="signUp">
-    <div class="left">
-        <div class="box">
-
-            <div class="logo"></div>
-            <h2>STEP TECH</h2>
-            <p>Access exclusive deals and manage your orders with your <br> account.</p>
-            <div class="miniBox">
-                <div class="first">
-                    <p>50K+</p>
-                    <p>PRODUCTS</p>
-                </div>
-                <div class="second">
-                    <p>200+</p>
-                    <p>BRANDS</p>
-                </div>
-                <div class="third">
-                    <p>24/7</p>
-                    <p>SUPPORT</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    
-    <div class="right">
-        
-    </div>
-</div> -->

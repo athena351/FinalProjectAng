@@ -13,20 +13,20 @@
       <div class="category">
         <h3>Categories</h3>
         <div class="categories">
-            @for (item of categories; track item.id) {
-  <div class="tech">
-    <input
-      type="radio"
-      [id]="'cat' + item.id"
-      name="category"
-      [checked]="filters.categoryId === item.id"
-      (change)="filterByCat(item.id)"
-    />
+          @for (item of categories; track item.id) {
+            <div class="tech">
+              <input
+                type="radio"
+                [id]="'cat' + item.id"
+                name="category"
+                [checked]="filters.categoryId === item.id"
+                (change)="filterByCat(item.id)"
+              />
 
-    <label [for]="'cat' + item.id">{{ item.name }}</label>
-    <p>{{ item.productCount }}</p>
-  </div>
-}
+              <label [for]="'cat' + item.id">{{ item.name }}</label>
+              <p>{{ item.productCount }}</p>
+            </div>
+          }
         </div>
       </div>
 
@@ -34,8 +34,7 @@
         <h3><i class="fa-solid fa-star"></i> Min Rating</h3>
 
         <div class="ratings">
-          <button (click)="filterByRating(4)"
-  [class.active]="filters.rating === 4">
+          <button (click)="filterByRating(4)" [class.active]="filters.rating === 4">
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star coloredStar"></i>
@@ -44,8 +43,7 @@
             <p>4 & up</p>
           </button>
 
-          <button (click)="filterByRating(3)"
-  [class.active]="filters.rating === 3">
+          <button (click)="filterByRating(3)" [class.active]="filters.rating === 3">
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star coloredStar"></i>
@@ -54,8 +52,7 @@
             <p>3 & up</p>
           </button>
 
-          <button (click)="filterByRating(2)"
-  [class.active]="filters.rating === 2">
+          <button (click)="filterByRating(2)" [class.active]="filters.rating === 2">
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star clearStar"></i>
@@ -64,8 +61,7 @@
             <p>2 & up</p>
           </button>
 
-          <button (click)="filterByRating(1)"
-  [class.active]="filters.rating === 1">
+          <button (click)="filterByRating(1)" [class.active]="filters.rating === 1">
             <i class="fa-solid fa-star coloredStar"></i>
             <i class="fa-solid fa-star clearStar"></i>
             <i class="fa-solid fa-star clearStar"></i>
@@ -93,20 +89,31 @@
 
       <div class="brand">
         <h3>Brand</h3>
-        <input type="text" placeholder="Search brands..." (input)="onSearch($event)" [(ngModel)]="filters.search"/>
+        <input
+          type="text"
+          placeholder="Search brands..."
+          (input)="onSearch($event)"
+          [(ngModel)]="filters.search"
+        />
       </div>
 
       <div class="availability">
         <h3>Availability</h3>
         <div class="stock">
-          <input type="checkbox" id="inStock" name="inStock" (change)="toggleStock($event)" [(ngModel)]="filters.inStock"/>
+          <input
+            type="checkbox"
+            id="inStock"
+            name="inStock"
+            (change)="toggleStock($event)"
+            [(ngModel)]="filters.inStock"
+          />
           <label for="inStock">In Stock Only</label>
         </div>
       </div>
 
       <button class="clear" (click)="clearFilters()">
-  <i class="fa-solid fa-arrow-rotate-left"></i> Clear All Filters
-</button>
+        <i class="fa-solid fa-arrow-rotate-left"></i> Clear All Filters
+      </button>
     </div>
 
     <div class="box">
@@ -130,7 +137,7 @@
       </div>
       <div class="products">
         @for (item of products; track $index) {
-          <div class="card" routerLink="/details" [queryParams]="{id : item.id}">
+          <div class="card" routerLink="/details" [queryParams]="{ id: item.id }">
             <img [src]="item.imageUrl" [alt]="item.name" />
             <div class="description">
               <div class="first">

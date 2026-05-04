@@ -27,4 +27,12 @@ export class Api {
     `https://shopapi.stepacademy.ge/api/auth/resend-email-verification/${email}`, {});
 }
 
+login(obj : any){
+  return this.http.post('https://shopapi.stepacademy.ge/api/auth/login', obj);
+}
+
+forgetPassword(email: string){
+  return this.http.post(`https://shopapi.stepacademy.ge/api/auth/forget-password/${email}`, {})
+}
+
 }

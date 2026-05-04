@@ -1,0 +1,117 @@
+.alert {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  animation: slideDown 0.4s ease forwards;
+
+  &.success {
+    .alertBox {
+      border-color: #4caf50;
+
+      &:hover {
+        background-color: #f7fff7;
+      }
+    }
+
+    .icon,
+    .type {
+      color: #4caf50;
+    }
+  }
+
+  &.error {
+    .alertBox {
+      border-color: #f44336;
+
+      &:hover {
+        background-color: #fff8f8;
+      }
+    }
+
+    .icon,
+    .type {
+      color: #f44336;
+    }
+  }
+
+  &.warning {
+    .alertBox {
+      border-color: #ff9800;
+
+      &:hover {
+        background-color: #fffcf7;
+      }
+    }
+
+    .icon,
+    .type {
+      color: #ff9800;
+    }
+  }
+
+  .alertBox {
+    min-width: 320px;
+    padding: 15px 18px;
+    border-radius: 10px;
+    background: #fff;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 2px solid;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+    .icon {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+
+      .type {
+        font-size: 15px;
+        font-weight: bolder;
+        letter-spacing: 1px;
+        font-family:
+          'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+          Verdana, sans-serif;
+      }
+
+      .message {
+        font-size: 14px;
+        font-family:
+          'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+          Verdana, sans-serif;
+        color: #5d5c5c;
+      }
+    }
+
+    .closeBtn {
+      background: transparent;
+      border: none;
+      color: #999;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: auto;
+
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    top: -100px;
+    opacity: 0;
+  }
+  to {
+    top: 20px;
+    opacity: 1;
+  }
+}
