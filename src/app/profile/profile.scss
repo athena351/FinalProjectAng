@@ -22,6 +22,9 @@ $mainColor: #22c55e;
       padding: 40px 20px;
       text-align: center;
       color: white;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
 
       .userPic {
         width: 100px;
@@ -34,15 +37,29 @@ $mainColor: #22c55e;
         justify-content: center;
         font-weight: bold;
         font-size: 24px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+        }
       }
 
-      h2 {
+      .name{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 7px;
+
+        h2 {
         font-size: 18px;
+      }
       }
 
       p {
         font-size: 13px;
-        // opacity: 0.8;
+        opacity: 0.8;
       }
     }
 
@@ -159,15 +176,56 @@ $mainColor: #22c55e;
           font-size: 19px;
         }
       }
+
+      .dobAndPhone{
+        padding-top: 10px;
+      }
+
+      .formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.field {
+  position: relative;
+  width: 100%;
+
+  i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 14px;
+    pointer-events: none;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 14px 12px 38px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    transition: 0.2s;
+
+    &:focus {
+      border-color: #22c55e;
+      background: white;
+      outline: none;
+    }
+  }
+}
     }
 
     .profilePicture {
       .second {
         display: flex;
-        gap: 50px;
-        align-items: center;
-        padding: 20px;
-        padding-bottom: 50px;
+    gap: 50px;
+    align-items: flex-start; 
+    padding: 20px;
+    padding-bottom: 50px;
 
         .left {
           width: 120px;
@@ -178,14 +236,21 @@ $mainColor: #22c55e;
           align-items: center;
           justify-content: center;
           font-weight: bold;
+          font-size: 30px;
+          color: grey;
+
+          img{
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+          }
         }
 
         .right {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          gap: 10px;
-          width: 70%;
+         display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 70%;
 
           h3 {
             font-size: 14px;
@@ -198,7 +263,7 @@ $mainColor: #22c55e;
 
           input {
             width: 100%;
-            padding: 15px 20px;
+            padding: 12px 14px 12px 38px;
           }
         }
       }
@@ -285,6 +350,124 @@ $mainColor: #22c55e;
         &:hover {
           background-color: #2e8ae0;
         }
+      }
+    }
+  }
+}
+
+
+
+@media screen and (max-width: 1500px) {
+  .profile {
+    padding: 40px 50px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .profile {
+    padding: 40px 40px;
+    gap: 30px;
+    flex-direction: column;
+
+    > .right {
+      width: 100%;
+    }
+
+    .left {
+      width: 100%;
+
+      .up {
+        flex: 1;
+      }
+
+      .down {
+        flex: 1;
+      }
+    }
+  }
+
+  .profilePicture {
+    .second {
+      width: 100%;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center !important;
+      text-align: center;
+    }
+
+    .left{
+      margin: auto;
+    }
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .profile {
+    padding: 40px 15px;
+
+    .left {
+      flex-direction: column;
+      width: 100%;
+
+      .up {
+        padding: 25px 15px;
+      }
+
+      .down {
+        padding: 10px;
+      }
+    }
+
+    > .right {
+      gap: 20px;
+    }
+  }
+
+  .nameInputs,
+  .dobAndPhone {
+    flex-direction: column;
+  }
+
+  .btns {
+    flex-direction: column;
+    align-items: stretch;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile {
+    padding: 10px;
+
+    .left {
+      .up {
+        .userPic {
+          width: 80px;
+          height: 80px;
+          font-size: 18px;
+        }
+
+        .name h2 {
+          font-size: 16px;
+        }
+      }
+    }
+
+    > .right {
+      .title h2 {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .profilePicture {
+    .second {
+      .left {
+        width: 90px;
+        height: 90px;
       }
     }
   }
