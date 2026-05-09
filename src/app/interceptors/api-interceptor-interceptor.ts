@@ -5,7 +5,7 @@ export const apiInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
 
     const modifiedReq = req.clone({
     setHeaders: {
-      'X-API-KEY': `3467242a-1864-4d13-a9f7-e8bc6aa96dcf`
+      'X-API-KEY': `a1acad61-3941-411b-93a6-e9cf3e85ff21`
     }
   });
 

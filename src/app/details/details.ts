@@ -39,8 +39,14 @@ export class Details {
   ratingStats: { star: number; count: number; percent: number }[] = [];
   reviews: any[] = [];
   relatedProducts: any[] = [];
+  cartMap: { [key: number]: number } = {};
+cartItemMap: { [key: number]: number } = {};
+
+quantity: number = 1;
 
   ngOnInit() {
+    this.loadCart();
+
     this.api.getAll(`products/${this.selectedId}`).subscribe({
       next: (resp: any) => {
         this.product = [resp.data];
@@ -152,4 +158,127 @@ export class Details {
   onMouseLeave() {
     this.zoomStyle = 'scale(1)';
   }
+
+
+  loadCart() {
+  this.api.getCart().subscribe({
+    next: (resp: any) => {
+
+      let items = resp.data.items;
+
+      items.forEach((item: any) => {
+
+        this.cartMap[item.product.id] = item.quantity;
+
+        this.cartItemMap[item.product.id] = item.id;
+
+      });
+
+      this.cdr.detectChanges();
+    },
+
+    error: (err: any) => {
+      console.log(err);
+    }
+  });
+}
+
+addToCart(productId: number) {
+
+  let body = {
+    productId: productId,
+    quantity: this.quantity
+  };
+
+  this.api.postCart(body).subscribe({
+    next: (resp: any) => {
+
+      let cartItemId = resp.data;
+
+      this.cartMap[productId] = this.quantity;
+
+      this.cartItemMap[productId] = cartItemId;
+
+      this.cdr.detectChanges();
+    },
+
+    error: (err) => {
+      console.log(err);
+    }
+  });
+
+}
+
+
+increase(productId: number) {
+
+  let newQuantity = this.cartMap[productId] + 1;
+
+  let body = {
+    itemId: this.cartItemMap[productId],
+    quantity: newQuantity
+  };
+
+  this.api.updateCart(body).subscribe({
+    next: () => {
+
+      this.cartMap[productId] = newQuantity;
+
+      this.cdr.detectChanges();
+    },
+
+    error: (err) => {
+      console.log(err);
+    }
+  });
+
+}
+
+
+decrease(productId: number) {
+
+  let currentQuantity = this.cartMap[productId];
+
+  if (currentQuantity > 1) {
+
+    let body = {
+      itemId: this.cartItemMap[productId],
+      quantity: currentQuantity - 1
+    };
+
+    this.api.updateCart(body).subscribe({
+      next: () => {
+
+        this.cartMap[productId]--;
+
+        this.cdr.detectChanges();
+      },
+
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+   else {
+
+    let itemId = this.cartItemMap[productId];
+
+    this.api.deleteCartItem(itemId).subscribe({
+      next: () => {
+
+        delete this.cartMap[productId];
+        delete this.cartItemMap[productId];
+
+        this.cdr.detectChanges();
+      },
+
+      error: (err) => {
+        console.log(err);
+      }
+    });
+
+  }
+
+}
 }

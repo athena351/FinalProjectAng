@@ -1,6 +1,6 @@
 @if (showAndHide()) {
   <div class="header">
-  <div class="logoDiv">
+  <div class="logoDiv" routerLink="/home">
     <div class="logo"></div>
     <h2>STEP TECH</h2>
   </div>
@@ -27,6 +27,7 @@
 
   <div class="search">
     <input type="text" placeholder="Search products..." />
+     <button class="cart" (click)="cartServ.showCart()">Show Cart</button>
   </div>
 
   <div class="signIn">
@@ -39,4 +40,9 @@
   }
 </div>
 </div>
+ 
 }
+
+
+
+

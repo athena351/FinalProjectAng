@@ -51,10 +51,52 @@ export class Api {
     let accessToken = localStorage.getItem("accessToken")
 
     let headers = new HttpHeaders({
-    'Authorization': `Bearer ${accessToken}`,
-    // 'Content-Type': 'application/json'
+    'Authorization': `Bearer ${accessToken}`
   });
 
   return this.http.put(`https://shopapi.stepacademy.ge/api/users`, data,  {headers})
   }
+
+  getCart(){
+    let accessToken = localStorage.getItem("accessToken")
+
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
+
+    return this.http.get(`https://shopapi.stepacademy.ge/api/cart`, {headers});
+  }
+
+  postCart(body : any){
+    let accessToken = localStorage.getItem("accessToken")
+
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
+
+    return this.http.post(`https://shopapi.stepacademy.ge/api/cart/add-to-cart`, body, {headers})
+
+  }
+
+  updateCart(body : any){
+    let accessToken = localStorage.getItem("accessToken")
+
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
+
+    return this.http.put(`https://shopapi.stepacademy.ge/api/cart/edit-quantity`, body, {headers})
+  }
+
+  deleteCartItem(productId: number) {
+    let accessToken = localStorage.getItem("accessToken")
+
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
+
+  return this.http.delete(
+    `${this.baseUrl}cart/remove-from-cart/${productId}`, {headers}
+  );
+}
 }

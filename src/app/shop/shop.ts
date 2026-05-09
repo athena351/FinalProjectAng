@@ -25,9 +25,17 @@ export class Shop {
   totalPages = 0;
   pages: number[] = [];
 
+  cartMap: {
+    [key: number]: {
+      quantity: number;
+      itemId: number;
+    };
+  } = {};
+
   ngOnInit() {
     this.getProducts();
     this.getCategories();
+    this.getCart();
   }
 
   filters: any = {
@@ -213,4 +221,119 @@ export class Shop {
       error: (err: any) => console.log(err),
     });
   }
+
+  addToCart(productId: number) {
+
+  let body = {
+    productId: productId,
+    quantity: 1
+  };
+
+  this.api.postCart(body).subscribe({
+
+    next: (resp: any) => {
+
+      this.cartMap[productId] = {
+
+        quantity: 1,
+        itemId: resp.data
+
+      };
+
+      this.cdr.detectChanges();
+
+    },
+
+    error: (err) => {
+      console.log(err);
+    }
+
+  });
+
+}
+
+  increase(productId: number) {
+    let item = this.cartMap[productId];
+
+    let newQuantity = item.quantity + 1;
+
+    let body = {
+      itemId: item.itemId,
+      quantity: newQuantity,
+    };
+
+    this.api.updateCart(body).subscribe({
+      next: () => {
+        item.quantity = newQuantity;
+
+        this.cdr.detectChanges();
+      },
+
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  decrease(productId: number) {
+    let item = this.cartMap[productId];
+
+    if (item.quantity <= 1) {
+      delete this.cartMap[productId];
+
+      return;
+    }
+
+    let newQuantity = item.quantity - 1;
+
+    let body = {
+      itemId: item.itemId,
+      quantity: newQuantity,
+    };
+
+    this.api.updateCart(body).subscribe({
+      next: () => {
+        item.quantity = newQuantity;
+
+        this.cdr.detectChanges();
+      },
+
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  getCart() {
+
+  this.api.getCart().subscribe({
+
+    next: (resp: any) => {
+
+      this.cartMap = {};
+
+      resp.data.items.forEach((item: any) => {
+
+        this.cartMap[item.product.id] = {
+
+          quantity: item.quantity,
+          itemId: item.id
+
+        };
+
+      });
+
+      this.cdr.detectChanges();
+
+    },
+
+    error: (err: any) => {
+
+      console.log(err);
+
+    }
+
+  });
+
+}
 }

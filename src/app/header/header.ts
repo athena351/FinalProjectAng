@@ -5,6 +5,7 @@ import { Category } from '../models/products';
 import { HideHeader } from '../services/hide-header';
 import { AlertServ } from '../services/alert-serv';
 import { AuthServ } from '../services/auth-serv';
+import { CartServ } from '../services/cart-serv';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ import { AuthServ } from '../services/auth-serv';
   styleUrl: './header.scss',
 })
 export class Header {
-  constructor(private api : Api, private cdr : ChangeDetectorRef, private hideHeader : HideHeader, private alert : AlertServ, public auth : AuthServ){
+  constructor(private api : Api, private cdr : ChangeDetectorRef, private hideHeader : HideHeader, private alert : AlertServ, public auth : AuthServ, public cartServ : CartServ){
     effect(() => {
       this.showAndHide.set(this.hideHeader.showHide());
     });

@@ -2,15 +2,19 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { Api } from '../services/api';
 import { User } from '../models/profile';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink, RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-profile',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink, RouterModule],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })
 export class Profile {
-  constructor(private api: Api, private cdr : ChangeDetectorRef) {}
+  constructor(
+    private api: Api,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
     this.initForm();
@@ -22,7 +26,6 @@ export class Profile {
         this.form.markAsPristine();
 
         this.cdr.detectChanges();
-        
       },
       error: (err) => {
         console.log(err);
@@ -32,7 +35,7 @@ export class Profile {
 
   fb = new FormBuilder();
 
-  form : any;
+  form: any;
 
   initForm() {
     this.form = this.fb.group({
@@ -42,7 +45,7 @@ export class Profile {
       phoneNumber: [''],
       address: [''],
       pictureUrl: [''],
-      dateOfBirth: ['']
+      dateOfBirth: [''],
     });
   }
 
@@ -54,43 +57,42 @@ export class Profile {
       phoneNumber: this.user.details?.phoneNumber,
       address: this.user.details?.address,
       pictureUrl: this.user.details?.pictureUrl,
-      dateOfBirth: this.formatDate(this.user.details?.dob)
+      dateOfBirth: this.formatDate(this.user.details?.dob),
     });
   }
 
   formatDate(date: string): string {
-  return date ? date.split('T')[0] : '';
-}
+    return date ? date.split('T')[0] : '';
+  }
 
-  user:any;
+  user: any;
   initialValue: any;
 
   getInitials(): string {
-  if (!this.user) return '';
+    if (!this.user) return '';
 
-  let first = this.user.firstName?.charAt(0) || '';
-  let last = this.user.lastName?.charAt(0) || '';
+    let first = this.user.firstName?.charAt(0) || '';
+    let last = this.user.lastName?.charAt(0) || '';
 
-  return (first + last).toUpperCase();
-}
+    return (first + last).toUpperCase();
+  }
 
-saveChanges() {
+  saveChanges() {
+    this.api.updateProfile(this.form.value).subscribe({
+      next: (resp) => {
+        console.log('Saved successfully', resp);
 
-  this.api.updateProfile(this.form.value).subscribe({
-    next: (resp) => {
-      console.log('Saved successfully', resp);
+        this.initialValue = this.form.getRawValue();
+        this.form.markAsPristine();
+        this.form.markAsUntouched();
+      },
+      error: (err) => {
+        console.log('Save error', err);
+      },
+    });
+  }
 
-      this.initialValue = this.form.getRawValue();
-      this.form.markAsPristine();
-      this.form.markAsUntouched();
-    },
-    error: (err) => {
-      console.log('Save error', err);
-    }
-  });
-}
-
-discardChanges() {
-  this.form.reset(this.initialValue);
-}
+  discardChanges() {
+    this.form.reset(this.initialValue);
+  }
 }

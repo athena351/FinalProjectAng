@@ -5,13 +5,14 @@ import { Header } from './header/header';
 import { Footer } from './footer/footer';
 import { AlertServ } from './services/alert-serv';
 import { Alert } from './alert/alert';
+import { Cart } from "./cart/cart";
 
 @Component({
   selector: 'app-root',
   // imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  imports: [MainPage, Header, Footer, RouterOutlet, Alert],
+  imports: [MainPage, Header, Footer, RouterOutlet, Alert, Cart],
 })
 export class App {
   protected readonly title = signal('FinalProjectAng');

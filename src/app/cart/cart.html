@@ -1,0 +1,67 @@
+<div class="cart">
+  <div class="overlay" [class.active]="cartServ.state()" (click)="cartServ.hideCart()"></div>
+
+  <div class="mainCart" [class.open]="cartServ.state()">
+    <div class="top">
+      <p>
+        <i class="fa-solid fa-cart-flatbed"></i>
+        Shopping Cart
+        <span class="totalCount">({{totalCount}} items)</span>
+      </p>
+
+      <button (click)="cartServ.hideCart()">
+        <i class="fa-solid fa-x"></i>
+      </button>
+    </div>
+
+    <div class="products">
+      @for (item of cartItems; track $index) {
+        <div class="product">
+          <img [src]="item.product.imageUrl" alt="" />
+
+          <h1>{{item.totalCount}}</h1>
+
+          <div class="info">
+            <div class="up">
+              <div class="name">
+                <h3>{{ item.product.name }}</h3>
+
+                <p>USD {{ item.quantity }} x {{ item.price | number}}</p>
+              </div>
+
+              <h4>USD {{ item.totalPrice | number}}</h4>
+            </div>
+
+            <div class="down">
+              <div class="quantity">
+                <p (click)="decrease(item)"><i class="fa-solid fa-minus"></i></p>
+                <p>{{item.quantity}}</p>
+                <p (click)="increase(item)"><i class="fa-solid fa-plus"></i></p>
+              </div>
+              <p (click)="remove(item)"><i class="fa-solid fa-trash"></i></p>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="box">
+      <div class="one">
+        <p>Subtotal</p>
+        <p>USD {{ total | number}}</p>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="two">
+        <h2>Total</h2>
+        <h2>USD {{ total | number}}</h2>
+      </div>
+
+      <div class="btns">
+        <button class="viewCart">View Cart</button>
+        <button class="checkout">Checkout <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
