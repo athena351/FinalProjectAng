@@ -52,7 +52,7 @@ export class Login {
       next: (resp: any) => {
         this.alert.show('Logged in successfully', 'success');
 
-        this.auth.login(resp.data.accessToken);
+        this.auth.login(resp.data.accessToken, resp.data.refreshToken);
         this.router.navigate(['/']);
       },
       error: () => {

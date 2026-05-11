@@ -1,26 +1,35 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { Api } from '../services/api';
-import { User } from '../models/profile';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink, RouterModule } from "@angular/router";
+import { AlertServ } from '../services/alert-serv';
 
 @Component({
-  selector: 'app-profile',
-  imports: [ReactiveFormsModule, RouterLink, RouterModule],
-  templateUrl: './profile.html',
-  styleUrl: './profile.scss',
+  selector: 'app-profile-info',
+  imports: [ReactiveFormsModule],
+  templateUrl: './profile-info.html',
+  styleUrl: './profile-info.scss',
 })
-export class Profile {
+export class ProfileInfo {
   constructor(
     private api: Api,
     private cdr: ChangeDetectorRef,
+    public alertServ: AlertServ,
   ) {}
+
+  fb = new FormBuilder();
+
+  form: any;
+  user: any;
+  initialValue: any;
 
   ngOnInit() {
     this.initForm();
+
     this.api.profile().subscribe({
       next: (resp) => {
         this.user = resp.data;
+
         this.patchForm();
         this.initialValue = this.form.getRawValue();
         this.form.markAsPristine();
@@ -32,10 +41,6 @@ export class Profile {
       },
     });
   }
-
-  fb = new FormBuilder();
-
-  form: any;
 
   initForm() {
     this.form = this.fb.group({
@@ -65,9 +70,6 @@ export class Profile {
     return date ? date.split('T')[0] : '';
   }
 
-  user: any;
-  initialValue: any;
-
   getInitials(): string {
     if (!this.user) return '';
 
@@ -78,16 +80,17 @@ export class Profile {
   }
 
   saveChanges() {
-    this.api.updateProfile(this.form.value).subscribe({
+    this.api.updateProfile(this.form.getRawValue()).subscribe({
       next: (resp) => {
-        console.log('Saved successfully', resp);
-
         this.initialValue = this.form.getRawValue();
         this.form.markAsPristine();
         this.form.markAsUntouched();
+        this.alertServ.show('Profile Updated Successfully', 'success');
+
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.log('Save error', err);
+        console.log(err);
       },
     });
   }

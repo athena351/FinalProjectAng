@@ -135,65 +135,104 @@
           </select>
         </div>
       </div>
-      <div class="products">
-        @for (item of products; track $index) {
-          <div class="card" routerLink="/details" [queryParams]="{ id: item.id }">
-            <img [src]="item.imageUrl" [alt]="item.name" />
-            <div class="description">
-              <div class="first">
-                <h3>{{ item.category?.name }}</h3>
-                <i class="fa-solid fa-circle-dot"></i>
-                <p>{{ item.brand }}</p>
+      @if (isLoading) {
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading products...</p>
+        </div>
+      } @else if (products.length > 0) {
+        <div class="products">
+          @for (item of products; track $index) {
+            <div
+              class="card"
+              routerLink="/details"
+              [queryParams]="{ id: item.id }"
+              [class.outOfStock]="item.stock === 0"
+            >
+              <div class="cardOverlay">
+                <button class="overlayBtn" (click)="goToProduct(item.id); $event.stopPropagation()">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+                <button
+                  class="overlayBtn favoriteOverlayBtn"
+                  (click)="toggleFavorite(item.id, $event)"
+                  [class.active]="favoriteMap[item.id]"
+                >
+                  <i
+                    class="fa-heart"
+                    [class.fa-solid]="favoriteMap[item.id]"
+                    [class.fa-regular]="!favoriteMap[item.id]"
+                  ></i>
+                </button>
               </div>
-              <h3>{{ item.name }}</h3>
-              <h2 class="price">USD {{ item.price | number }}</h2>
-              @if(!cartMap[item.id]) {
+              @if (item.stock === 0) {
+                <div class="soldOutBadge">SOLD OUT</div>
+              }
 
-  <button class="addBtn"
-          (click)="addToCart(item.id); $event.stopPropagation()">
-
-    <i class="fa-solid fa-cart-flatbed"></i>
-
-    Add to Cart
-
-  </button>
-
-} @else {
-
-  <div class="quantityBox"
-       (click)="$event.stopPropagation()">
-
-    <button (click)="decrease(item.id)">
-      <i class="fa-solid fa-minus"></i>
-    </button>
-
-    <span>
-      {{ cartMap[item.id].quantity }}
-    </span>
-
-    <button (click)="increase(item.id)">
-      <i class="fa-solid fa-plus"></i>
-    </button>
-
-  </div>
-
-}
+              <img [src]="item.imageUrl" [alt]="item.name" />
+              <div class="description">
+                <div class="first">
+                  <h3>{{ item.category?.name }}</h3>
+                  <i class="fa-solid fa-circle-dot"></i>
+                  <p>{{ item.brand }}</p>
+                </div>
+                <h3>{{ item.name }}</h3>
+                <div class="rating">
+                  @for (star of [1, 2, 3, 4, 5]; track $index) {
+                    <i
+                      class="fa-star"
+                      [class.fa-solid]="star <= (item.rating ?? 0)"
+                      [class.fa-regular]="star > (item.rating ?? 0)"
+                    ></i>
+                  }
+                  <span>{{ item.rating | number: '1.1-1' }}</span>
+                </div>
+                <h2 class="price">USD {{ item.price | number }}</h2>
+                @if (item.stock === 0) {
+                  <button class="outOfStockBtn" disabled>
+                    <i class="fa-solid fa-ban"></i> Out of Stock
+                  </button>
+                } @else if (!cartMap[item.id]) {
+                  <button class="addBtn" (click)="addToCart(item.id); $event.stopPropagation()">
+                    <i class="fa-solid fa-cart-flatbed"></i> Add to Cart
+                  </button>
+                } @else {
+                  <div class="quantityBox" (click)="$event.stopPropagation()">
+                    <button (click)="decrease(item.id)">
+                      <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <span>{{ cartMap[item.id].quantity }}</span>
+                    <button (click)="increase(item.id)">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </div>
+                }
+              </div>
             </div>
-          </div>
-        }
-      </div>
+          }
+        </div>
+      } @else {
+        <div class="noProducts">
+          <i class="fa-solid fa-box-open"></i>
+          <h3>No products found</h3>
+          <p>Try adjusting your search or filters to find what you're looking for.</p>
+          <button (click)="clearFilters()">Clear Filters</button>
+        </div>
+      }
 
-      <div class="pagination">
-        <button (click)="prevPage()" [disabled]="page == 1">Prev</button>
+      @if (products.length > 0) {
+        <div class="pagination">
+          <button (click)="prevPage()" [disabled]="page == 1">Prev</button>
 
-        @for (p of pages; track p) {
-          <button [class.active]="page === p" (click)="goToPage(p)">
-            {{ p }}
-          </button>
-        }
+          @for (p of pages; track p) {
+            <button [class.active]="page === p" (click)="goToPage(p)">
+              {{ p }}
+            </button>
+          }
 
-        <button (click)="nextPage()" [disabled]="page == totalPages">Next</button>
-      </div>
+          <button (click)="nextPage()" [disabled]="page == totalPages">Next</button>
+        </div>
+      }
     </div>
   </div>
 </div>

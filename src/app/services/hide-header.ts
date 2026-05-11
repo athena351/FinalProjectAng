@@ -4,14 +4,13 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class HideHeader {
+  showHide = signal(true);
 
-  showHide = signal(true)
-
-  setHide(){
-    this.showHide.set(false)
+  setHide() {
+    this.showHide.set(false);
   }
 
-  setShow(){
-    this.showHide.set(true)
+  setShow() {
+    this.showHide.set(true);
   }
 }

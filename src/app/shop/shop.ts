@@ -3,7 +3,7 @@ import { Api } from '../services/api';
 import { Category, Filter, Product } from '../models/products';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-shop',
@@ -15,6 +15,7 @@ export class Shop {
   constructor(
     private api: Api,
     private cdr: ChangeDetectorRef,
+    private router: Router,
   ) {}
 
   products: Product[] = [];
@@ -25,6 +26,10 @@ export class Shop {
   totalPages = 0;
   pages: number[] = [];
 
+  favoriteMap: { [key: number]: boolean } = {};
+
+  isLoading = false;
+
   cartMap: {
     [key: number]: {
       quantity: number;
@@ -33,6 +38,20 @@ export class Shop {
   } = {};
 
   ngOnInit() {
+    this.loadFavorites();
+    let savedCategory = localStorage.getItem('selectedCategory');
+
+    if (savedCategory) {
+      this.filters.categoryId = Number(savedCategory);
+      localStorage.removeItem('selectedCategory');
+    }
+
+    let savedSearch = localStorage.getItem('searchQuery');
+    if (savedSearch) {
+      this.filters.search = savedSearch;
+      localStorage.removeItem('searchQuery');
+    }
+
     this.getProducts();
     this.getCategories();
     this.getCart();
@@ -45,11 +64,13 @@ export class Shop {
     maxPrice: null,
     search: null,
     inStock: false,
-    sortBy: 'sortBy',
+    sortBy: null,
     sortDescending: false,
   };
 
   getProducts() {
+    this.isLoading = true;
+
     let query = `products/filter?Page=${this.page}&Take=${this.pageSize}`;
 
     if (this.filters.categoryId) {
@@ -76,7 +97,7 @@ export class Shop {
       query += `&InStock=${this.filters.inStock}`;
     }
 
-    if (this.filters.sortBy) {
+    if (this.filters.sortBy && this.filters.sortBy !== 'sortBy') {
       query += `&SortBy=${this.filters.sortBy}`;
     }
 
@@ -94,9 +115,15 @@ export class Shop {
           this.pages.push(i);
         }
 
+        this.isLoading = false;
+
         this.cdr.detectChanges();
       },
-      error: (err: any) => console.log(err),
+
+      error: (err: any) => {
+        console.log(err);
+        this.isLoading = false;
+      },
     });
   }
 
@@ -132,7 +159,7 @@ export class Shop {
       maxPrice: null,
       search: null,
       inStock: false,
-      sortBy: 'sortBy',
+      sortBy: null,
       sortDescending: false,
     };
 
@@ -223,34 +250,26 @@ export class Shop {
   }
 
   addToCart(productId: number) {
+    let body = {
+      productId: productId,
+      quantity: 1,
+    };
 
-  let body = {
-    productId: productId,
-    quantity: 1
-  };
+    this.api.postCart(body).subscribe({
+      next: (resp: any) => {
+        this.cartMap[productId] = {
+          quantity: 1,
+          itemId: resp.data,
+        };
 
-  this.api.postCart(body).subscribe({
+        this.cdr.detectChanges();
+      },
 
-    next: (resp: any) => {
-
-      this.cartMap[productId] = {
-
-        quantity: 1,
-        itemId: resp.data
-
-      };
-
-      this.cdr.detectChanges();
-
-    },
-
-    error: (err) => {
-      console.log(err);
-    }
-
-  });
-
-}
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
   increase(productId: number) {
     let item = this.cartMap[productId];
@@ -279,11 +298,19 @@ export class Shop {
     let item = this.cartMap[productId];
 
     if (item.quantity <= 1) {
-      delete this.cartMap[productId];
+      this.api.deleteCartItem(item.itemId).subscribe({
+        next: () => {
+          delete this.cartMap[productId];
+          this.cdr.detectChanges();
+        },
+
+        error: (err) => {
+          console.log(err);
+        },
+      });
 
       return;
     }
-
     let newQuantity = item.quantity - 1;
 
     let body = {
@@ -305,35 +332,61 @@ export class Shop {
   }
 
   getCart() {
+    this.api.getCart().subscribe({
+      next: (resp: any) => {
+        this.cartMap = {};
 
-  this.api.getCart().subscribe({
+        resp.data.items.forEach((item: any) => {
+          this.cartMap[item.product.id] = {
+            quantity: item.quantity,
+            itemId: item.id,
+          };
+        });
 
-    next: (resp: any) => {
+        this.cdr.detectChanges();
+      },
 
-      this.cartMap = {};
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+  }
 
-      resp.data.items.forEach((item: any) => {
+  goToProduct(id: number) {
+    this.router.navigateByUrl(`/details?id=${id}`);
+  }
 
-        this.cartMap[item.product.id] = {
+  loadFavorites() {
+    this.api.favorites().subscribe({
+      next: (resp: any) => {
+        resp.data.items.forEach((fav: any) => {
+          this.favoriteMap[fav.id] = true;
+        });
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.log(err),
+    });
+  }
 
-          quantity: item.quantity,
-          itemId: item.id
+  toggleFavorite(productId: number, event: Event) {
+    event.stopPropagation();
 
-        };
-
+    if (this.favoriteMap[productId]) {
+      this.api.removeFromFavorites(productId).subscribe({
+        next: () => {
+          this.favoriteMap[productId] = false;
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.log(err),
       });
-
-      this.cdr.detectChanges();
-
-    },
-
-    error: (err: any) => {
-
-      console.log(err);
-
+    } else {
+      this.api.addToFavorites(productId).subscribe({
+        next: () => {
+          this.favoriteMap[productId] = true;
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.log(err),
+      });
     }
-
-  });
-
-}
+  }
 }

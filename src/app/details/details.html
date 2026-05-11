@@ -1,332 +1,435 @@
-<div class="product">
-  <div class="top">
-    @for (item of product; track $index) {
-      <p>Shop / {{ item.category.name }} / {{ item.name }}</p>
-    }
+@if (isLoading) {
+  <div class="detailsLoading">
+    <div class="spinner"></div>
+    <h3>Loading Product...</h3>
   </div>
-
-  <div class="box">
-    @for (item of product; track $index) {
-      <div class="left">
-        <!-- <img [src]="selectedImage" [alt]="item.name" /> -->
-         <div
-  class="imageContainer"
-  (mousemove)="onMouseMove($event)"
-  (mouseleave)="onMouseLeave()"
->
-  <img
-    [src]="selectedImage"
-    [alt]="item.name"
-    class="mainImage"
-    [style.transform]="zoomStyle"
-  />
-</div>
-        <div class="images">
-          @for (imgs of imageUrls; track $index) {
-            <img
-              [src]="imgs"
-              alt=""
-              (click)="setMainImage(imgs)"
-              [class.active]="imgs == selectedImage"
-            />
-          }
-        </div>
-      </div>
-
-      <div class="right">
-        <div class="cat">
-          <h3>{{ item.category.name.toUpperCase() }}</h3>
-          <p><i class="fa-solid fa-circle-dot"></i></p>
-          <p>{{ item.brand }}</p>
-        </div>
-        <h2 class="name">{{ item.name }}</h2>
-
-        <div class="rating">
-          @for (star of [1, 2, 3, 4, 5]; track $index) {
-            <i
-              class="fa-star"
-              [class.fa-solid]="star <= rating"
-              [class.fa-regular]="star > rating"
-              [class.active]="star <= rating"
-            >
-            </i>
-          }
-
-          <span class="ratingValue">
-            {{ rating | number: '1.1-1' }}
-          </span>
-
-          <span class="reviews"> ({{ reviewCount }} reviews) </span>
-        </div>
-
-        <h2 class="price">USD {{ item.price }}</h2>
-        <button class="stock">
-          <i class="fa-solid fa-check"></i> In Stock ({{ item.stock }} Available)
-        </button>
-        <p>{{ item.description }}</p>
-        <div class="line"></div>
-        <div class="quantity">
-  <h3>Quantity:</h3>
-
-  @if(!cartMap[item.id]) {
-
-    <div class="quantityBtns">
-
-      <button
-        class="reduce"
-        (click)="quantity > 1 ? quantity = quantity - 1 : null"
-      >
-        <i class="fa-solid fa-minus"></i>
-      </button>
-
-      <button class="num">
-        {{ quantity }}
-      </button>
-
-      <button
-        class="increase"
-        (click)="quantity = quantity + 1"
-      >
-        <i class="fa-solid fa-plus"></i>
-      </button>
-
-    </div>
-
-  } @else {
-
-    <div class="quantityBtns">
-
-      <button
-        class="reduce"
-        (click)="decrease(item.id)"
-      >
-        <i class="fa-solid fa-minus"></i>
-      </button>
-
-      <button class="num">
-        {{ cartMap[item.id] }}
-      </button>
-
-      <button
-        class="increase"
-        (click)="increase(item.id)"
-      >
-        <i class="fa-solid fa-plus"></i>
-      </button>
-
-    </div>
-
-  }
-
-</div>
-
-<div class="addToCartBtn">
-
-  @if(!cartMap[item.id]) {
-
-    <button (click)="addToCart(item.id)">
-      <i class="fa-solid fa-cart-flatbed"></i>
-      Add to Cart
-    </button>
-
-  } @else {
-
-    <button class="addedBtn">
-      <i class="fa-solid fa-check"></i>
-      Added ({{ cartMap[item.id] }})
-    </button>
-
-  }
-
-  <button>
-    <i class="fa-regular fa-heart"></i>
-  </button>
-
-</div>
-      </div>
-    }
-  </div>
-
-  <div class="moreDetails">
-    <div class="detailBtns">
-      <button
-        class="btnDetails"
-        (click)="setTab('description')"
-        [class.active]="activeTab == 'description'"
-      >
-        Description
-      </button>
-
-      <button
-        class="btnDetails"
-        (click)="setTab('specification')"
-        [class.active]="activeTab == 'specification'"
-      >
-        Specifications
-      </button>
-
-      <button
-        class="btnDetails"
-        (click)="setTab('reviews')"
-        [class.active]="activeTab == 'reviews'"
-      >
-        Reviews ({{ reviewCount }})
-      </button>
-
-      <div class="indicator" [ngClass]="activeTab"></div>
-    </div>
-
-    <div class="info">
+} @else {
+  <div class="product">
+    <div class="top">
       @for (item of product; track $index) {
-        @if (activeTab == 'description') {
-          <h2>Product Description</h2>
-          <p>{{ item.description }}</p>
-        }
+        <p>Shop / {{ item.category.name }} / {{ item.name }}</p>
+      }
+    </div>
 
-        @if (activeTab == 'specification') {
-          <div class="specs">
-            @for (spec of specList; track $index) {
-              <div class="forSpec">
-                <div class="key">{{ spec.key }}</div>
-                <div class="value">{{ spec.value }}</div>
+    <div class="box">
+      @for (item of product; track $index) {
+        <div class="left">
+          <!-- <img [src]="selectedImage" [alt]="item.name" /> -->
+          <div
+            class="imageContainer"
+            (mousemove)="onMouseMove($event)"
+            (mouseleave)="onMouseLeave()"
+          >
+            <img
+              [src]="selectedImage"
+              [alt]="item.name"
+              class="mainImage"
+              [style.transform]="zoomStyle"
+            />
+          </div>
+          <div class="images">
+            @for (imgs of imageUrls; track $index) {
+              <img
+                [src]="imgs"
+                alt=""
+                (click)="setMainImage(imgs)"
+                [class.active]="imgs == selectedImage"
+              />
+            }
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="cat">
+            <h3>{{ item.category.name.toUpperCase() }}</h3>
+            <p><i class="fa-solid fa-circle-dot"></i></p>
+            <p>{{ item.brand }}</p>
+          </div>
+          <h2 class="name">{{ item.name }}</h2>
+
+          <div class="rating">
+            @for (star of [1, 2, 3, 4, 5]; track $index) {
+              <i
+                class="fa-star"
+                [class.fa-solid]="star <= rating"
+                [class.fa-regular]="star > rating"
+                [class.active]="star <= rating"
+              >
+              </i>
+            }
+
+            <span class="ratingValue">
+              {{ rating | number: '1.1-1' }}
+            </span>
+
+            <span class="reviews"> ({{ reviewCount }} reviews) </span>
+          </div>
+
+          <h2 class="price">USD {{ item.price | number }}</h2>
+          @if (item.stock > 0) {
+            <button class="stock">
+              <i class="fa-solid fa-check"></i> In Stock ({{ item.stock }} Available)
+            </button>
+          } @else {
+            <button class="stock outOfStock"><i class="fa-solid fa-xmark"></i> Out of Stock</button>
+          }
+          <p>{{ item.description }}</p>
+          <div class="line"></div>
+          <div class="quantity">
+            <h3>Quantity:</h3>
+
+            @if (!cartMap[item.id]) {
+              <div class="quantityBtns">
+                <button class="reduce" (click)="decreaseTempQuantity(item.id)">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+
+                <button class="num">
+                  {{ quantityMap[item.id] || 1 }}
+                </button>
+
+                <button class="increase" (click)="increaseTempQuantity(item.id)">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            } @else {
+              <div class="quantityBtns">
+                <button class="reduce" (click)="decrease(item.id)">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+
+                <button class="num">
+                  {{ cartMap[item.id] }}
+                </button>
+
+                <button class="increase" (click)="increase(item.id)">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
               </div>
             }
           </div>
-        }
-        @if (activeTab == 'reviews') {
-          @if (reviews.length > 0) {
-            <div class="reviewsBox">
-              <div class="leftRating">
-                <h2>{{ rating | number: '1.1-1' }}</h2>
 
-                <div class="stars">
-                  @for (star of [1, 2, 3, 4, 5]; track $index) {
-                    <i
-                      class="fa-star"
-                      [class.fa-solid]="star <= rating"
-                      [class.fa-regular]="star > rating"
-                    ></i>
-                  }
-                </div>
+          <div class="addToCartBtn">
+            @if (item.stock === 0) {
+              <button class="disabledBtn" disabled>
+                <i class="fa-solid fa-ban"></i> Out of Stock
+              </button>
+            } @else if (!cartMap[item.id]) {
+              <button (click)="addToCart(item.id)">
+                <i class="fa-solid fa-cart-flatbed"></i>
+                Add to Cart
+              </button>
+            } @else {
+              <button class="addedBtn">
+                <i class="fa-solid fa-check"></i>
+                Added ({{ cartMap[item.id] }})
+              </button>
+            }
 
-                <p>Based on {{ reviewCount }} reviews</p>
-              </div>
-
-              <div class="rightStats">
-                @for (stat of ratingStats; track $index) {
-                  <div class="statRow">
-                    <span>{{ stat.star }} <i class="fa-solid fa-star"></i></span>
-
-                    <div class="bar">
-                      <div class="fill" [style.width.%]="stat.percent"></div>
-                    </div>
-
-                    <span>{{ stat.count }}</span>
-                  </div>
-                }
-              </div>
-            </div>
-
-            <div class="reviewList">
-              @for (review of reviews; track $index) {
-                <div class="reviewItem">
-                  <div class="avatar">
-                    @if (review.user.details.pictureUrl) {
-                      <img [src]="review.user.details.pictureUrl" />
-                    } @else {
-                      <span>
-                        {{ review.user.firstName[0] }}
-                      </span>
-                    }
-                  </div>
-
-                  <div class="content">
-                    <h4>{{ review.user.firstName }} {{ review.user.lastName }}</h4>
-
-                    <p class="date">
-                      {{ review.createdAt | date: 'mediumDate' }}
-                    </p>
-                  </div>
-
-                  <div class="reviewStars">
-                    @for (star of [1, 2, 3, 4, 5]; track $index) {
-                      <i
-                        class="fa-star"
-                        [class.fa-solid]="star <= review.rating"
-                        [class.fa-regular]="star > review.rating"
-                      ></i>
-                    }
-                  </div>
-                </div>
-              }
-            </div>
-          } @else {
-            <div class="noReviews">
-              <p>No reviews yet. Be the first to review this product!</p>
-            </div>
-          }
-        }
-      }
-    </div>
-  </div>
-
-  <div class="relaetedProd">
-    <h2>Related Products</h2>
-
-    <div class="forRelated">
-      @for (item of relatedProducts; track $index) {
-        <div class="card" (click)="goToProduct(item.id)">
-          <img [src]="item.imageUrl" alt="{{ item.name }}" />
-          <div class="description">
-            <div class="first">
-              <h3>{{ item.category.name.toUpperCase() }}</h3>
-              <i class="fa-solid fa-circle-dot"></i>
-              <p>{{ item.brand }}</p>
-            </div>
-            <h3>{{ item.name }}</h3>
-            <div class="rating">
-              @for (star of [1, 2, 3, 4, 5]; track $index) {
-                <i
-                  class="fa-star"
-                  [class.fa-solid]="star <= item.rating"
-                  [class.fa-regular]="star > item.rating"
-                  [class.active]="star <= item.rating"
-                >
-                </i>
-              }
-
-              <span class="ratingValue">
-                {{ item.rating | number: '1.1-1' }}
-              </span>
-            </div>
-            <h2>USD {{ item.price }}</h2>
-            @if(!cartMap[item.id]) {
-
-  <button (click)="addToCart(item.id); $event.stopPropagation()">
-    <i class="fa-solid fa-cart-flatbed"></i>
-    Add to Cart
-  </button>
-
-} @else {
-
-  <div class="quantityBtns" (click)="$event.stopPropagation()">
-
-    <button (click)="decrease(item.id)">
-      <i class="fa-solid fa-minus"></i>
-    </button>
-
-    <span>{{ cartMap[item.id] }}</span>
-
-    <button (click)="increase(item.id)">
-      <i class="fa-solid fa-plus"></i>
-    </button>
-
-  </div>
-
-}
+            <button
+              (click)="toggleFavorite(item.id)"
+              [style.background-color]="isFavorite ? 'rgb(255, 244, 244)' : ''"
+              [style.border]="isFavorite ? '1px solid red' : ''"
+            >
+              <i
+                class="fa-heart"
+                [class.fa-solid]="isFavorite"
+                [class.fa-regular]="!isFavorite"
+                [style.color]="isFavorite ? 'red' : ''"
+              >
+              </i>
+            </button>
           </div>
         </div>
       }
     </div>
+
+    <div class="moreDetails">
+      <div class="detailBtns">
+        <button
+          class="btnDetails"
+          (click)="setTab('description')"
+          [class.active]="activeTab == 'description'"
+        >
+          Description
+        </button>
+
+        <button
+          class="btnDetails"
+          (click)="setTab('specification')"
+          [class.active]="activeTab == 'specification'"
+        >
+          Specifications
+        </button>
+
+        <button
+          class="btnDetails"
+          (click)="setTab('reviews')"
+          [class.active]="activeTab == 'reviews'"
+        >
+          Reviews ({{ reviewCount }})
+        </button>
+
+        <div class="indicator" [ngClass]="activeTab"></div>
+      </div>
+
+      <div class="info">
+        @for (item of product; track $index) {
+          @if (activeTab == 'description') {
+            <h2>Product Description</h2>
+            <p>{{ item.description }}</p>
+          }
+
+          @if (activeTab == 'specification') {
+            <div class="specs">
+              @for (spec of specList; track $index) {
+                <div class="forSpec">
+                  <div class="key">{{ spec.key }}</div>
+                  <div class="value">{{ spec.value }}</div>
+                </div>
+              }
+            </div>
+          }
+          @if (activeTab == 'reviews') {
+            @if (isLoggedIn) {
+              @if (myReview) {
+                <button class="writeReview" (click)="openEditModal(myReview)">
+                  <i class="fa-solid fa-pen"></i> Edit Your Review
+                </button>
+              } @else {
+                <button class="writeReview" (click)="openReviewModal()">
+                  <i class="fa-solid fa-pen"></i> Write a Review
+                </button>
+              }
+            } @else {
+              <p class="loginToReview">
+                Please <span routerLink="/login">login</span> to write a review.
+              </p>
+            }
+            @if (reviews.length > 0) {
+              <div class="reviewsBox">
+                <div class="leftRating">
+                  <h2>{{ rating | number: '1.1-1' }}</h2>
+
+                  <div class="stars">
+                    @for (star of [1, 2, 3, 4, 5]; track $index) {
+                      <i
+                        class="fa-star"
+                        [class.fa-solid]="star <= rating"
+                        [class.fa-regular]="star > rating"
+                      ></i>
+                    }
+                  </div>
+
+                  <p>Based on {{ reviewCount }} reviews</p>
+                </div>
+
+                <div class="rightStats">
+                  @for (stat of ratingStats; track $index) {
+                    <div class="statRow">
+                      <span>{{ stat.star }} <i class="fa-solid fa-star"></i></span>
+
+                      <div class="bar">
+                        <div class="fill" [style.width.%]="stat.percent"></div>
+                      </div>
+
+                      <span>{{ stat.count }}</span>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div class="reviewList">
+                @for (review of reviews; track $index) {
+                  <div class="reviewItem" [class.myReview]="review.user.id === currentUserId">
+                    <div class="avatar">
+                      @if (review.user.details.pictureUrl) {
+                        <img [src]="review.user.details.pictureUrl" />
+                      } @else {
+                        <span>{{ review.user.firstName[0] }}</span>
+                      }
+                    </div>
+
+                    <div class="content">
+                      @if (review.user.id === currentUserId) {
+                        <h4 class="youLabel">You</h4>
+                      } @else {
+                        <h4>{{ review.user.firstName }} {{ review.user.lastName }}</h4>
+                      }
+                      <p class="date">{{ review.createdAt | date: 'mediumDate' }}</p>
+                    </div>
+
+                    @if (review.user.id === currentUserId) {
+                      <div class="reviewActions">
+                        <button class="editReviewBtn" (click)="openEditModal(review)">
+                          <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button class="deleteReviewBtn" (click)="deleteReview(review.id)">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </div>
+                    }
+
+                    <div class="reviewStars">
+                      @for (star of [1, 2, 3, 4, 5]; track $index) {
+                        <i
+                          class="fa-star"
+                          [class.fa-solid]="star <= review.rating"
+                          [class.fa-regular]="star > review.rating"
+                        ></i>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="noReviews">
+                <p>No reviews yet. Be the first to review this product!</p>
+              </div>
+            }
+          }
+        }
+      </div>
+    </div>
+
+    <div class="relaetedProd">
+      <h2>Related Products</h2>
+
+      <div class="forRelated">
+        @for (item of relatedProducts; track $index) {
+          <div
+            class="card"
+            (click)="goToProduct(item.id)"
+            [class.outOfStockCard]="item.stock === 0"
+          >
+            <img [src]="item.imageUrl" alt="{{ item.name }}" />
+            <div class="description">
+              <div class="first">
+                <h3>{{ item.category.name.toUpperCase() }}</h3>
+                <i class="fa-solid fa-circle-dot"></i>
+                <p>{{ item.brand }}</p>
+              </div>
+              <h3>{{ item.name }}</h3>
+              <div class="rating">
+                @for (star of [1, 2, 3, 4, 5]; track $index) {
+                  <i
+                    class="fa-star"
+                    [class.fa-solid]="star <= item.rating"
+                    [class.fa-regular]="star > item.rating"
+                    [class.active]="star <= item.rating"
+                  >
+                  </i>
+                }
+
+                <span class="ratingValue">
+                  {{ item.rating | number: '1.1-1' }}
+                </span>
+              </div>
+              <h2>USD {{ item.price | number }}</h2>
+              @if (item.stock === 0) {
+                <button class="outOfStockRelated" disabled (click)="$event.stopPropagation()">
+                  <i class="fa-solid fa-ban"></i> Out of Stock
+                </button>
+              } @else if (!cartMap[item.id]) {
+                <button (click)="addToCart(item.id); $event.stopPropagation()">
+                  <i class="fa-solid fa-cart-flatbed"></i>
+                  Add to Cart
+                </button>
+              } @else {
+                <div class="forQuanityBtns" (click)="$event.stopPropagation()">
+                  <button (click)="$event.stopPropagation(); decrease(item.id)">
+                    <i class="fa-solid fa-minus"></i>
+                  </button>
+                  <span>{{ cartMap[item.id] }}</span>
+                  <button (click)="$event.stopPropagation(); increase(item.id)">
+                    <i class="fa-solid fa-plus"></i>
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    @if (showReviewModal) {
+      <div class="modalOverlay" (click)="closeReviewModal()">
+        <div class="modal" (click)="$event.stopPropagation()">
+          <div class="modalHeader">
+            <h3>Write a Review</h3>
+            <button class="closeBtn" (click)="closeReviewModal()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div class="line"></div>
+
+          @for (item of product; track $index) {
+            <div class="modalBody">
+              <p class="ratingLabel">Rating</p>
+              <div class="stars">
+                @for (star of [1, 2, 3, 4, 5]; track $index) {
+                  <i
+                    class="fa-star"
+                    [class.fa-solid]="star <= (hoverRating || selectedRating)"
+                    [class.fa-regular]="star > (hoverRating || selectedRating)"
+                    (mouseenter)="hoverRating = star"
+                    (mouseleave)="hoverRating = 0"
+                    (click)="setRating(star)"
+                  ></i>
+                }
+              </div>
+
+              <div class="modalFooter">
+                <button class="cancelBtn" (click)="closeReviewModal()">Cancel</button>
+                <button
+                  class="submitBtn"
+                  (click)="submitReview(item.id)"
+                  [disabled]="!selectedRating"
+                >
+                  <i class="fa-solid fa-paper-plane"></i> Submit Review
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    @if (showEditModal) {
+      <div class="modalOverlay" (click)="closeEditModal()">
+        <div class="modal" (click)="$event.stopPropagation()">
+          <div class="modalHeader">
+            <h3>Edit Review</h3>
+            <button class="closeBtn" (click)="closeEditModal()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          @for (item of product; track $index) {
+            <div class="modalBody">
+              <p class="ratingLabel">Rating</p>
+              <div class="stars">
+                @for (star of [1, 2, 3, 4, 5]; track $index) {
+                  <i
+                    class="fa-star"
+                    [class.fa-solid]="star <= (editHoverRating || editRating)"
+                    [class.fa-regular]="star > (editHoverRating || editRating)"
+                    (mouseenter)="editHoverRating = star"
+                    (mouseleave)="editHoverRating = 0"
+                    (click)="editRating = star"
+                  ></i>
+                }
+              </div>
+              <div class="modalFooter">
+                <button class="cancelBtn" (click)="closeEditModal()">Cancel</button>
+                <button class="submitBtn" (click)="submitEdit(item.id)" [disabled]="!editRating">
+                  <i class="fa-solid fa-check"></i> Save Changes
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
   </div>
-</div>
+}

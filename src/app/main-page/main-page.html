@@ -9,8 +9,8 @@
         orders over $100.
       </p>
       <div class="btns">
-        <button>Shop Now <i class="fa-solid fa-arrow-right"></i></button>
-        <button>View New Arrivals</button>
+        <button routerLink="/shop">Shop Now <i class="fa-solid fa-arrow-right"></i></button>
+        <button (click)="goToNewArrivals()">View New Arrivals</button>
       </div>
     </div>
     <div class="right">
@@ -30,7 +30,7 @@
   </div>
   <div class="categoryCards">
     @for (item of showCategories ? categories : categories.slice(0, 4); track $index) {
-      <div class="card">
+      <div class="card" (click)="goToCategory(item.id)">
         <img [src]="item.imageUrl" alt="{{ item.name }}" />
         <div class="description">
           <h3>{{ item.name }}</h3>
@@ -46,22 +46,51 @@
   <h2>Featured Products</h2>
   <div class="parent">
     <p>Handpicked tech essentials just for you</p>
-    <p>View All <i class="fa-solid fa-chevron-right"></i></p>
+    <p (click)="goToNetworking()">View All <i class="fa-solid fa-chevron-right"></i></p>
   </div>
   <div class="featuredProdsCards">
     @for (item of featuredProducts; track $index) {
-      <div class="card">
-        <img [src]="item.imageUrl" alt="{{ item.name }}" />
+      <div class="card" [class.outOfStockCard]="item.stock === 0">
+        <img [src]="item.imageUrl" alt="{{ item.name }}" (click)="goToProduct(item.id)" />
         <div class="description">
           <div class="first">
-            <h3>{{ item.category.name.toUpperCase() }}</h3>
+            <h3 (click)="goToProduct(item.id)">{{ item.category.name.toUpperCase() }}</h3>
             <i class="fa-solid fa-circle-dot"></i>
             <p>{{ item.brand }}</p>
           </div>
-          <h3>{{ item.name }}</h3>
-          <p>{{ item.rating }}</p>
-          <h2>USD {{ item.price }}</h2>
-          <button><i class="fa-solid fa-cart-flatbed"></i> Add to Cart</button>
+          <h3 (click)="goToProduct(item.id)">{{ item.name }}</h3>
+          <div class="rating">
+            @for (star of [1, 2, 3, 4, 5]; track $index) {
+              <i
+                class="fa-star"
+                [class.fa-solid]="star <= item.rating"
+                [class.fa-regular]="star > item.rating"
+              ></i>
+            }
+
+            <span>{{ item.rating | number: '1.1-1' }}</span>
+          </div>
+          <h2 (click)="goToProduct(item.id)">USD {{ item.price }}</h2>
+          @if (item.stock === 0) {
+            <button class="outOfStockBtn" disabled>
+              <i class="fa-solid fa-ban"></i> Out of Stock
+            </button>
+          } @else if (!cartMap[item.id]) {
+            <button class="cartBtn" (click)="addToCart(item.id)">
+              <i class="fa-solid fa-cart-flatbed"></i>
+              Add to Cart
+            </button>
+          } @else {
+            <div class="quantityBtns">
+              <button (click)="decrease(item.id)">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <span>{{ cartMap[item.id].quantity }}</span>
+              <button (click)="increase(item.id)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          }
         </div>
       </div>
     }
@@ -73,7 +102,7 @@
     <button>Limited Time Offer</button>
     <h2>Get 20% Off on All Accessories</h2>
     <p>Use code <span class="tech">TECH20</span> at checkout. Valid until end of month.</p>
-    <button>Shop Accessories</button>
+    <button routerLink="/shop">Shop Accessories</button>
   </div>
 </section>
 
@@ -88,19 +117,48 @@
   </div>
   <div class="newArrivalsCards">
     @for (item of showNewArrivals ? newArrivals : newArrivals.slice(0, 4); track $index) {
-      <div class="card">
+      <div class="card" [class.outOfStockCard]="item.stock === 0">
         <button>NEW</button>
-        <img [src]="item.imageUrl" alt="{{ item.name }}" />
+        <img [src]="item.imageUrl" alt="{{ item.name }}" (click)="goToProduct(item.id)" />
         <div class="description">
           <div class="first">
             <h3>{{ item.category.name.toUpperCase() }}</h3>
             <i class="fa-solid fa-circle-dot"></i>
             <p>{{ item.brand }}</p>
           </div>
-          <h3>{{ item.name }}</h3>
-          <p>{{ item.rating }}</p>
-          <h2>USD {{ item.price }}</h2>
-          <button><i class="fa-solid fa-cart-flatbed"></i> Add to Cart</button>
+          <h3 (click)="goToProduct(item.id)">{{ item.name }}</h3>
+          <div class="rating">
+            @for (star of [1, 2, 3, 4, 5]; track $index) {
+              <i
+                class="fa-star"
+                [class.fa-solid]="star <= item.rating"
+                [class.fa-regular]="star > item.rating"
+              ></i>
+            }
+
+            <span>{{ item.rating | number: '1.1-1' }}</span>
+          </div>
+          <h2 (click)="goToProduct(item.id)">USD {{ item.price }}</h2>
+          @if (item.stock === 0) {
+            <button class="outOfStockBtn" disabled>
+              <i class="fa-solid fa-ban"></i> Out of Stock
+            </button>
+          } @else if (!cartMap[item.id]) {
+            <button class="cartBtn" (click)="addToCart(item.id)">
+              <i class="fa-solid fa-cart-flatbed"></i>
+              Add to Cart
+            </button>
+          } @else {
+            <div class="quantityBtns">
+              <button (click)="decrease(item.id)">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <span>{{ cartMap[item.id].quantity }}</span>
+              <button (click)="increase(item.id)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          }
         </div>
       </div>
     }

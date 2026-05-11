@@ -1,48 +1,86 @@
 @if (showAndHide()) {
   <div class="header">
-  <div class="logoDiv" routerLink="/home">
-    <div class="logo"></div>
-    <h2>STEP TECH</h2>
-  </div>
+    <div class="logoDiv" routerLink="/home">
+      <div class="logo"></div>
+      <h2>STEP TECH</h2>
+    </div>
 
-  <nav>
-    <ul>
-      <li routerLink="/home" routerLinkActive="active"><a>Home</a></li>
-      <li routerLink="/shop" routerLinkActive="active"><a>Shop</a></li>
-      <li class="categories">
-        
+    <nav [class.open]="menuOpen">
+      <ul>
+        <li routerLink="/home" routerLinkActive="active" (click)="closeMenu()"><a>Home</a></li>
+        <li routerLink="/shop" routerLinkActive="active" (click)="closeMenu()"><a>Shop</a></li>
+        <li class="categories">
           <a>Categories <i class="fa-solid fa-chevron-down"></i></a>
-        
-        <div class="dropDown">
-          @for (item of categories; track $index) {
-            <div class="name">
+          <div class="dropDown">
+            @for (item of categories; track $index) {
+              <div class="name" (click)="goToCategory(item.id); closeMenu()">
                 <span>{{ item.name }}</span>
                 <p>{{ item.productCount }}</p>
-            </div>
-          }
+              </div>
+            }
+          </div>
+        </li>
+      </ul>
+
+      <div class="mobileActions">
+        <div class="search">
+          <input type="text" placeholder="Search products..." (keyup.enter)="onSearch($event)" />
         </div>
-      </li>
-    </ul>
-  </nav>
 
-  <div class="search">
-    <input type="text" placeholder="Search products..." />
-     <button class="cart" (click)="cartServ.showCart()">Show Cart</button>
-  </div>
+        @if (!auth.isLoggedIn()) {
+          <button class="signInMobile" routerLink="/login" (click)="closeMenu()">Sign In</button>
+        } @else {
+          <div class="mobileLinks">
+            <div (click)="closeMenu()" routerLink="/account/favorites">
+              <i class="fa-regular fa-heart"></i> Favorites
+            </div>
+            <div (click)="cartServ.showCart(); closeMenu()">
+              <i class="fa-solid fa-cart-flatbed"></i> Cart
+            </div>
+            <div (click)="closeMenu()" routerLink="/account">
+              <i class="fa-regular fa-user"></i> Account
+            </div>
+          </div>
+        }
+      </div>
+    </nav>
 
-  <div class="signIn">
-  @if (!auth.isLoggedIn()) {
-    <button routerLink="/login">Sign In</button>
-  } @else {
-    <div class="profileBtn" routerLink="/profile">
-      <i class="fa-solid fa-user"></i>
+    <div class="search desktopOnly">
+      <input type="text" placeholder="Search products..." (keyup.enter)="onSearch($event)" />
     </div>
-  }
-</div>
-</div>
- 
+
+    <button class="themeBtn" (click)="themeServ.toggle()">
+      @if (themeServ.isDark()) {
+        <i class="fa-solid fa-sun"></i>
+      } @else {
+        <i class="fa-solid fa-moon"></i>
+      }
+    </button>
+
+    <div class="signIn desktopOnly">
+      @if (!auth.isLoggedIn()) {
+        <button routerLink="/login">Sign In</button>
+      } @else {
+        <div class="profileBtn">
+          <button class="iconBtn" routerLink="/account/favorites">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+          <button class="iconBtn" (click)="cartServ.showCart()">
+            <i class="fa-solid fa-cart-flatbed"></i>
+          </button>
+          <div class="avatar" routerLink="/account">
+            @if (user?.details?.pictureUrl) {
+              <img [src]="user.details.pictureUrl" alt="avatar" />
+            } @else {
+              <span>{{ user?.firstName?.charAt(0) }}{{ user?.lastName?.charAt(0) }}</span>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <button class="burger" (click)="toggleMenu()">
+      <i class="fa-solid" [class.fa-bars]="!menuOpen" [class.fa-xmark]="menuOpen"></i>
+    </button>
+  </div>
 }
-
-
-
-

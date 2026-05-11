@@ -1,0 +1,79 @@
+<div class="cart">
+  <div class="title">
+    <h2>Shopping Cart</h2>
+    <p>{{ totalCount }} items in your cart</p>
+  </div>
+
+  @if (cartItems.length > 0) {
+    <div class="subtitle">
+      <h3>Cart Items</h3>
+      <button (click)="clearCart()">
+        <i class="fa-solid fa-trash"></i>
+        Clear Cart
+      </button>
+    </div>
+
+    <div class="products">
+      @for (item of cartItems; track $index) {
+        <div class="product">
+          <img [src]="item.product.imageUrl" />
+          <div class="info">
+            <div class="prodName">
+              <h3>{{ item.product.name }}</h3>
+              <p>{{ item.product.brand }}</p>
+            </div>
+            <p class="one">${{ item.price | number }}</p>
+            <div class="quantity">
+              <button (click)="decrease(item)"><i class="fa-solid fa-minus"></i></button>
+              <p>{{ item.quantity }}</p>
+              <button (click)="increase(item)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <h4>USD {{ item.totalPrice | number }}</h4>
+            <p (click)="removeItem(item)"><i class="fa-solid fa-x"></i></p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <p class="back" routerLink="/shop">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span class="text">Continue Shopping</span>
+    </p>
+
+    <div class="summary">
+      <h2>Order Summary</h2>
+      <div class="subtotal">
+        <p>Subtotal ({{ totalCount }} items)</p>
+        <p>USD {{ total | number }}</p>
+      </div>
+      <div class="shipping">
+        <p>Shipping</p>
+        <p>FREE</p>
+      </div>
+      <div class="line"></div>
+      <div class="total">
+        <h3>Total</h3>
+        <h3>USD {{ total | number }}</h3>
+      </div>
+      <div class="btns">
+        <button class="checkout" (click)="checkout()">
+          Proceed to Checkout <i class="fa-solid fa-lock"></i>
+        </button>
+        <button class="secure">
+          <i class="fa-solid fa-shield"></i>
+          Secure checkout guaranteed
+        </button>
+      </div>
+    </div>
+
+  } @else {
+    <div class="emptyCart">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <h3>Your cart is empty</h3>
+      <p>Looks like you haven't added anything to your cart yet. Start exploring our products!</p>
+      <button routerLink="/shop" class="continueShopping">
+        <i class="fa-solid fa-arrow-right"></i> Continue Shopping
+      </button>
+    </div>
+  }
+</div>

@@ -16,7 +16,8 @@ $mainColor: #1ecb5b;
   gap: 30px;
 
   .top {
-    padding: 10px 200px;
+    padding: 10px 150px;
+    color: var(--text);
   }
 
   .box {
@@ -29,26 +30,20 @@ $mainColor: #1ecb5b;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      // > img {
-      //   width: 600px;
-      //   height: 500px;
-      //   // object-fit: contain;
-      //   border-radius: 15px;
-      // }
 
       .imageContainer {
-        width: 100%;
-        height: 500px;
         width: 600px;
+        height: 500px;
         overflow: hidden;
         cursor: zoom-in;
         position: relative;
         border-radius: 10px;
+        background-color: var(--card);
+        border: 1px solid var(--border);
 
         .mainImage {
           width: 100%;
           height: 100%;
-          // object-fit: cover;
           transition: transform 0.1s ease;
           border-radius: 10px;
         }
@@ -63,17 +58,16 @@ $mainColor: #1ecb5b;
           height: 90px;
           object-fit: cover;
           cursor: pointer;
-          border: 2px solid transparent;
+          border: 2px solid var(--border);
           border-radius: 6px;
           transition: 0.2s ease;
-        }
 
-        img:hover {
-          transform: scale(1.05);
-        }
-
-        img.active {
-          border: 2px solid $mainColor;
+          &:hover {
+            transform: scale(1.05);
+          }
+          &.active {
+            border: 2px solid $mainColor;
+          }
         }
       }
     }
@@ -98,7 +92,7 @@ $mainColor: #1ecb5b;
         p {
           display: flex;
           align-items: center;
-          color: rgb(115, 115, 115);
+          color: var(--text2);
 
           i {
             font-size: 7px;
@@ -108,6 +102,7 @@ $mainColor: #1ecb5b;
 
       .name {
         font-size: 35px;
+        color: var(--text);
       }
 
       .rating {
@@ -116,7 +111,7 @@ $mainColor: #1ecb5b;
         gap: 8px;
 
         i {
-          color: #ccc;
+          color: var(--border);
           font-size: 20px;
         }
 
@@ -128,16 +123,18 @@ $mainColor: #1ecb5b;
           font-weight: 600;
           font-size: 18px;
           padding: 0px 10px;
+          color: var(--text);
         }
 
         .reviews {
           font-size: 14px;
-          color: #777;
+          color: var(--text2);
         }
       }
 
       .price {
         font-size: 40px;
+        color: var(--text);
       }
 
       .stock {
@@ -151,14 +148,14 @@ $mainColor: #1ecb5b;
       }
 
       > p {
-        color: rgb(84, 84, 84);
+        color: var(--text2);
         font-size: 15px;
       }
 
       .line {
         width: 100%;
         height: 1px;
-        background-color: rgb(205, 203, 203);
+        background-color: var(--border);
         margin-bottom: 10px;
       }
 
@@ -175,6 +172,7 @@ $mainColor: #1ecb5b;
 
         h3 {
           font-size: 15px;
+          color: var(--text);
         }
 
         .quantityBtns {
@@ -182,12 +180,12 @@ $mainColor: #1ecb5b;
 
           button {
             padding: 10px 15px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             transition: 0.2s ease-in-out;
           }
 
           .reduce {
-            background-color: #fbfbfb;
+            background-color: var(--bg2);
             border-top-left-radius: 8px;
             border-bottom-left-radius: 8px;
             border-right: none;
@@ -195,7 +193,7 @@ $mainColor: #1ecb5b;
 
             i {
               font-size: 13px;
-              color: #888888;
+              color: var(--text2);
             }
 
             &:hover {
@@ -207,13 +205,14 @@ $mainColor: #1ecb5b;
           }
 
           .num {
-            background-color: #ffffff;
+            background-color: var(--card);
             padding: 10px 25px;
             font-weight: bold;
+            color: var(--text);
           }
 
           .increase {
-            background-color: #fbfbfb;
+            background-color: var(--bg2);
             border-top-right-radius: 8px;
             border-bottom-right-radius: 8px;
             border-left: none;
@@ -221,12 +220,11 @@ $mainColor: #1ecb5b;
 
             i {
               font-size: 13px;
-              color: #888888;
+              color: var(--text2);
             }
 
             &:hover {
               background-color: #19b24f;
-
               i {
                 color: white;
               }
@@ -243,10 +241,10 @@ $mainColor: #1ecb5b;
           padding: 15px;
           font-size: 16px;
           width: 90%;
-          border: 1px solid rgb(210, 209, 209);
-          background-color: #f6f6f6;
+          border: 1px solid var(--border);
+          background-color: var(--bg2);
           border-radius: 7px;
-          color: rgb(65, 65, 65);
+          color: var(--text);
           transition: 0.2s ease-in-out;
           cursor: pointer;
 
@@ -260,10 +258,10 @@ $mainColor: #1ecb5b;
         button:last-child {
           padding: 15px;
           font-size: 20px;
-          background-color: #f6f6f6;
-          border: 1px solid rgb(210, 209, 209);
+          background-color: var(--bg2);
+          border: 1px solid var(--border);
           border-radius: 7px;
-          color: rgb(65, 65, 65);
+          color: var(--text);
           transition: 0.2s ease-in-out;
           cursor: pointer;
 
@@ -288,7 +286,7 @@ $mainColor: #1ecb5b;
 
     .detailBtns {
       display: flex;
-      border-bottom: 1px solid rgb(207, 206, 206);
+      border-bottom: 1px solid var(--border);
       width: 100%;
       gap: 20px;
       position: relative;
@@ -299,7 +297,7 @@ $mainColor: #1ecb5b;
         border: none;
         background: transparent;
         cursor: pointer;
-        color: rgb(83, 82, 82);
+        color: var(--text2);
         border-bottom: 2px solid transparent;
         transition: 0.2s;
         font-weight: 600;
@@ -310,11 +308,10 @@ $mainColor: #1ecb5b;
         &:hover {
           color: $mainColor;
         }
-      }
-
-      .btnDetails.active {
-        color: $mainColor;
-        border-bottom: 2px solid $mainColor;
+        &.active {
+          color: $mainColor;
+          border-bottom: 2px solid $mainColor;
+        }
       }
 
       .indicator {
@@ -324,18 +321,16 @@ $mainColor: #1ecb5b;
         width: 170px;
         background-color: $mainColor;
         transition: all 0.3s ease;
-      }
 
-      .indicator.description {
-        left: 0;
-      }
-
-      .indicator.specification {
-        left: 200px;
-      }
-
-      .indicator.reviews {
-        left: 380px;
+        &.description {
+          left: 0;
+        }
+        &.specification {
+          left: 200px;
+        }
+        &.reviews {
+          left: 380px;
+        }
       }
     }
 
@@ -349,11 +344,12 @@ $mainColor: #1ecb5b;
 
       h2 {
         font-size: 20px;
+        color: var(--text);
       }
 
       p {
         font-size: 15px;
-        color: rgb(110, 110, 110);
+        color: var(--text2);
         line-height: 1.6;
       }
 
@@ -366,15 +362,15 @@ $mainColor: #1ecb5b;
         display: flex;
         justify-content: space-between;
         padding: 12px 0;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid var(--border);
 
         .key {
           font-weight: 600;
-          color: #333;
+          color: var(--text);
         }
 
         .value {
-          color: #666;
+          color: var(--text2);
         }
       }
 
@@ -395,6 +391,7 @@ $mainColor: #1ecb5b;
 
           h2 {
             font-size: 60px;
+            color: var(--text);
           }
 
           .stars {
@@ -403,8 +400,7 @@ $mainColor: #1ecb5b;
             gap: 8px;
 
             i {
-              color: #ccc;
-
+              color: var(--border);
               &.fa-solid {
                 color: gold;
               }
@@ -413,7 +409,7 @@ $mainColor: #1ecb5b;
 
           p {
             font-size: 14px;
-            color: rgb(86, 86, 86);
+            color: var(--text2);
           }
         }
 
@@ -435,20 +431,21 @@ $mainColor: #1ecb5b;
 
             i {
               font-size: 12px;
-              color: rgb(75, 74, 74);
+              color: var(--text2);
             }
           }
 
           span:last-child {
             width: 30px;
             text-align: right;
+            color: var(--text);
           }
         }
 
         .bar {
           flex: 1;
           height: 8px;
-          background: #eee;
+          background: var(--bg3);
           border-radius: 5px;
           overflow: hidden;
         }
@@ -463,8 +460,8 @@ $mainColor: #1ecb5b;
       .reviewList {
         margin-top: 70px;
         padding: 25px;
-        background-color: #f6f6f6;
-        border: 1px solid rgb(227, 225, 225);
+        background-color: var(--bg2);
+        border: 1px solid var(--border);
         border-radius: 10px;
 
         .reviewItem {
@@ -472,8 +469,7 @@ $mainColor: #1ecb5b;
           align-items: center;
           justify-content: space-between;
           padding: 15px;
-          border-bottom: 1px solid #eee;
-          border-bottom: 1px solid rgb(227, 224, 224);
+          border-bottom: 1px solid var(--border);
 
           .avatar {
             width: 45px;
@@ -507,17 +503,17 @@ $mainColor: #1ecb5b;
 
             h4 {
               margin: 0;
+              color: var(--text);
             }
 
             .date {
               font-size: 12px;
-              color: gray;
+              color: var(--text2);
             }
           }
 
           .reviewStars i {
-            color: #ccc;
-
+            color: var(--border);
             &.fa-solid {
               color: gold;
             }
@@ -532,6 +528,7 @@ $mainColor: #1ecb5b;
         justify-content: center;
         height: 200px;
         text-align: center;
+        color: var(--text2);
       }
     }
   }
@@ -546,6 +543,7 @@ $mainColor: #1ecb5b;
 
     h2 {
       font-size: 30px;
+      color: var(--text);
     }
 
     .forRelated {
@@ -557,19 +555,18 @@ $mainColor: #1ecb5b;
         display: flex;
         flex-direction: column;
         gap: 15px;
-        border: 1px solid rgb(224, 223, 223);
+        border: 1px solid var(--border);
         padding: 10px;
         border-radius: 10px;
-        background-color: white;
+        background-color: var(--card);
         cursor: pointer;
         transition: 0.2s ease-in-out;
         overflow: hidden;
 
         img {
-          // width: 300px;
           height: 200px;
           object-fit: contain;
-          border: 1px solid rgb(224, 223, 223);
+          border: 1px solid var(--border);
           border-radius: 10px;
         }
 
@@ -596,7 +593,7 @@ $mainColor: #1ecb5b;
             }
 
             i {
-              color: rgb(96, 96, 96);
+              color: var(--text2);
               font-size: 8px;
             }
 
@@ -604,7 +601,7 @@ $mainColor: #1ecb5b;
               font-family:
                 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
                 Geneva, Verdana, sans-serif;
-              color: rgb(138, 136, 136);
+              color: var(--text2);
               font-size: 13px;
             }
           }
@@ -613,7 +610,7 @@ $mainColor: #1ecb5b;
             font-family:
               'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
               Verdana, sans-serif;
-            color: rgb(69, 71, 69);
+            color: var(--text);
             font-size: 16px;
           }
 
@@ -622,7 +619,7 @@ $mainColor: #1ecb5b;
             align-items: center;
 
             i {
-              color: #ccc;
+              color: var(--border);
               font-size: 13px;
             }
 
@@ -634,11 +631,12 @@ $mainColor: #1ecb5b;
               font-weight: 600;
               font-size: 14px;
               padding: 0px 10px;
+              color: var(--text);
             }
 
             .reviews {
               font-size: 14px;
-              color: #9e9e9e;
+              color: var(--text2);
               font-weight: 100;
             }
           }
@@ -647,14 +645,16 @@ $mainColor: #1ecb5b;
             font-family:
               'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
               Verdana, sans-serif;
-            color: rgb(18, 23, 19);
+            color: var(--text);
             font-size: 20px;
           }
 
           button {
             padding: 10px 20px;
             border-radius: 10px;
-            border: 1px solid rgb(224, 223, 223);
+            border: 1px solid var(--border);
+            background-color: var(--bg2);
+            color: var(--text);
             font-family:
               'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
               Verdana, sans-serif;
@@ -675,12 +675,349 @@ $mainColor: #1ecb5b;
           transform: translateY(-5px);
 
           img {
-            // border: 1px solid $mainColor;
             transform: scale(1.04);
+          }
+        }
+
+        .forQuanityBtns {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          padding: 8px 14px;
+          background: var(--card);
+          border: 1px solid var(--border);
+          border-radius: 14px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+          button {
+            border: none;
+            border-radius: 10px;
+            background: var(--bg3);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            i {
+              font-size: 14px;
+            }
+
+            &:hover {
+              background: $mainColor;
+              color: white;
+              transform: scale(1.05);
+            }
+
+            &:active {
+              transform: scale(0.95);
+            }
+          }
+
+          span {
+            min-width: 24px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
           }
         }
       }
     }
+  }
+
+  .modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeUp 0.3s ease;
+
+    .modal {
+      background: var(--card);
+      border-radius: 16px;
+      width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border);
+
+      .line {
+        width: 100%;
+        height: 1px;
+        background-color: var(--border);
+      }
+
+      .modalHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 30px 0px 20px;
+
+        h3 {
+          font-size: 20px;
+          font-weight: bold;
+          color: var(--text);
+        }
+
+        .closeBtn {
+          background: none;
+          border: none;
+          font-size: 20px;
+          cursor: pointer;
+          color: var(--text2);
+          transition: 0.2s;
+
+          &:hover {
+            color: var(--text);
+          }
+        }
+      }
+
+      .modalBody {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 0px 30px 30px 30px;
+
+        .ratingLabel {
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--text);
+        }
+
+        .stars {
+          display: flex;
+          gap: 10px;
+
+          i {
+            font-size: 27px;
+            color: var(--border);
+            cursor: pointer;
+            transition: 0.15s;
+
+            &.fa-solid {
+              color: gold;
+            }
+            &:hover {
+              transform: scale(1.2);
+            }
+          }
+        }
+      }
+
+      .modalFooter {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 10px;
+
+        .cancelBtn {
+          padding: 10px 20px;
+          border: 1px solid var(--border);
+          background: var(--card);
+          color: var(--text);
+          border-radius: 8px;
+          cursor: pointer;
+          transition: 0.2s;
+
+          &:hover {
+            background: var(--hover);
+          }
+        }
+
+        .submitBtn {
+          padding: 10px 20px;
+          background: #1990ff;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: 0.2s;
+
+          &:hover {
+            filter: brightness(110%);
+          }
+          &:disabled {
+            background: var(--bg3);
+            color: var(--text2);
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+
+  .outOfStockCard {
+    img {
+      filter: grayscale(60%) opacity(0.7);
+    }
+  }
+
+  .outOfStockRelated {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #f37878;
+    background-color: var(--bg3);
+    color: var(--text2);
+    cursor: not-allowed !important;
+    font-size: 15px;
+    width: 100%;
+    font-style: italic;
+
+    &:hover {
+      background-color: #fde8e8 !important;
+      color: #e53e3e !important;
+    }
+  }
+
+  .loginToReview {
+    font-size: 14px;
+    color: var(--text2);
+    align-self: flex-end;
+    background-color: var(--bg2);
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+
+    span {
+      color: $mainColor;
+      cursor: pointer;
+      transition: 0.2s ease;
+
+      &:hover {
+        color: #15eb60;
+      }
+    }
+  }
+
+  .myReview {
+    border-radius: 10px;
+    padding: 15px !important;
+    background-color: var(--bg3);
+  }
+
+  .youLabel {
+    color: $mainColor !important;
+    font-weight: bold;
+  }
+
+  .reviewActions {
+    display: flex;
+    gap: 8px;
+    margin-right: 15px;
+
+    button {
+      padding: 7px 10px;
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .editReviewBtn {
+      background: #e8f4fd;
+      color: #1990ff;
+      &:hover {
+        background: #1990ff;
+        color: white;
+      }
+    }
+
+    .deleteReviewBtn {
+      background: #fde8e8;
+      color: #e53e3e;
+      &:hover {
+        background: #e53e3e;
+        color: white;
+      }
+    }
+  }
+
+  .outOfStock {
+    background-color: #fde8e8 !important;
+    color: #e53e3e !important;
+  }
+
+  .disabledBtn {
+    padding: 15px;
+    font-size: 16px;
+    width: 90%;
+    border: 1px solid #e53e3e;
+    background-color: #fde8e8;
+    border-radius: 7px;
+    color: #e53e3e;
+    cursor: not-allowed !important;
+
+    &:hover {
+      background-color: #fde8e8 !important;
+      color: #e53e3e !important;
+      transform: none !important;
+    }
+  }
+}
+
+.writeReview {
+  align-self: flex-end;
+  padding: 7px 10px;
+  background-color: #1990ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  &:hover {
+    background-color: #0680f3;
+  }
+}
+
+.detailsLoading {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  h3 {
+    color: var(--text2);
+    font-size: 18px;
+    font-family:
+      'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
+      sans-serif;
+  }
+
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid var(--border);
+    border-top-color: #1ecb5b;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
 
@@ -695,26 +1032,19 @@ $mainColor: #1ecb5b;
 
     .box {
       gap: 40px;
-
-      .left {
-        .imageContainer {
-          width: 100%;
-          height: auto;
-        }
+      .left .imageContainer {
+        width: 100%;
+        height: auto;
       }
     }
 
-    .relaetedProd {
-      .forRelated {
-        grid-template-columns: repeat(3, 1fr);
-      }
+    .relaetedProd .forRelated {
+      grid-template-columns: repeat(3, 1fr);
     }
 
-    .moreDetails {
-      .reviewsBox {
-        gap: 60px;
-        padding-left: 0;
-      }
+    .moreDetails .info .reviewsBox {
+      gap: 60px;
+      padding-left: 0;
     }
   }
 }
@@ -734,12 +1064,10 @@ $mainColor: #1ecb5b;
 
       .left {
         width: 100%;
-
         > img {
           width: 100%;
           height: auto;
         }
-
         .images {
           justify-content: center;
           flex-wrap: wrap;
@@ -748,19 +1076,15 @@ $mainColor: #1ecb5b;
 
       .right {
         width: 100%;
-
         .name {
           font-size: 28px;
         }
-
         .price {
           font-size: 30px;
         }
-
         .addToCartBtn {
           flex-direction: column;
           gap: 10px;
-
           button:first-child {
             width: 100%;
           }
@@ -773,39 +1097,30 @@ $mainColor: #1ecb5b;
 
       .detailBtns {
         flex-wrap: wrap;
-
         .indicator {
           display: none;
         }
       }
 
-      .reviewsBox {
+      .info .reviewsBox {
         flex-direction: column;
         gap: 40px;
         align-items: center;
-        // background-color: lightblue;
         justify-content: center;
         padding-right: 70px;
-
         .rightStats {
-          // background-color: pink;
           width: 100%;
         }
       }
 
-      .reviewList {
-        .reviewItem {
-          // flex-direction: column;
-          align-items: flex-start;
-          gap: 10px;
-        }
+      .reviewList .reviewItem {
+        align-items: flex-start;
+        gap: 10px;
       }
     }
 
-    .relaetedProd {
-      .forRelated {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .relaetedProd .forRelated {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 }
@@ -826,35 +1141,27 @@ $mainColor: #1ecb5b;
         > img {
           border-radius: 10px;
         }
-
-        .images {
-          img {
-            width: 70px;
-            height: 70px;
-          }
+        .images img {
+          width: 70px;
+          height: 70px;
         }
       }
 
       .right {
         gap: 15px;
-
         .name {
           font-size: 22px;
         }
-
         .price {
           font-size: 24px;
         }
-
         .rating {
           flex-wrap: wrap;
         }
-
         .quantityBtns {
           button {
             padding: 8px 12px;
           }
-
           .num {
             padding: 8px 18px;
           }
@@ -864,42 +1171,31 @@ $mainColor: #1ecb5b;
 
     .moreDetails {
       padding: 0 15px;
-
       .detailBtns {
         gap: 10px;
-
         .btnDetails {
           font-size: 14px;
           padding: 10px 15px;
         }
       }
-
       .info {
         h2 {
           font-size: 18px;
         }
-
         p {
           font-size: 14px;
         }
-
-        .reviewsBox {
-          .leftRating {
-            h2 {
-              font-size: 40px;
-            }
-          }
+        .reviewsBox .leftRating h2 {
+          font-size: 40px;
         }
       }
     }
 
     .relaetedProd {
       padding: 0 15px;
-
       h2 {
         font-size: 22px;
       }
-
       .forRelated {
         grid-template-columns: 1fr;
       }
@@ -909,21 +1205,12 @@ $mainColor: #1ecb5b;
 
 @media (max-width: 400px) {
   .product {
-    .box {
-      .right {
-        .addToCartBtn {
-          button:first-child {
-            font-size: 14px;
-          }
-        }
-      }
+    .box .right .addToCartBtn button:first-child {
+      font-size: 14px;
     }
-
-    .moreDetails {
-      .detailBtns {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    .moreDetails .detailBtns {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 }

@@ -9,23 +9,20 @@ $mainColor: #1ecb5b;
 main {
   margin-top: 80px;
   width: 100%;
-  // height: 100vh;
-  background-color: rgb(179, 179, 247);
 
   .background {
     width: 100%;
-    height: 70vh;
+    min-height: 80vh;
     background-color: #0e1c09;
     background-image:
       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
+    // background-size: 60px 60px;
     position: relative;
 
     .left {
       width: 50%;
-      height: 100%;
-      // background-color: pink;
+      height: 85%;
       position: absolute;
       top: 0;
       left: 0;
@@ -47,9 +44,7 @@ main {
 
       h1 {
         font-size: 60px;
-        font-family:
-          'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-          Verdana, sans-serif;
+        font-family: 'Lucida Sans', sans-serif;
         font-weight: bolder;
         color: white;
 
@@ -79,7 +74,6 @@ main {
 
           &:nth-child(1) {
             background-color: $mainColor;
-
             &:hover {
               transform: translateY(-4px);
               box-shadow:
@@ -92,7 +86,6 @@ main {
           &:nth-child(2) {
             background-color: #13181556;
             border: 1px solid #b3b3b3b3;
-
             &:hover {
               border: 1px solid rgb(225, 231, 225);
               filter: brightness(110%);
@@ -106,7 +99,6 @@ main {
     .right {
       width: 50%;
       height: 100%;
-      // background-color: lightblue;
       position: absolute;
       top: 0;
       right: 0;
@@ -132,7 +124,6 @@ main {
         border: 1px solid rgb(186, 185, 185);
         border-radius: 10px;
         position: absolute;
-        top: 0;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -143,13 +134,11 @@ main {
           right: 77%;
           animation: float 4s ease-in-out infinite;
         }
-
         &:nth-child(2) {
           top: 50%;
           right: 25%;
           animation: float 6s ease-in-out infinite;
         }
-
         &:nth-child(3) {
           top: 70%;
           right: 77%;
@@ -177,19 +166,38 @@ main {
   }
 }
 
+@keyframes gap {
+  from {
+    gap: 0px;
+  }
+  to {
+    gap: 10px;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .shopCat {
   width: 100%;
-  background-color: white;
-  padding: 50px 200px;
+  background-color: var(--bg);
+  padding: 50px 140px;
   display: flex;
   flex-direction: column;
   gap: 30px;
 
   h2 {
     font-size: 35px;
-    font-family:
-      'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
-      sans-serif;
+    font-family: 'Lucida Sans', sans-serif;
+    color: var(--text);
   }
 
   .parent {
@@ -197,18 +205,15 @@ main {
     justify-content: space-between;
 
     p {
-      color: #535353;
+      color: var(--text2);
       font-size: 16px;
-      font-family:
-        'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-        Verdana, sans-serif;
+      font-family: 'Lucida Sans', sans-serif;
 
       &:nth-child(2) {
         color: $mainColor;
         display: flex;
         align-items: center;
         cursor: pointer;
-
         &:hover {
           color: #23d863;
           animation: gap 0.5s forwards;
@@ -224,7 +229,7 @@ main {
     align-items: start;
 
     .card {
-      border: 1px solid rgb(224, 223, 223);
+      border: 1px solid var(--border);
       padding: 40px 20px;
       display: flex;
       align-items: center;
@@ -234,9 +239,9 @@ main {
       cursor: pointer;
       justify-content: space-between;
       animation: fadeUp 0.6s ease-in-out;
+      background-color: var(--card);
 
       img {
-        // width: 100px;
         height: 70px;
         object-fit: contain;
         border-radius: 20px;
@@ -248,24 +253,19 @@ main {
         gap: 20px;
 
         h3 {
-          font-family:
-            'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-            Verdana, sans-serif;
-          color: rgb(18, 23, 19);
+          font-family: 'Lucida Sans', sans-serif;
+          color: var(--text);
           font-size: 18px;
         }
-
         p {
-          font-family:
-            'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-            Verdana, sans-serif;
-          color: rgb(138, 136, 136);
+          font-family: 'Lucida Sans', sans-serif;
+          color: var(--text2);
           font-size: 13px;
         }
       }
 
       i {
-        color: rgb(96, 96, 96);
+        color: var(--text2);
         transition: 0.2s ease-in-out;
       }
 
@@ -273,7 +273,6 @@ main {
         border: 1px solid $mainColor;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         transform: translateY(-5px);
-
         i {
           color: $mainColor;
           transform: translateX(5px);
@@ -285,17 +284,16 @@ main {
 
 .featuredProd {
   width: 100%;
-  background-color: #f6f6f6;
-  padding: 20px 200px;
+  background-color: var(--bg2);
+  padding: 20px 140px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 
   > h2 {
     font-size: 35px;
-    font-family:
-      'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
-      sans-serif;
+    font-family: 'Lucida Sans', sans-serif;
+    color: var(--text);
   }
 
   .parent {
@@ -303,18 +301,15 @@ main {
     justify-content: space-between;
 
     p {
-      color: #535353;
+      color: var(--text2);
       font-size: 16px;
-      font-family:
-        'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-        Verdana, sans-serif;
+      font-family: 'Lucida Sans', sans-serif;
 
       &:nth-child(2) {
         color: $mainColor;
         display: flex;
         align-items: center;
         cursor: pointer;
-
         &:hover {
           color: #23d863;
           animation: gap 0.5s forwards;
@@ -332,19 +327,18 @@ main {
       display: flex;
       flex-direction: column;
       gap: 15px;
-      border: 1px solid rgb(224, 223, 223);
+      border: 1px solid var(--border);
       padding: 10px;
       border-radius: 10px;
-      background-color: white;
+      background-color: var(--card);
       cursor: pointer;
       transition: 0.2s ease-in-out;
       overflow: hidden;
 
       img {
-        // width: 300px;
         height: 200px;
         object-fit: contain;
-        border: 1px solid rgb(224, 223, 223);
+        border: 1px solid var(--border);
         border-radius: 10px;
       }
 
@@ -360,54 +354,41 @@ main {
           align-items: center;
 
           h3 {
-            font-family:
-              'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-              Verdana, sans-serif;
             color: $mainColor;
             font-weight: 100;
             font-size: 12px;
           }
-
           i {
-            color: rgb(96, 96, 96);
+            color: var(--text2);
             font-size: 8px;
           }
-
           p {
-            font-family:
-              'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-              Verdana, sans-serif;
-            color: rgb(138, 136, 136);
+            color: var(--text2);
             font-size: 13px;
           }
         }
 
         h3 {
-          font-family:
-            'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-            Verdana, sans-serif;
-          color: rgb(69, 71, 69);
+          color: var(--text);
           font-size: 16px;
+          font-family: 'Lucida Sans', sans-serif;
         }
-
         h2 {
-          font-family:
-            'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-            Verdana, sans-serif;
-          color: rgb(18, 23, 19);
+          color: var(--text);
           font-size: 20px;
+          font-family: 'Lucida Sans', sans-serif;
         }
 
         button {
           padding: 10px 20px;
           border-radius: 10px;
-          border: 1px solid rgb(224, 223, 223);
-          font-family:
-            'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-            Verdana, sans-serif;
+          border: 1px solid var(--border);
+          background-color: var(--bg2);
+          color: var(--text);
           transition: 0.2s ease-in-out;
           cursor: pointer;
           font-size: 15px;
+          font-family: 'Lucida Sans', sans-serif;
 
           &:hover {
             background-color: $mainColor;
@@ -420,9 +401,7 @@ main {
         border: 1px solid $mainColor;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         transform: translateY(-5px);
-
         img {
-          // border: 1px solid $mainColor;
           transform: scale(1.04);
         }
       }
@@ -430,19 +409,9 @@ main {
   }
 }
 
-@keyframes gap {
-  from {
-    gap: 0px;
-  }
-
-  to {
-    gap: 10px;
-  }
-}
-
 .limitedOffer {
   width: 100%;
-  padding: 50px 200px;
+  padding: 50px 140px;
 
   .box {
     width: 100%;
@@ -470,14 +439,11 @@ main {
       &:last-child {
         padding: 15px 25px;
         font-size: 18px;
-        font-family:
-          'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-          Verdana, sans-serif;
+        font-family: 'Lucida Sans', sans-serif;
         color: #28a046;
         font-weight: bolder;
         border: none;
         cursor: pointer;
-
         &:hover {
           filter: brightness(96%);
         }
@@ -487,16 +453,12 @@ main {
     h2 {
       font-size: 35px;
       color: white;
-      font-family:
-        'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-        Verdana, sans-serif;
+      font-family: 'Lucida Sans', sans-serif;
     }
 
     p {
       color: white;
-      font-family:
-        'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-        Verdana, sans-serif;
+      font-family: 'Lucida Sans', sans-serif;
 
       .tech {
         padding: 5px;
@@ -510,8 +472,8 @@ main {
 
 .newArrivals {
   width: 100%;
-  background-color: white;
-  padding: 20px 200px;
+  background-color: var(--bg);
+  padding: 20px 140px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -528,9 +490,8 @@ main {
 
   > h2 {
     font-size: 35px;
-    font-family:
-      'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
-      sans-serif;
+    font-family: 'Lucida Sans', sans-serif;
+    color: var(--text);
   }
 
   .parent {
@@ -538,18 +499,15 @@ main {
     justify-content: space-between;
 
     p {
-      color: #535353;
+      color: var(--text2);
       font-size: 16px;
-      font-family:
-        'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-        Verdana, sans-serif;
+      font-family: 'Lucida Sans', sans-serif;
 
       &:nth-child(2) {
         color: $mainColor;
         display: flex;
         align-items: center;
         cursor: pointer;
-
         &:hover {
           color: #23d863;
           animation: gap 0.5s forwards;
@@ -557,6 +515,7 @@ main {
       }
     }
   }
+
   .newArrivalsCards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -566,18 +525,17 @@ main {
       display: flex;
       flex-direction: column;
       gap: 15px;
-      border: 1px solid rgb(224, 223, 223);
+      border: 1px solid var(--border);
       padding: 10px;
       border-radius: 10px;
-      background-color: white;
+      background-color: var(--card);
       cursor: pointer;
       transition: 0.2s ease-in-out;
       overflow: hidden;
       animation: fadeUp 0.6s ease-in-out;
       position: relative;
-      cursor: pointer;
 
-      button:first-child {
+      > button:first-child {
         padding: 5px 10px;
         background-color: $mainColor;
         color: white;
@@ -593,10 +551,9 @@ main {
       }
 
       img {
-        // width: 300px;
         height: 200px;
         object-fit: contain;
-        border: 1px solid rgb(224, 223, 223);
+        border: 1px solid var(--border);
         border-radius: 10px;
       }
 
@@ -605,6 +562,8 @@ main {
         flex-direction: column;
         gap: 15px;
         padding: 0px 15px 15px 15px;
+        justify-content: space-between;
+        height: 100%;
 
         .first {
           display: flex;
@@ -612,54 +571,41 @@ main {
           align-items: center;
 
           h3 {
-            font-family:
-              'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-              Verdana, sans-serif;
             color: $mainColor;
             font-weight: 100;
             font-size: 12px;
           }
-
           i {
-            color: rgb(96, 96, 96);
+            color: var(--text2);
             font-size: 8px;
           }
-
           p {
-            font-family:
-              'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-              Verdana, sans-serif;
-            color: rgb(138, 136, 136);
+            color: var(--text2);
             font-size: 13px;
           }
         }
 
         h3 {
-          font-family:
-            'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-            Verdana, sans-serif;
-          color: rgb(69, 71, 69);
+          color: var(--text);
           font-size: 16px;
+          font-family: 'Lucida Sans', sans-serif;
         }
-
         h2 {
-          font-family:
-            'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-            Verdana, sans-serif;
-          color: rgb(18, 23, 19);
+          color: var(--text);
           font-size: 20px;
+          font-family: 'Lucida Sans', sans-serif;
         }
 
         button:last-child {
           padding: 10px 20px;
           border-radius: 10px;
-          border: 1px solid rgb(224, 223, 223);
-          font-family:
-            'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-            Verdana, sans-serif;
+          border: 1px solid var(--border);
+          background-color: var(--bg2);
+          color: var(--text);
           transition: 0.2s ease-in-out;
           cursor: pointer;
           font-size: 15px;
+          font-family: 'Lucida Sans', sans-serif;
 
           &:hover {
             background-color: $mainColor;
@@ -672,9 +618,7 @@ main {
         border: 1px solid $mainColor;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         transform: translateY(-5px);
-
         img {
-          // border: 1px solid $mainColor;
           transform: scale(1.04);
         }
       }
@@ -684,8 +628,8 @@ main {
 
 .offers {
   width: 100%;
-  background-color: #f6f6f6;
-  padding: 70px 200px;
+  background-color: var(--bg2);
+  padding: 70px 140px;
   display: flex;
   justify-content: center;
   gap: 30px;
@@ -694,18 +638,18 @@ main {
   .box {
     width: 300px;
     height: 230px;
-    background-color: #ffffff;
+    background-color: var(--card);
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    border: 1px solid rgb(224, 223, 223);
+    border: 1px solid var(--border);
     transition: 0.3s ease-in-out;
 
     i {
       padding: 20px 30px;
-      background-color: #f6f6f6;
+      background-color: var(--bg2);
       border-radius: 10px;
       display: flex;
       justify-content: center;
@@ -714,24 +658,19 @@ main {
     }
 
     h3 {
-      font-family:
-        'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-        Verdana, sans-serif;
+      font-family: 'Lucida Sans', sans-serif;
+      color: var(--text);
     }
-
     p {
-      font-family:
-        'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-        Verdana, sans-serif;
+      font-family: 'Lucida Sans', sans-serif;
       font-size: 14px;
-      color: rgb(138, 136, 136);
+      color: var(--text2);
     }
 
     &:hover {
       border: 1px solid $mainColor;
       box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
       transform: translateY(-5px);
-
       i {
         background-color: $mainColor;
         color: white;
@@ -740,187 +679,202 @@ main {
   }
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
+.outOfStockCard {
+  img {
+    filter: grayscale(60%) opacity(0.7);
+  }
+}
+
+.outOfStockBtn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid #fa8a8a;
+  background-color: var(--bg3);
+  color: var(--text2);
+  cursor: not-allowed !important;
+  font-size: 15px;
+  width: 100%;
+  font-style: italic;
+
+  &:hover {
+    background-color: #fde8e8 !important;
+    color: #e53e3e !important;
+  }
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  i {
+    font-size: 14px;
+    color: #ccc;
+  }
+  .fa-solid {
+    color: gold;
+  }
+  span {
+    font-size: 13px;
+    margin-left: 5px;
+    color: var(--text2);
+  }
+}
+
+.quantityBtns {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+
+  button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: var(--bg2);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+
+    &:hover {
+      background: #1ecb5b;
+      color: white;
+    }
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  span {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    color: var(--text);
   }
 }
 
 @media screen and (max-width: 1600px) {
   .shopCat {
     padding: 40px 150px;
-
     .categoryCards {
       grid-template-columns: repeat(3, 1fr);
     }
   }
-
   .featuredProd {
     padding: 40px 150px;
-
     .featuredProdsCards {
       grid-template-columns: repeat(3, 1fr);
     }
   }
-
   .newArrivals {
     padding: 40px 150px;
-
     .newArrivalsCards {
       grid-template-columns: repeat(3, 1fr);
     }
   }
+}
 
-  @media screen and (max-width: 1200px) {
-    main {
-      .background {
-        .left {
-          padding-left: 80px;
-
-          h1 {
-            font-size: 45px;
-          }
-
-          p {
-            font-size: 18px;
-          }
-          .btns {
-            button {
-              padding: 15px 20px;
-            }
-          }
-        }
-
-        .right {
-          padding-right: 30px;
-
-          .headphones {
-            width: 320px;
-            height: 420px;
-          }
-
-          button {
-            padding: 15px 10px;
-
-            &:nth-child(1) {
-              right: 67%;
-            }
-
-            &:nth-child(2) {
-              right: 5%;
-            }
-          }
-        }
+@media screen and (max-width: 1200px) {
+  main .background {
+    .left {
+      padding-left: 80px;
+      h1 {
+        font-size: 45px;
+      }
+      p {
+        font-size: 18px;
       }
     }
-
-    .shopCat {
-      padding: 40px 80px;
-
-      .categoryCards {
-        grid-template-columns: repeat(2, 1fr);
+    .right {
+      padding-right: 30px;
+      .headphones {
+        width: 320px;
+        height: 420px;
       }
-    }
-
-    .featuredProd {
-      padding: 40px 80px;
-
-      .featuredProdsCards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .limitedOffer {
-      padding: 40px 80px;
-    }
-
-    .newArrivals {
-      padding: 40px 80px;
-
-      .newArrivalsCards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .offers {
-      padding: 40px 80px;
     }
   }
 
-  @media screen and (max-width: 800px) {
-    main {
-      .background {
-        display: flex;
+  .shopCat {
+    padding: 40px 80px;
+    .categoryCards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .featuredProd {
+    padding: 40px 80px;
+    .featuredProdsCards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .limitedOffer {
+    padding: 40px 80px;
+  }
+  .newArrivals {
+    padding: 40px 80px;
+    .newArrivalsCards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .offers {
+    padding: 40px 80px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  main .background {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 40px 20px;
+
+    .left {
+      width: 100%;
+      position: relative;
+      padding-left: 0;
+      align-items: center;
+      text-align: center;
+      h1 {
+        font-size: 38px;
+      }
+      .btns {
         flex-direction: column;
-        height: auto;
-        padding: 40px 20px;
-
-        .left {
+        button {
           width: 100%;
-          position: relative;
-          padding-left: 0;
-          align-items: center;
-          text-align: center;
-
-          h1 {
-            font-size: 38px;
-          }
-
-          p {
-            font-size: 16px;
-          }
-
-          .btns {
-            flex-direction: column;
-
-            button {
-              width: 100%;
-            }
-          }
-        }
-
-        .right {
-          display: none;
         }
       }
     }
-
-    .shopCat {
-      padding: 40px 30px;
-
-      .categoryCards {
-        grid-template-columns: 1fr;
-      }
+    .right {
+      display: none;
     }
+  }
 
-    .featuredProd {
-      padding: 40px 30px;
-
-      .featuredProdsCards {
-        grid-template-columns: 1fr;
-      }
+  .shopCat {
+    padding: 40px 30px;
+    .categoryCards {
+      grid-template-columns: 1fr;
     }
-
-    .limitedOffer {
-      padding: 40px 30px;
+  }
+  .featuredProd {
+    padding: 40px 30px;
+    .featuredProdsCards {
+      grid-template-columns: 1fr;
     }
-
-    .newArrivals {
-      padding: 40px 30px;
-
-      .newArrivalsCards {
-        grid-template-columns: 1fr;
-      }
+  }
+  .limitedOffer {
+    padding: 40px 30px;
+    .box {
+      height: auto;
+      padding: 30px 25px;
     }
-
-    .offers {
-      padding: 40px 30px;
+  }
+  .newArrivals {
+    padding: 40px 30px;
+    .newArrivalsCards {
+      grid-template-columns: 1fr;
     }
+  }
+  .offers {
+    padding: 40px 30px;
   }
 }

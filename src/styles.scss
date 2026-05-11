@@ -1,7 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  --bg: #ffffff;
+  --bg2: #f6f6f6;
+  --bg3: #eeeeee;
+  --text: #121212;
+  --text2: #666666;
+  --border: #e0e0e0;
+  --card: #ffffff;
+  --hover: #f0f0f0;
+  background-color: var(--bg);
+  color: var(--text);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+[data-theme='dark'] {
+  --bg: #121212;
+  --bg2: #1e1e1e;
+  --bg3: #2a2a2a;
+  --text: #f0f0f0;
+  --text2: #aaaaaa;
+  --border: #333333;
+  --card: #1e1e1e;
+  --hover: #2a2a2a;
+  background-color: var(--bg);
+  color: var(--text);
 }

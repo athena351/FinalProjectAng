@@ -1,0 +1,19 @@
+@if (alert.state().visible) {
+  <div class="overlay" (click)="cancel()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h2>{{ alert.state().title }}</h2>
+      <p>{{ alert.state().message }}</p>
+      <div class="btns">
+        <button class="cancel" (click)="cancel()">
+          {{ alert.state().cancelText }}
+        </button>
+        <button class="confirm" (click)="confirm()">
+          {{ alert.state().confirmText }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

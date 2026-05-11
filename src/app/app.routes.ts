@@ -1,4 +1,10 @@
 import { Routes } from '@angular/router';
+import { Account } from './account/account';
+import { authGuardGuard } from './auth-guard-guard';
+import { ProfileInfo } from './profile-info/profile-info';
+import { FullCart } from './full-cart/full-cart';
+import { Favorites } from './favorites/favorites';
+import { Settings } from './settings/settings';
 
 export const routes: Routes = [
     {
@@ -27,11 +33,23 @@ export const routes: Routes = [
         loadComponent: () => import('./login/login').then(m => m.Login)
     },
     {
-        path: "profile",
-        loadComponent: () => import('./profile/profile').then(m => m.Profile)
-    },
-    {
         path: "cart",
         loadComponent: () => import('./cart/cart').then(m => m.Cart)
+    },
+    {
+        path: "account",
+        component: Account,
+        canActivate: [authGuardGuard],
+        children : [
+            { path: 'profile', component: ProfileInfo },
+            { path: 'cart', component: FullCart },
+            { path: 'favorites', component: Favorites },
+            { path: 'settings', component: Settings },
+            { path: '', redirectTo: 'profile', pathMatch: 'full' },
+        ]
+    },
+     {
+        path: "**",
+        loadComponent: () => import('./error/error').then(m => m.Error)
     }
 ];

@@ -3,18 +3,16 @@
   top: -100px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 9999;
+  z-index: 999999;
   animation: slideDown 0.4s ease forwards;
 
   &.success {
     .alertBox {
       border-color: #4caf50;
-
       &:hover {
         background-color: #f7fff7;
       }
     }
-
     .icon,
     .type {
       color: #4caf50;
@@ -24,12 +22,10 @@
   &.error {
     .alertBox {
       border-color: #f44336;
-
       &:hover {
         background-color: #fff8f8;
       }
     }
-
     .icon,
     .type {
       color: #f44336;
@@ -39,12 +35,10 @@
   &.warning {
     .alertBox {
       border-color: #ff9800;
-
       &:hover {
         background-color: #fffcf7;
       }
     }
-
     .icon,
     .type {
       color: #ff9800;
@@ -55,8 +49,8 @@
     min-width: 320px;
     padding: 15px 18px;
     border-radius: 10px;
-    background: #fff;
-    color: #333;
+    background: var(--card);
+    color: var(--text);
     display: flex;
     align-items: center;
     gap: 15px;
@@ -86,20 +80,20 @@
         font-family:
           'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
           Verdana, sans-serif;
-        color: #5d5c5c;
+        color: var(--text2);
       }
     }
 
     .closeBtn {
       background: transparent;
       border: none;
-      color: #999;
+      color: var(--text2);
       font-size: 16px;
       cursor: pointer;
       margin-left: auto;
 
       &:hover {
-        color: #333;
+        color: var(--text);
       }
     }
   }

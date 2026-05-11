@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Api } from '../services/api';
 import { Product } from '../models/products';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
+import { AlertServ } from '../services/alert-serv';
 
 @Component({
   selector: 'app-details',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, DecimalPipe],
   templateUrl: './details.html',
   styleUrl: './details.scss',
 })
@@ -16,6 +17,7 @@ export class Details {
     private api: Api,
     private cdr: ChangeDetectorRef,
     private nav: Router,
+    public alertServ: AlertServ,
   ) {
     this.router.queryParams.subscribe((data) => {
       this.selectedId = data['id'];
@@ -40,29 +42,32 @@ export class Details {
   reviews: any[] = [];
   relatedProducts: any[] = [];
   cartMap: { [key: number]: number } = {};
-cartItemMap: { [key: number]: number } = {};
+  cartItemMap: { [key: number]: number } = {};
 
-quantity: number = 1;
+  quantityMap: { [key: number]: number } = {};
+
+  showReviewModal: boolean = false;
+  selectedRating: number = 0;
+  hoverRating: number = 0;
+  currentUserId: number = 0;
+
+  showEditModal: boolean = false;
+  editRating: number = 0;
+  editHoverRating: number = 0;
+  editReviewId: number = 0;
+
+  myReview: any = null;
+  isLoggedIn: boolean = false;
+
+  isLoading: boolean = false;
 
   ngOnInit() {
-    this.loadCart();
-
-    this.api.getAll(`products/${this.selectedId}`).subscribe({
-      next: (resp: any) => {
-        this.product = [resp.data];
-        this.selectedImage = resp.data.imageUrl;
-        this.imageUrls = resp.data.imageUrls;
-
-        this.specList = Object.entries(resp.data.specifications).map(([key, value]) => ({
-          key,
-          value,
-        }));
-
-        this.loadReviews(this.selectedId);
-        this.loadRelatedProducts(resp.data.category.id);
-        this.cdr.detectChanges();
-      },
-    });
+    this.isLoggedIn = !!localStorage.getItem('accessToken');
+    if (localStorage.getItem('accessToken')) {
+      this.loadCart();
+      this.loadFavorites();
+    }
+    this.loadProfile();
   }
 
   loadReviews(productId: number) {
@@ -91,6 +96,7 @@ quantity: number = 1;
           this.rating = 0;
           this.ratingStats = [];
         }
+        this.myReview = items.find((r: any) => r.user.id === this.currentUserId) || null;
 
         this.cdr.detectChanges();
       },
@@ -124,9 +130,12 @@ quantity: number = 1;
   }
 
   loadProduct(id: number) {
+    this.isLoading = true;
+
     this.api.getAll(`products/${id}`).subscribe({
       next: (resp: any) => {
         this.product = [resp.data];
+
         this.selectedImage = resp.data.imageUrl;
         this.imageUrls = resp.data.imageUrls;
 
@@ -138,7 +147,14 @@ quantity: number = 1;
         this.loadReviews(id);
         this.loadRelatedProducts(resp.data.category.id);
 
+        this.isLoading = false;
+
         this.cdr.detectChanges();
+      },
+
+      error: (err) => {
+        console.log(err);
+        this.isLoading = false;
       },
     });
   }
@@ -159,126 +175,243 @@ quantity: number = 1;
     this.zoomStyle = 'scale(1)';
   }
 
-
   loadCart() {
-  this.api.getCart().subscribe({
-    next: (resp: any) => {
+    this.api.getCart().subscribe({
+      next: (resp: any) => {
+        let items = resp.data.items;
 
-      let items = resp.data.items;
+        items.forEach((item: any) => {
+          this.cartMap[item.product.id] = item.quantity;
 
-      items.forEach((item: any) => {
+          this.cartItemMap[item.product.id] = item.id;
+        });
 
-        this.cartMap[item.product.id] = item.quantity;
+        this.cdr.detectChanges();
+      },
 
-        this.cartItemMap[item.product.id] = item.id;
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+  }
 
-      });
-
-      this.cdr.detectChanges();
-    },
-
-    error: (err: any) => {
-      console.log(err);
+  addToCart(productId: number) {
+    if (!localStorage.getItem('accessToken')) {
+      this.alertServ.show('Please login first', 'error');
+      return;
     }
-  });
-}
 
-addToCart(productId: number) {
+    let body = {
+      productId: productId,
+      quantity: this.quantityMap[productId] || 1,
+    };
 
-  let body = {
-    productId: productId,
-    quantity: this.quantity
-  };
+    this.api.postCart(body).subscribe({
+      next: (resp: any) => {
+        let cartItemId = resp.data;
 
-  this.api.postCart(body).subscribe({
-    next: (resp: any) => {
+        this.cartMap[productId] = this.quantityMap[productId] || 1;
 
-      let cartItemId = resp.data;
+        this.cartItemMap[productId] = cartItemId;
 
-      this.cartMap[productId] = this.quantity;
+        this.cdr.detectChanges();
+      },
 
-      this.cartItemMap[productId] = cartItemId;
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
-      this.cdr.detectChanges();
-    },
-
-    error: (err) => {
-      console.log(err);
-    }
-  });
-
-}
-
-
-increase(productId: number) {
-
-  let newQuantity = this.cartMap[productId] + 1;
-
-  let body = {
-    itemId: this.cartItemMap[productId],
-    quantity: newQuantity
-  };
-
-  this.api.updateCart(body).subscribe({
-    next: () => {
-
-      this.cartMap[productId] = newQuantity;
-
-      this.cdr.detectChanges();
-    },
-
-    error: (err) => {
-      console.log(err);
-    }
-  });
-
-}
-
-
-decrease(productId: number) {
-
-  let currentQuantity = this.cartMap[productId];
-
-  if (currentQuantity > 1) {
+  increase(productId: number) {
+    let newQuantity = this.cartMap[productId] + 1;
 
     let body = {
       itemId: this.cartItemMap[productId],
-      quantity: currentQuantity - 1
+      quantity: newQuantity,
     };
 
     this.api.updateCart(body).subscribe({
       next: () => {
-
-        this.cartMap[productId]--;
+        this.cartMap[productId] = newQuantity;
 
         this.cdr.detectChanges();
       },
 
       error: (err) => {
         console.log(err);
-      }
+      },
     });
   }
 
-   else {
+  decrease(productId: number) {
+    let currentQuantity = this.cartMap[productId];
 
-    let itemId = this.cartItemMap[productId];
+    if (currentQuantity > 1) {
+      let body = {
+        itemId: this.cartItemMap[productId],
+        quantity: currentQuantity - 1,
+      };
 
-    this.api.deleteCartItem(itemId).subscribe({
+      this.api.updateCart(body).subscribe({
+        next: () => {
+          this.cartMap[productId]--;
+
+          this.cdr.detectChanges();
+        },
+
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else {
+      let itemId = this.cartItemMap[productId];
+
+      this.api.deleteCartItem(itemId).subscribe({
+        next: () => {
+          delete this.cartMap[productId];
+          delete this.cartItemMap[productId];
+
+          this.cdr.detectChanges();
+        },
+
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
+  }
+
+  increaseTempQuantity(productId: number) {
+    if (!this.quantityMap[productId]) {
+      this.quantityMap[productId] = 1;
+    }
+
+    this.quantityMap[productId]++;
+  }
+
+  decreaseTempQuantity(productId: number) {
+    if (!this.quantityMap[productId]) {
+      this.quantityMap[productId] = 1;
+    }
+
+    if (this.quantityMap[productId] > 1) {
+      this.quantityMap[productId]--;
+    }
+  }
+
+  isFavorite: boolean = false;
+
+  loadFavorites() {
+    this.api.favorites().subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+
+        let items = resp.data.items;
+        this.isFavorite = items.some((fav: any) => Number(fav.id) === Number(this.selectedId));
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.log(err),
+    });
+  }
+
+  toggleFavorite(productId: number) {
+    if (!localStorage.getItem('accessToken')) {
+      this.alertServ.show('Please login first', 'error');
+      return;
+    }
+
+    if (this.isFavorite) {
+      this.api.removeFromFavorites(productId).subscribe({
+        next: (resp) => {
+          this.isFavorite = false;
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.log(err),
+      });
+    } else {
+      this.api.addToFavorites(productId).subscribe({
+        next: (resp) => {
+          this.isFavorite = true;
+          this.alertServ.show('Added to Favorites', 'success');
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.log(err),
+      });
+    }
+  }
+
+  openReviewModal() {
+    this.showReviewModal = true;
+  }
+
+  closeReviewModal() {
+    this.showReviewModal = false;
+    this.selectedRating = 0;
+    this.hoverRating = 0;
+  }
+
+  setRating(star: number) {
+    this.selectedRating = star;
+  }
+
+  submitReview(productId: number) {
+    if (!this.selectedRating) return;
+
+    let body = { productId: productId, rate: this.selectedRating };
+
+    this.api.postReview(body).subscribe({
       next: () => {
-
-        delete this.cartMap[productId];
-        delete this.cartItemMap[productId];
-
+        this.closeReviewModal();
+        this.loadReviews(productId);
         this.cdr.detectChanges();
       },
-
-      error: (err) => {
-        console.log(err);
-      }
+      error: (err) => console.log(err),
     });
-
   }
 
-}
+  loadProfile() {
+    this.api.profile().subscribe({
+      next: (resp: any) => {
+        this.currentUserId = resp.data.id;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.log(err),
+    });
+  }
+
+  openEditModal(review: any) {
+    this.editReviewId = review.id;
+    this.editRating = review.rating;
+    this.showEditModal = true;
+  }
+
+  closeEditModal() {
+    this.showEditModal = false;
+    this.editRating = 0;
+    this.editHoverRating = 0;
+  }
+
+  submitEdit(productId: number) {
+    if (!this.editRating) return;
+
+    this.api.updateReview({ reviewId: this.editReviewId, rate: this.editRating }).subscribe({
+      next: () => {
+        this.closeEditModal();
+        this.loadReviews(productId);
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.log(err),
+    });
+  }
+
+  deleteReview(reviewId: number) {
+    this.api.deleteRewiew(reviewId).subscribe({
+      next: () => {
+        this.loadReviews(this.selectedId);
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.log(err),
+    });
+  }
 }

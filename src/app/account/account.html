@@ -1,0 +1,53 @@
+<div class="profile">
+  <div class="left">
+    <div class="up">
+      <div class="userPic">
+        @if (user?.details?.pictureUrl) {
+          <img [src]="user.details.pictureUrl" alt="avatar" />
+        } @else {
+          {{ getInitials() }}
+        }
+      </div>
+
+      <div class="name">
+        <h2>{{ user?.firstName }}</h2>
+        <h2>{{ user?.lastName }}</h2>
+      </div>
+
+      <p>{{ user?.email }}</p>
+    </div>
+
+    <div class="down">
+      <div class="about" [routerLink]="['/account/profile']" routerLinkActive="active">
+        <p><i class="fa-regular fa-user"></i></p>
+        <p>Profile</p>
+      </div>
+
+      <div class="about" [routerLink]="['/account/cart']" routerLinkActive="active">
+        <p><i class="fa-solid fa-cart-flatbed"></i></p>
+        <p>Cart</p>
+      </div>
+
+      <div class="about" [routerLink]="['/account/favorites']" routerLinkActive="active">
+        <p><i class="fa-regular fa-heart"></i></p>
+        <p>Favorites</p>
+      </div>
+
+      <div class="about" [routerLink]="['/account/settings']" routerLinkActive="active">
+        <p><i class="fa-solid fa-gear"></i></p>
+        <p>Settings</p>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="logout" (click)="logout()">
+        <p><i class="fa-solid fa-arrow-right-from-bracket"></i></p>
+        <p>Logout</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <router-outlet></router-outlet>
+  </div>
+</div>

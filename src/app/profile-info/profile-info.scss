@@ -1,0 +1,210 @@
+$mainColor: #22c55e;
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  h2 {
+    font-size: 24px;
+    color: var(--text);
+  }
+
+  p {
+    color: var(--text2);
+  }
+}
+
+.profilePicture,
+.personalInfo,
+.address {
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.first {
+  font-weight: 600;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--text);
+
+  i {
+    color: $mainColor;
+    margin-right: 6px;
+  }
+}
+
+.profilePicture {
+  .second {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    padding: 20px 25px 40px 25px;
+
+    .left {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--text2);
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      h3 {
+        font-size: 15px;
+        color: var(--text);
+      }
+
+      p {
+        font-size: 13px;
+        color: var(--text2);
+      }
+    }
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.field {
+  position: relative;
+
+  i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text2);
+    font-size: 14px;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 12px 12px 38px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    color: var(--text);
+    transition: 0.2s;
+
+    &::placeholder {
+      color: var(--text2);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $mainColor;
+      background: var(--card);
+    }
+  }
+}
+
+.personalInfo {
+  .second {
+    padding: 20px 25px 35px 25px;
+
+    .nameInputs,
+    .dobAndPhone {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+
+      > div {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.address {
+  .second {
+    padding: 20px 25px 35px 25px;
+  }
+}
+
+.btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  button {
+    padding: 14px 22px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+  }
+
+  .discard {
+    background: var(--bg3);
+    color: var(--text);
+
+    &:hover {
+      background: var(--border);
+    }
+  }
+
+  .save {
+    background: #1990ff;
+    color: white;
+
+    &:hover {
+      background: #2e8ae0;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .profilePicture .second {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .personalInfo .second .nameInputs,
+  .personalInfo .second .dobAndPhone {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .btns {
+    flex-direction: column;
+    button {
+      width: 100%;
+    }
+  }
+}

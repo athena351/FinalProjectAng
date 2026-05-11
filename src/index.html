@@ -1,14 +1,57 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>FinalProjectAng</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-  <app-root></app-root>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>FinalProjectAng</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+  </head>
+  <style>
+    :root {
+      --chat--color--primary: #3dbc58;
+      --chat--color--primary-shade-50: #41ad3a;
+      --chat--color--primary--shade-100: #38b242;
+      --chat--color--secondary: #70d992;
+      --chat--color-secondary-shade-50: #66e271;
+      --chat--color-white: #fff;
+      --chat--color-light: #f2f4f8;
+      --chat--color-light-shade-50: #e6e9f1;
+      --chat--color-light-shade-100: #c2c5cc;
+      --chat--color-medium: #d2d4d9;
+      --chat--color-dark: #113010;
+      --chat--color-disabled: #d2d4d9;
+      --chat--color-typing: #404040;
+    }
+  </style>
+  <body>
+    <app-root></app-root>
+
+    <script type="module">
+      import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+      createChat({
+        webhookUrl:
+          'https://athena351.app.n8n.cloud/webhook/d12f392e-2a4e-4f42-9a7f-b583cb878bd1/chat',
+        initialMessages: ['Hi there!', 'How can I assist you today?'],
+        i18n: {
+          en: {
+            title: 'Hi there! ',
+            subtitle: "Start a chat. We're here to help you 24/7.",
+            footer: '',
+            getStarted: 'New Conversation',
+            inputPlaceholder: 'Type your question..',
+          },
+        },
+      });
+    </script>
+  </body>
 </html>

@@ -1,0 +1,142 @@
+<div class="settings">
+  <div class="title">
+    <h2>Account Settings</h2>
+    <p>Manage your security and account preferences</p>
+  </div>
+
+  <div class="changePass">
+    <div class="up">
+      <h2><i class="fa-solid fa-lock"></i> Change Password</h2>
+    </div>
+
+    <form class="down" [formGroup]="changePassword" (ngSubmit)="changePass()">
+      <div class="currentPass">
+        <p>*Current Password</p>
+
+        <div class="field">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            formControlName="currentPassword"
+            placeholder="Enter your current password"
+            [type]="currentPasswordVisible ? 'text' : 'password'"
+          />
+          <i
+            class="fa-solid"
+            [class.fa-eye]="currentPasswordVisible"
+            [class.fa-eye-slash]="!currentPasswordVisible"
+            (click)="toggleCurrentPassword()"
+          ></i>
+        </div>
+
+        @if (
+          changePassword.get('currentPassword')?.touched &&
+          changePassword.get('currentPassword')?.errors?.['required']
+        ) {
+          <div class="error">
+            <small>Password is required</small>
+          </div>
+        }
+
+        @if (incorrectCurrentPassword) {
+          <div class="error">
+            <small>Password is incorrect</small>
+          </div>
+        }
+      </div>
+
+      <div class="newPass">
+        <div class="left">
+          <p>*New Password</p>
+          <div class="field">
+            <i class="fa-solid fa-lock"></i>
+            <input
+              [type]="newPasswordVisible ? 'text' : 'password'"
+              placeholder="Enter your new password"
+              formControlName="newPassword"
+            />
+            <i
+              class="fa-solid"
+              [class.fa-eye]="newPasswordVisible"
+              [class.fa-eye-slash]="!newPasswordVisible"
+              (click)="toggleNewPassword()"
+            ></i>
+          </div>
+
+          @if (getPasswordError('newPassword')) {
+            <div class="error">
+              <small>{{ getPasswordError('newPassword') }}</small>
+            </div>
+          }
+        </div>
+
+        <div class="right">
+          <p>*Confirm New Password</p>
+          <div class="field">
+            <i class="fa-solid fa-lock"></i>
+            <input
+              [type]="confirmPasswordVisible ? 'text' : 'password'"
+              placeholder="Confirm your new password"
+              formControlName="confirmNewPassword"
+            />
+            <i
+              class="fa-solid"
+              [class.fa-eye]="confirmPasswordVisible"
+              [class.fa-eye-slash]="!confirmPasswordVisible"
+              (click)="toggleConfirmPassword()"
+            ></i>
+          </div>
+
+          @if (getPasswordError('confirmNewPassword')) {
+            <div class="error">
+              <small>{{ getPasswordError('confirmNewPassword') }}</small>
+            </div>
+          }
+
+          @if (
+            changePassword.errors?.['passwordMismatch'] &&
+            changePassword.get('confirmNewPassword')?.touched
+          ) {
+            <div class="error">
+              <small>Passwords do not match</small>
+            </div>
+          }
+        </div>
+      </div>
+
+      <button><i class="fa-solid fa-check"></i> Update Password</button>
+    </form>
+  </div>
+
+  <div class="dangerZone">
+    <div class="up">
+      <h2><i class="fa-solid fa-triangle-exclamation"></i> Danger Zone</h2>
+    </div>
+
+    <div class="down">
+      <div class="warning">
+        <div class="left">
+          <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+
+        <div class="right">
+          <h2>Delete Account</h2>
+          <p>Once you delete your account, there is no going back. Please be certain.</p>
+        </div>
+      </div>
+
+      <div class="deleteAcc">
+        <div class="left">
+          <h2>Delete your account</h2>
+          <p>
+            This will permanently delete your account, including all your data, orders, and
+            preferences.
+          </p>
+        </div>
+
+        <div class="right">
+          <button (click)="deleteAcc()"><i class="fa-solid fa-trash"></i> Delete Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,16 @@
 @if (message) {
   <div class="alert" [ngClass]="type">
     <div class="alertBox">
-
       <span class="icon">
-        @if (type === 'success') { <i class="fa-regular fa-circle-check"></i> }
-        @if (type === 'error') { <i class="fa-solid fa-x"></i> }
-        @if (type === 'warning') { <i class="fa-solid fa-triangle-exclamation"></i> }
+        @if (type === 'success') {
+          <i class="fa-regular fa-circle-check"></i>
+        }
+        @if (type === 'error') {
+          <i class="fa-solid fa-x"></i>
+        }
+        @if (type === 'warning') {
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        }
       </span>
 
       <div class="text">

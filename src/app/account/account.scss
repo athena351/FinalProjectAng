@@ -1,0 +1,195 @@
+$mainColor: #22c55e;
+
+.profile {
+  margin-top: 80px;
+  display: flex;
+  gap: 50px;
+  padding: 20px 200px;
+  padding-right: 300px;
+  background-color: var(--bg2);
+
+  font-family:
+    'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
+    sans-serif;
+
+  .left {
+    width: 300px;
+    background: var(--card);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    align-self: flex-start;
+
+    .up {
+      background-color: $mainColor;
+      padding: 40px 20px;
+      text-align: center;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .userPic {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.4);
+        margin: 0 auto 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 24px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 7px;
+
+        h2 {
+          font-size: 18px;
+        }
+      }
+
+      p {
+        font-size: 13px;
+        opacity: 0.8;
+      }
+    }
+
+    .down {
+      padding: 20px;
+
+      .about {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: 0.2s;
+        color: var(--text);
+
+        i {
+          width: 50px;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: var(--bg3);
+          border-radius: 10px;
+          color: var(--text2);
+          transition: 0.2s ease;
+        }
+
+        &:hover {
+          background: var(--hover);
+
+          i {
+            background-color: #ccefd9a8;
+            color: $mainColor;
+          }
+        }
+
+        &.active {
+          background: #dcfce7;
+          color: $mainColor;
+
+          i {
+            background-color: $mainColor;
+            color: white;
+          }
+        }
+      }
+
+      .line {
+        height: 1px;
+        background: var(--border);
+        margin: 15px 0;
+      }
+
+      .logout {
+        @extend .about;
+
+        color: #ef4444;
+
+        i {
+          background: #fee2e2;
+        }
+
+        &:hover {
+          background-color: #fff5f5;
+
+          i {
+            background-color: #f32f2f;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .right {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .profile {
+    padding: 40px 50px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .profile {
+    padding: 40px;
+    gap: 30px;
+    flex-direction: column;
+
+    .left {
+      width: 100%;
+    }
+    .right {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .profile {
+    padding: 20px 15px;
+    .left {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile {
+    padding: 10px;
+
+    .left {
+      .up {
+        .userPic {
+          width: 80px;
+          height: 80px;
+          font-size: 18px;
+        }
+
+        .name h2 {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

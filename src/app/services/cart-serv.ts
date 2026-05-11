@@ -4,13 +4,13 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class CartServ {
-  state = signal(false)
+  state = signal(false);
 
-  showCart(){
-    this.state.set(true)
+  showCart() {
+    this.state.set(true);
   }
 
-  hideCart(){
-    this.state.set(false)
+  hideCart() {
+    this.state.set(false);
   }
 }

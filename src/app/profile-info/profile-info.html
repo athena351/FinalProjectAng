@@ -1,0 +1,118 @@
+<form class="right" [formGroup]="form">
+  <div class="title">
+    <h2>My Profile</h2>
+    <p>Manage your personal information and preferences</p>
+  </div>
+
+  <div class="profilePicture">
+    <div class="first">
+      <p><i class="fa-solid fa-image"></i> Profile Picture</p>
+    </div>
+
+    <div class="second">
+      <div class="left">
+        @if (form.value.pictureUrl) {
+          <img [src]="form.value.pictureUrl" />
+        } @else {
+          {{ getInitials() }}
+        }
+      </div>
+
+      <div class="right">
+        <h3>Upload your photo</h3>
+        <p>Enter a URL to your profile picture</p>
+
+        <div class="formGroup">
+          <div class="field">
+            <i class="fa-solid fa-link"></i>
+            <input
+              type="text"
+              placeholder="https://example.com/avatar.jpg"
+              formControlName="pictureUrl"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="personalInfo">
+    <div class="first">
+      <p><i class="fa-regular fa-user"></i> Personal Information</p>
+    </div>
+
+    <div class="second">
+      <div class="nameInputs">
+        <div class="formGroup">
+          <p>*First Name</p>
+
+          <div class="field">
+            <i class="fa-regular fa-user"></i>
+            <input formControlName="firstName" />
+          </div>
+        </div>
+
+        <div class="formGroup">
+          <p>*Last Name</p>
+          <div class="field">
+            <i class="fa-regular fa-user"></i>
+            <input formControlName="lastName" />
+          </div>
+        </div>
+      </div>
+
+      <div class="formGroup">
+        <p>Email</p>
+        <div class="field">
+          <i class="fa-regular fa-envelope"></i>
+          <input formControlName="email" />
+        </div>
+      </div>
+
+      <div class="dobAndPhone">
+        <div class="formGroup">
+          <p>Date of Birth</p>
+
+          <div class="field">
+            <i class="fa-regular fa-calendar"></i>
+            <input type="date" formControlName="dateOfBirth" />
+          </div>
+        </div>
+
+        <div class="formGroup">
+          <p>Phone</p>
+
+          <div class="field">
+            <i class="fa-solid fa-phone"></i>
+            <input formControlName="phoneNumber" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="address">
+    <div class="first">
+      <p><i class="fa-solid fa-location-dot"></i> Address</p>
+    </div>
+
+    <div class="second">
+      <div class="formGroup">
+        <p>Street Address</p>
+
+        <div class="field">
+          <i class="fa-regular fa-house"></i>
+          <input formControlName="address" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button type="button" class="discard" [disabled]="form.pristine" (click)="discardChanges()">
+      Discard
+    </button>
+
+    <button type="button" class="save" (click)="saveChanges()">Save Changes</button>
+  </div>
+</form>

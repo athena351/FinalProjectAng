@@ -3,7 +3,7 @@ $mainColor: #1ecb5b;
 .header {
   width: 100%;
   height: 80px;
-  background-color: white;
+  background-color: var(--bg);
   display: flex;
   justify-content: space-evenly;
   gap: 20px;
@@ -12,7 +12,8 @@ $mainColor: #1ecb5b;
   top: 0;
   left: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgb(224, 222, 222);
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.3s ease;
 
   .logoDiv {
     display: flex;
@@ -27,15 +28,12 @@ $mainColor: #1ecb5b;
       background-position: center;
       background-size: cover;
       border-radius: 7px;
-      cursor: pointer;
     }
 
     h2 {
-      font-family:
-        'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-        Verdana, sans-serif;
+      font-family: 'Lucida Sans', sans-serif;
       font-size: 20px;
-      cursor: pointer;
+      color: var(--text);
     }
   }
 
@@ -47,42 +45,43 @@ $mainColor: #1ecb5b;
     ul {
       display: flex;
       gap: 20px;
-      text-decoration: none;
 
       li {
         list-style: none;
-        font-family:
-          'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-          Verdana, sans-serif;
+        font-family: 'Lucida Sans', sans-serif;
         font-size: 15px;
         padding: 10px 15px;
         border-radius: 7px;
         cursor: pointer;
         display: flex;
         align-items: center;
+        color: var(--text);
+
+        a {
+          color: var(--text);
+        }
       }
 
-        .categories {
-          position: relative;
+      .categories {
+        position: relative;
 
-          &:hover .dropDown{
-            display: flex !important;
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-          }
-
-          a {
-            display: flex;
-            align-items: center;
-          }
+        &:hover .dropDown {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
         }
-      
+
+        a {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+      }
+
       .dropDown {
         width: 220px;
-        // height: 200px;
-        background-color: white;
-        border: 1px solid rgb(224, 222, 222);
+        background-color: var(--card);
+        border: 1px solid var(--border);
         position: absolute;
         top: 100%;
         left: 0;
@@ -91,12 +90,10 @@ $mainColor: #1ecb5b;
         display: flex;
         flex-direction: column;
         padding: 6px 10px;
-        z-index: 2000;
         opacity: 0;
         visibility: hidden;
         transform: translateY(-10px);
         transition: 0.2s;
-        cursor: pointer;
 
         .name {
           display: flex;
@@ -106,21 +103,19 @@ $mainColor: #1ecb5b;
           cursor: pointer;
 
           &:hover {
-            background-color: #f6f6f6;
-            
-            span{
+            background-color: var(--hover);
+            border-radius: 7px;
+
+            span {
               color: $mainColor;
             }
           }
 
           span {
             font-size: 14px;
-            font-family:
-              'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-              Verdana, sans-serif;
+            font-family: 'Lucida Sans', sans-serif;
             padding: 10px 5px;
-            border-radius: 20px;
-            color: rgb(69, 68, 68);
+            color: var(--text);
           }
 
           p {
@@ -128,12 +123,12 @@ $mainColor: #1ecb5b;
             width: 20px;
             height: 20px;
             padding: 5px;
-            background-color: rgb(238, 234, 234);
+            background-color: var(--bg3);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 12px;
-            color: rgb(157, 154, 154);
+            color: var(--text2);
           }
         }
       }
@@ -144,48 +139,294 @@ $mainColor: #1ecb5b;
     input {
       width: 270px;
       height: 45px;
-      border: 1px solid rgb(224, 222, 222);
+      border: 1px solid var(--border);
       border-radius: 23px;
       padding: 10px 20px;
-      background-color: #f6f6f6;
+      background-color: var(--bg2);
+      color: var(--text);
       outline: none;
       transition:
         border-color 0.4s ease,
         box-shadow 0.4s ease;
 
+      &::placeholder {
+        color: var(--text2);
+      }
+
       &:focus {
-        outline: none;
         border-color: $mainColor;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        background-color: white;
+        background-color: var(--bg);
       }
     }
   }
 
   .signIn {
-    button {
+    > button {
       width: 100px;
       height: 45px;
       border: none;
       border-radius: 23px;
       background-color: $mainColor;
       color: white;
-      font-family:
-        'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
-        Verdana, sans-serif;
+      font-family: 'Lucida Sans', sans-serif;
       font-size: 13px;
       font-weight: bold;
       cursor: pointer;
 
-      &:hover{
+      &:hover {
         filter: brightness(110%);
       }
     }
   }
- 
 }
 
 .active {
   color: $mainColor;
-  background-color: #ebf8ee;
+  background-color: var(--bg3);
+}
+
+.profileBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .iconBtn {
+    padding: 15px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    &:hover {
+      background: #ebf8ee;
+      border-color: $mainColor;
+      i {
+        color: $mainColor;
+      }
+    }
+  }
+
+  .avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: $mainColor;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    transition: 0.2s;
+    font-family: 'Lucida Sans', sans-serif;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &:hover {
+      border-color: rgb(15, 146, 17);
+      transform: scale(1.05);
+    }
+  }
+}
+
+.themeBtn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 16px;
+    color: var(--text);
+  }
+
+  &:hover {
+    background: #ebf8ee;
+    border-color: $mainColor;
+    i {
+      color: $mainColor;
+    }
+  }
+}
+
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text);
+  padding: 8px;
+  border-radius: 8px;
+  transition: 0.2s;
+
+  &:hover {
+    background: var(--hover);
+  }
+}
+
+.desktopOnly {
+  display: flex;
+}
+.mobileActions {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .header {
+    justify-content: space-between;
+    padding: 0 20px;
+
+    .desktopOnly {
+      display: none !important;
+    }
+    .burger {
+      display: block;
+    }
+
+    nav {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 80px);
+      background: var(--bg);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px;
+      gap: 0;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+      z-index: 999;
+      display: flex !important;
+
+      &.open {
+        transform: translateX(0);
+      }
+
+      ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 5px;
+
+        li {
+          width: 100%;
+          padding: 12px 15px;
+          border-radius: 10px;
+          &:hover {
+            background: var(--hover);
+          }
+        }
+
+        .categories {
+          flex-direction: column;
+          align-items: flex-start;
+
+          .dropDown {
+            position: static;
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+            box-shadow: none;
+            border: none;
+            padding: 5px 10px;
+            background: var(--bg2);
+            border-radius: 10px;
+            margin-top: 5px;
+            width: 100%;
+          }
+        }
+      }
+
+      .mobileActions {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+
+        .search input {
+          width: 100%;
+          height: 45px;
+          border: 1px solid var(--border);
+          border-radius: 23px;
+          padding: 10px 20px;
+          background-color: var(--bg2);
+          color: var(--text);
+          outline: none;
+
+          &:focus {
+            border-color: $mainColor;
+          }
+        }
+
+        .signInMobile {
+          width: 100%;
+          height: 45px;
+          border: none;
+          border-radius: 23px;
+          background-color: $mainColor;
+          color: white;
+          font-size: 15px;
+          font-weight: bold;
+          cursor: pointer;
+          &:hover {
+            filter: brightness(110%);
+          }
+        }
+
+        .mobileLinks {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+
+          div {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            color: var(--text);
+            font-family: 'Lucida Sans', sans-serif;
+
+            i {
+              color: $mainColor;
+              font-size: 16px;
+            }
+            &:hover {
+              background: var(--hover);
+            }
+          }
+        }
+      }
+    }
+  }
 }

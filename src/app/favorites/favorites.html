@@ -1,0 +1,75 @@
+<div class="favorites">
+  <div class="title">
+    <h2>Favorites</h2>
+    <p>{{ totalCount }} saved products</p>
+  </div>
+
+  @if (favorites.length > 0) {
+    <div class="grid">
+      @for (item of favorites; track $index) {
+        <div class="card">
+          <button class="heartBtn" (click)="removeFromFavorites(item.id)">
+            <i class="fa-solid fa-heart"></i>
+          </button>
+
+          <img [src]="item.imageUrl" alt="" (click)="goToProduct(item.id)" />
+
+          <div class="info">
+            <p class="brand">{{ item.brand }}</p>
+
+            <h3 class="name" (click)="goToProduct(item.id)">{{ item.name }}</h3>
+
+            <p class="model">Model: {{ item.model }}</p>
+
+            <p class="category">
+              {{ item.category.name }}
+            </p>
+
+            <div class="rating">
+              @for (star of [1, 2, 3, 4, 5]; track $index) {
+                <i
+                  class="fa-star"
+                  [class.fa-solid]="star <= item.rating"
+                  [class.fa-regular]="star > item.rating"
+                ></i>
+              }
+
+              <span>{{ item.rating | number: '1.1-1' }}</span>
+            </div>
+
+            <h2 class="price">USD {{ item.price | number }}</h2>
+
+            @if (!cartMap[item.id]) {
+              <button class="cartBtn" (click)="addToCart(item.id)">
+                <i class="fa-solid fa-cart-flatbed"></i>
+                Add to Cart
+              </button>
+            } @else {
+              <div class="quantityBtns">
+                <button (click)="decrease(item.id)">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+
+                <span>{{ cartMap[item.id] }}</span>
+
+                <button (click)="increase(item.id)">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="emptyFavorites">
+      <i class="fa-regular fa-heart"></i>
+      <h3>No favorites yet</h3>
+      <p>
+        Start adding products to your favorites to see them here. Click the heart icon on any
+        product!
+      </p>
+      <button routerLink="/shop"><i class="fa-solid fa-cart-flatbed"></i> Browse Products</button>
+    </div>
+  }
+</div>

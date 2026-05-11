@@ -6,7 +6,7 @@
       <p>
         <i class="fa-solid fa-cart-flatbed"></i>
         Shopping Cart
-        <span class="totalCount">({{totalCount}} items)</span>
+        <span class="totalCount">({{ totalCount }} items)</span>
       </p>
 
       <button (click)="cartServ.hideCart()">
@@ -15,53 +15,62 @@
     </div>
 
     <div class="products">
-      @for (item of cartItems; track $index) {
-        <div class="product">
-          <img [src]="item.product.imageUrl" alt="" />
-
-          <h1>{{item.totalCount}}</h1>
-
-          <div class="info">
-            <div class="up">
-              <div class="name">
-                <h3>{{ item.product.name }}</h3>
-
-                <p>USD {{ item.quantity }} x {{ item.price | number}}</p>
+      @if (cartItems.length > 0) {
+        @for (item of cartItems; track $index) {
+          <div class="product">
+            <img [src]="item.product.imageUrl" alt="" />
+            <div class="info">
+              <div class="up">
+                <div class="name">
+                  <h3>{{ item.product.name }}</h3>
+                  <p>USD {{ item.quantity }} x {{ item.price | number }}</p>
+                </div>
+                <h4>USD {{ item.totalPrice | number }}</h4>
               </div>
-
-              <h4>USD {{ item.totalPrice | number}}</h4>
-            </div>
-
-            <div class="down">
-              <div class="quantity">
-                <p (click)="decrease(item)"><i class="fa-solid fa-minus"></i></p>
-                <p>{{item.quantity}}</p>
-                <p (click)="increase(item)"><i class="fa-solid fa-plus"></i></p>
+              <div class="down">
+                <div class="quantity">
+                  <p (click)="decrease(item)"><i class="fa-solid fa-minus"></i></p>
+                  <p>{{ item.quantity }}</p>
+                  <p (click)="increase(item)"><i class="fa-solid fa-plus"></i></p>
+                </div>
+                <p (click)="remove(item)"><i class="fa-solid fa-trash"></i></p>
               </div>
-              <p (click)="remove(item)"><i class="fa-solid fa-trash"></i></p>
             </div>
           </div>
+        }
+      } @else {
+        <div class="emptyCart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <h3>Your cart is empty</h3>
+          <p>Looks like you haven't added anything yet. Start exploring our products!</p>
+          <button (click)="cartServ.hideCart()" routerLink="/shop">
+            <i class="fa-solid fa-bag-shopping"></i> Start Shopping
+          </button>
         </div>
       }
     </div>
 
-    <div class="box">
-      <div class="one">
-        <p>Subtotal</p>
-        <p>USD {{ total | number}}</p>
-      </div>
+    @if (cartItems.length > 0) {
+      <div class="box">
+        <div class="one">
+          <p>Subtotal</p>
+          <p>USD {{ total | number }}</p>
+        </div>
 
-      <div class="line"></div>
+        <div class="line"></div>
 
-      <div class="two">
-        <h2>Total</h2>
-        <h2>USD {{ total | number}}</h2>
-      </div>
+        <div class="two">
+          <h2>Total</h2>
+          <h2>USD {{ total | number }}</h2>
+        </div>
 
-      <div class="btns">
-        <button class="viewCart">View Cart</button>
-        <button class="checkout">Checkout <i class="fa-solid fa-arrow-right"></i></button>
+        <div class="btns">
+          <button class="viewCart" routerLink="/account/cart">View Cart</button>
+          <button class="checkout" (click)="checkout()">
+            Checkout <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
       </div>
-    </div>
+    }
   </div>
 </div>
