@@ -46,6 +46,7 @@ export class Account {
       confirmText: 'Logout',
       onConfirm: () => {
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         this.router.navigateByUrl('/login');
       },
     });
