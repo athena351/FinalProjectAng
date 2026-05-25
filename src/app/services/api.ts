@@ -198,4 +198,12 @@ export class Api {
 
     return this.http.delete(`https://shopapi.stepacademy.ge/api/reviews/${productId}`, { headers });
   }
+
+  n8nCheckout(data: any) {
+    return this.http.post(`https://athena0987.app.n8n.cloud/webhook-test/checkoout`, data);
+  }
+
+  getTokenn8n(token : any){
+    return this.http.post(`https://athena0987.app.n8n.cloud/webhook-test/token`, token)
+  }
 }

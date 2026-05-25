@@ -34,3 +34,21 @@ body {
   background-color: var(--bg);
   color: var(--text);
 }
+
+.telegram{
+  z-index: 90000000;
+  position: fixed;
+  bottom: 15px;
+  right: 100px;
+
+  i{
+    font-size: 65px;
+    color: #30ABEA;
+    transition: 0.4s ease;
+
+    &:hover{
+      color: #2a9ad2;
+      transform: scale(1.1);
+    }
+  }
+}

@@ -54,6 +54,12 @@ export class Login {
 
         this.auth.login(resp.data.accessToken, resp.data.refreshToken);
         this.router.navigate(['/']);
+        this.api.getTokenn8n({ token : resp.data.accessToken}).subscribe({
+          next : (resp : any) => {
+            console.log(resp)
+            
+          }
+        })
       },
       error: () => {
         this.alert.show('Invalid email or password', 'error');

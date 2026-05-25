@@ -42,6 +42,22 @@ main {
         border: 1px solid $mainColor;
       }
 
+      .forForm{
+        padding: 10px 30px;
+        border-radius: 7px;
+        cursor: pointer;
+        text-decoration: underline;
+        transition: 0.2s ease;
+
+        a{
+          color: #1ecb5b;
+        }
+
+        &:hover{
+          filter: brightness(135%);
+        }
+      }
+
       h1 {
         font-size: 60px;
         font-family: 'Lucida Sans', sans-serif;

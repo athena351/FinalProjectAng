@@ -129,6 +129,12 @@ export class Cart {
       onConfirm: () => {
         this.api.checkout().subscribe({
           next: (resp: any) => {
+            this.api.n8nCheckout(this.cartItems).subscribe({
+              next: (resp:any) => {
+                console.log(resp);
+                
+              }
+            });
             this.cartItems = [];
             this.total = 0;
             this.totalCount = 0;
